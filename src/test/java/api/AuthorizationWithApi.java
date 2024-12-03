@@ -7,6 +7,7 @@ import models.AuthResponseModel;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 
+
 import static io.restassured.RestAssured.given;
 import static specs.ApiSpecs.loginResponse200Spec;
 import static specs.ApiSpecs.requestSpec;

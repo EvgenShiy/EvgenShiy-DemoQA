@@ -50,9 +50,9 @@ tasks.withType(Test) {
     }
 }
 
-task reqres_api_test(type: Test) {
+task demo_qa_api_test(type: Test) {
     useJUnitPlatform {
-        includeTags("ReqResAPI")
+        includeTags("DemoQaAPI")
     }
 }
 

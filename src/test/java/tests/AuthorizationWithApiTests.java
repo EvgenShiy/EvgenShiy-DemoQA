@@ -1,10 +1,12 @@
+package tests;
+
 import api.AuthorizationWithApi;
 import data.AuthData;
 import models.AuthResponseModel;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class AuthorizationWithApiTests {
+public class AuthorizationWithApiTests extends TestBase {
 
     @Test
     void successfulLoginTest() {
