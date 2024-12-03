@@ -24,6 +24,4 @@ public class AuthResponseModel {
 
     @JsonProperty("isActive")
     private boolean active;
-
-    // Геттеры и сеттеры
 }

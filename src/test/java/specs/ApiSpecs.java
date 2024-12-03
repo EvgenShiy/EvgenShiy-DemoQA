@@ -17,8 +17,13 @@ public class ApiSpecs {
             .addFilter(withCustomTemplates()) // Кастомный фильтр для шаблонов Allure
             .build();
 
-    public static ResponseSpecification loginResponse200Spec = new ResponseSpecBuilder()
+    public static ResponseSpecification successLoginResponse200Spec = new ResponseSpecBuilder()
             .expectStatusCode(200)
-            .log(ALL) // Логировать всё для отладки (можно уменьшить)
+            .log(ALL)
+            .build();
+
+    public static ResponseSpecification successDeleteAllBooksResponse204Spec = new ResponseSpecBuilder()
+            .expectStatusCode(204)
+            .log(ALL)
             .build();
 }
