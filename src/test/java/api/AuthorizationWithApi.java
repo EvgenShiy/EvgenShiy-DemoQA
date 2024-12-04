@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Tag;
 
 
 import static io.restassured.RestAssured.given;
-import static specs.ApiSpecs.successLoginResponse200Spec;
+import static specs.ApiSpecs.successResponse200Spec;
 import static specs.ApiSpecs.requestSpec;
 import static io.qameta.allure.Allure.step;
 
@@ -27,7 +27,7 @@ public class AuthorizationWithApi {
                         .when()
                         .post("/Account/v1/Login")
                         .then()
-                        .spec(successLoginResponse200Spec)
+                        .spec(successResponse200Spec)
                         .extract().response());
 
         return response.as(AuthResponseModel.class);
