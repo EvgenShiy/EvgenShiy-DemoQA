@@ -27,4 +27,10 @@ public class BookStoreApi {
                .spec(successDeleteAllBooksResponse204Spec));
     }
 
+    @Tag("DemoQaAPI")
+    @DisplayName("Добавить книгу в Profile через API")
+    public static void addBookToProfile(){
+
+    }
+
 }
