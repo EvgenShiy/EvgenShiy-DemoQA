@@ -4,7 +4,6 @@ import data.AuthData;
 import io.restassured.response.Response;
 import models.AuthRequestModel;
 import models.AuthResponseModel;
-import org.junit.jupiter.api.DisplayName;
 
 
 import static io.restassured.RestAssured.given;
