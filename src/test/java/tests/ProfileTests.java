@@ -5,7 +5,7 @@ import api.BookStoreApi;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pages.ProfilePage;
-import tests.TestBase;
+
 
 import static data.AuthData.login;
 import static io.qameta.allure.Allure.step;
@@ -25,7 +25,7 @@ public class ProfileTests extends TestBase {
         randomIsbn = BookStoreApi.getRandomIsbn();
 
         step("Добавить случайную книгу в профиль через API", () -> {
-            BookStoreApi.addBookToProfile(randomIsbn); // Используем уже инициализированную переменную
+            BookStoreApi.addBookToProfile(randomIsbn);
         });
 
         ProfilePage profilePage = new ProfilePage();

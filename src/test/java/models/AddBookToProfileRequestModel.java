@@ -11,6 +11,6 @@ public class AddBookToProfileRequestModel {
     private String userId;
     private List<IsbnModel> isbnModel;
 
-    // Конструктор по умолчанию для Lombok (не обязательно, если вы используете AllArgsConstructor)
-    public AddBookToProfileRequestModel() {}
+//    // Конструктор по умолчанию для Lombok (не обязательно, если вы используете AllArgsConstructor)
+//    public AddBookToProfileRequestModel() {}
 }

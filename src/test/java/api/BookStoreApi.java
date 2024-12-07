@@ -16,7 +16,7 @@ import static specs.ApiSpecs.*;
 public class BookStoreApi {
 
     //@Tag("DemoQaAPI")
-    @DisplayName("Очистить все книги в Profile через API")
+    //@DisplayName("Очистить все книги в Profile через API")
     public static void deleteAllBooksFromProfile() {
         String token = AuthorizationWithApi.getToken();
         String userId = AuthorizationWithApi.getUserId();
@@ -32,7 +32,7 @@ public class BookStoreApi {
     }
 
     //@Tag("DemoQaAPI")
-    @DisplayName("Получить список всех книг из Book Store через API")
+    //@DisplayName("Получить список всех книг из Book Store через API")
     public static List<BookModel> getBooks() {
         GetListOfBooksModel response = given(requestSpec)
                 .when()
@@ -46,7 +46,7 @@ public class BookStoreApi {
     }
 
     //@Tag("DemoQaAPI")
-    @DisplayName("Получить случайную книгу из Book Store через API")
+    //@DisplayName("Получить случайную книгу из Book Store через API")
     public static String getRandomIsbn() {
         List<BookModel> books = getBooks();
         if (books.isEmpty()) {
@@ -57,7 +57,7 @@ public class BookStoreApi {
     }
 
     //@Tag("DemoQaAPI")
-    @DisplayName("Добавить рандомную книгу в Profile через API")
+    //@DisplayName("Добавить рандомную книгу в Profile через API")
     public static void addBookToProfile(String randomIsbn) {
         String isbn = getRandomIsbn();  // Получаем случайную книгу
 
