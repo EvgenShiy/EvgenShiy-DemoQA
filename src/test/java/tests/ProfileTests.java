@@ -18,9 +18,9 @@ public class ProfileTests extends TestBase {
     @DisplayName("Полный сценарий: работа с книгами через API и UI")
     void deleteBookFromProfileOnUiTest() {
 
-        step("Авторизация через API", () -> AuthorizationWithApi.login());
+        step("Авторизация через API", AuthorizationWithApi::login);
 
-        step("Очистить все книги из профиля через API", () -> BookStoreApi.deleteAllBooksFromProfile());
+        step("Очистить все книги из профиля через API", BookStoreApi::deleteAllBooksFromProfile);
 
         randomIsbn = BookStoreApi.getRandomIsbn();
 
