@@ -5,7 +5,6 @@ import io.restassured.response.Response;
 import models.AuthRequestModel;
 import models.AuthResponseModel;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 
 
 import static io.restassured.RestAssured.given;
@@ -15,7 +14,7 @@ import static io.qameta.allure.Allure.step;
 
 public class AuthorizationWithApi {
 
-    @Tag("DemoQaAPI")
+    //@Tag("DemoQaAPI")
     @DisplayName("Авторизация пользователя через API")
     public static AuthResponseModel login() {
         AuthRequestModel authRequest = new AuthRequestModel(AuthData.login, AuthData.password);
@@ -33,14 +32,14 @@ public class AuthorizationWithApi {
         return response.as(AuthResponseModel.class);
     }
 
-    @Tag("DemoQaAPI")
+    //@Tag("DemoQaAPI")
     @DisplayName("Получение токена")
     public static String getToken() {
         AuthResponseModel authResponse = login();
         return authResponse.getToken();
     }
 
-    @Tag("DemoQaAPI")
+    //@Tag("DemoQaAPI")
     @DisplayName("Получение userId")
     public static String getUserId() {
         AuthResponseModel authResponse = login();
