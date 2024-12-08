@@ -14,7 +14,7 @@ import static io.qameta.allure.Allure.step;
 public class AuthorizationWithApi {
 
 
-    //@DisplayName("Авторизация пользователя через API")
+    //Авторизация пользователя через API
     public static AuthResponseModel login() {
         AuthRequestModel authRequest = new AuthRequestModel(AuthData.login, AuthData.password);
 
@@ -31,21 +31,16 @@ public class AuthorizationWithApi {
         return response.as(AuthResponseModel.class);
     }
 
-
-    //@DisplayName("Получение токена")
     public static String getToken() {
         AuthResponseModel authResponse = login();
         return authResponse.getToken();
     }
 
-
-    //@DisplayName("Получение userId")
     public static String getUserId() {
         AuthResponseModel authResponse = login();
         return authResponse.getUserId();
     }
 
-    //@DisplayName("Получение Expires")
     public static String getExpires() {
         AuthResponseModel authResponse = login();
         return authResponse.getUserId();
