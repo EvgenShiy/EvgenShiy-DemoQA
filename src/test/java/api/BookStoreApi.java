@@ -3,7 +3,6 @@ package api;
 import models.BookModel;
 import models.GetListOfBooksModel;
 import models.IsbnModel;
-import org.junit.jupiter.api.DisplayName;
 import models.AddBookToProfileRequestModel;
 import org.openqa.selenium.Cookie;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
@@ -18,7 +17,7 @@ import static specs.ApiSpecs.*;
 
 public class BookStoreApi {
 
-    //@DisplayName("Очистить все книги в Profile через API")
+    //Очистить все книги в Profile через API
     public static void deleteAllBooksFromProfile() {
         String token = AuthorizationWithApi.getToken();
         String userId = AuthorizationWithApi.getUserId();
@@ -33,7 +32,7 @@ public class BookStoreApi {
                         .spec(successResponse204Spec));
     }
 
-    //@DisplayName("Получить список всех книг из Book Store через API")
+    //Получить список всех книг из Book Store через API
     public static List<BookModel> getBooks() {
         GetListOfBooksModel response = given(requestSpec)
                 .when()
@@ -46,7 +45,7 @@ public class BookStoreApi {
         return response.getBooks();
     }
 
-    //@DisplayName("Получить случайную книгу из Book Store через API")
+    //Получить случайную книгу из Book Store через API
     public static String getRandomIsbn() {
         List<BookModel> books = getBooks();
         if (books.isEmpty()) {
@@ -56,12 +55,11 @@ public class BookStoreApi {
         return books.get(random.nextInt(books.size())).getIsbn();
     }
 
-    //@DisplayName("Добавить рандомную книгу в Profile через API")
-    public static void addBookToProfile(String randomIsbn) {
+    public static String addBookToProfile() {
+
         String isbn = getRandomIsbn();
 
         IsbnModel isbnModel = new IsbnModel(isbn);
-
         AddBookToProfileRequestModel request = new AddBookToProfileRequestModel(
                 AuthorizationWithApi.getUserId(),
                 List.of(isbnModel)
@@ -74,13 +72,17 @@ public class BookStoreApi {
                         .when()
                         .post("/BookStore/v1/Books")
                         .then()
-                        .spec(successResponse201Spec));
+                        .spec(successResponse201Spec)
+        );
 
+        // Установить cookies для UI
         open("/favicon.ico");
-
-        // Используем Selenium Cookie
         getWebDriver().manage().addCookie(new Cookie("userID", AuthorizationWithApi.getUserId()));
         getWebDriver().manage().addCookie(new Cookie("expires", AuthorizationWithApi.getExpires()));
         getWebDriver().manage().addCookie(new Cookie("token", AuthorizationWithApi.getToken()));
+
+        // Возвращаем выбранный ISBN для последующей проверки
+        return isbn;
     }
+
 }

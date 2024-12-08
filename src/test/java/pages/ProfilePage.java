@@ -3,7 +3,6 @@ package pages;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
-import models.IsbnModel;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
@@ -14,8 +13,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ProfilePage {
 
     private final SelenideElement
-            firstBookSelector = $$(".rt-tr-group").first(),
-            deleteFirstBookSelector = $("#closeSmallModal-ok");
+            bookSelector = $$(".rt-tr-group").first(),
+            deleteBookSelector = $("#closeSmallModal-ok");
 
     @Step("Открыть страницу Profile")
     public ProfilePage openPge(){
@@ -36,13 +35,13 @@ public class ProfilePage {
 
     @Step("Проверить наличие добавленной книги в Profile")
     public void checkBookInProfile(String isbn) {
-        $(".ReactTable").$$("*").findBy(text(isbn)).shouldBe(visible);
+        bookSelector.$("a[href='/profile?book=" + isbn + "']").shouldBe(exist);
     }
 
     @Step("Удалить добавленную книгу через UI")
     public ProfilePage deleteBookInProfile(String isbn){
-        firstBookSelector.$("#delete-record-undefined").click();
-        deleteFirstBookSelector.click();
+        bookSelector.$("#delete-record-undefined").click();
+        deleteBookSelector.click();
 
         return this;
     }
@@ -50,7 +49,7 @@ public class ProfilePage {
     @Step("Проверить, что книга удалилась")
     public ProfilePage checkDeleteResultOnUi(String isbn) {
 
-        firstBookSelector.$("a[href='/profile?book=" + isbn + "']").shouldNot(exist);
+        bookSelector.$("a[href='/profile?book=" + isbn + "']").shouldNot(exist);
 
         return this;
     }
