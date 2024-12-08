@@ -3,6 +3,7 @@ package tests;
 import api.AuthorizationWithApi;
 import api.BookStoreApi;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import pages.ProfilePage;
 
@@ -13,6 +14,7 @@ import static io.qameta.allure.Allure.step;
 public class ProfileTests extends TestBase {
 
     @Test
+    @Tag("DemoQaAPI")
     @DisplayName("Полный сценарий: работа с книгами через API и UI")
     void deleteBookFromProfileOnUiTest() {
 
