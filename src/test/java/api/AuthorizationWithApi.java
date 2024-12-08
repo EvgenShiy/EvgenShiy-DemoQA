@@ -44,4 +44,10 @@ public class AuthorizationWithApi {
         AuthResponseModel authResponse = login();
         return authResponse.getUserId();
     }
+
+    //@DisplayName("Получение Expires")
+    public static String getExpires() {
+        AuthResponseModel authResponse = login();
+        return authResponse.getUserId();
+    }
 }

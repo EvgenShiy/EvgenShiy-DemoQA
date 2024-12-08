@@ -6,5 +6,10 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class IsbnModel {
-    String isbn;
+    private String isbn;
+
+    public static String getIsbn(String isbn) {
+
+        return isbn;
+    }
 }

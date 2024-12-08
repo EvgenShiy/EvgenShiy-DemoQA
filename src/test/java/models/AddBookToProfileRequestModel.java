@@ -9,5 +9,5 @@ import java.util.List;
 @Data
 public class AddBookToProfileRequestModel {
     private String userId;
-    private List<IsbnModel> isbn;
+    private List<IsbnModel> collectionOfIsbns;
 }

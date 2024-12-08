@@ -5,10 +5,13 @@ import models.GetListOfBooksModel;
 import models.IsbnModel;
 import org.junit.jupiter.api.DisplayName;
 import models.AddBookToProfileRequestModel;
+import org.openqa.selenium.Cookie;
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 import java.util.List;
 import java.util.Random;
 
+import static com.codeborne.selenide.Selenide.open;
 import static io.qameta.allure.Allure.step;
 import static io.restassured.RestAssured.given;
 import static specs.ApiSpecs.*;
@@ -59,7 +62,6 @@ public class BookStoreApi {
 
         IsbnModel isbnModel = new IsbnModel(isbn);
 
-
         AddBookToProfileRequestModel request = new AddBookToProfileRequestModel(
                 AuthorizationWithApi.getUserId(),
                 List.of(isbnModel)
@@ -73,5 +75,12 @@ public class BookStoreApi {
                         .post("/BookStore/v1/Books")
                         .then()
                         .spec(successResponse201Spec));
+
+        open("/favicon.ico");
+
+        // Используем Selenium Cookie
+        getWebDriver().manage().addCookie(new Cookie("userID", AuthorizationWithApi.getUserId()));
+        getWebDriver().manage().addCookie(new Cookie("expires", AuthorizationWithApi.getExpires()));
+        getWebDriver().manage().addCookie(new Cookie("token", AuthorizationWithApi.getToken()));
     }
 }
