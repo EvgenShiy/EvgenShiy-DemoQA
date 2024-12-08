@@ -50,7 +50,6 @@ tasks.withType(Test) {
             exceptionFormat "short"
         }
     }
-    //includes = ["**/tests/ProfileTests.class"]
 }
 
 task demo_qa_api_test(type: Test) {
