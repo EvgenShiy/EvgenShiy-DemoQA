@@ -5,6 +5,7 @@ import io.qameta.allure.selenide.AllureSelenide;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import helpers.Attach;
 import io.restassured.RestAssured;
+import io.restassured.parsing.Parser;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,6 +22,7 @@ public class TestBase {
     public static void setUp() {
 
         RestAssured.baseURI = "https://demoqa.com";
+        RestAssured.defaultParser = Parser.JSON;
 
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.pageLoadStrategy = "eager";
