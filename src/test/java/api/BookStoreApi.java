@@ -9,7 +9,6 @@ import models.AddBookToProfileRequestModel;
 import java.util.List;
 import java.util.Random;
 
-import static com.codeborne.selenide.Selenide.open;
 import static data.AuthData.USER_ID;
 import static data.AuthData.USER_TOKEN;
 import static io.qameta.allure.Allure.step;
@@ -19,7 +18,7 @@ import static specs.ApiSpecs.*;
 public class BookStoreApi {
 
     @Step("Очистить все книги в Profile через API")
-    public static void deleteAllBooksFromProfile() {
+    public void deleteAllBooksFromProfile() {
 
         step("Отправить DELETE запрос на удаление всех книг из Profile", () ->
                 given(requestSpec)

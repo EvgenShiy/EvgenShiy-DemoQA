@@ -1,6 +1,5 @@
 package tests;
 
-import api.AuthorizationWithApi;
 import api.BookStoreApi;
 import helpers.extensions.WithLogin;
 import org.junit.jupiter.api.DisplayName;
@@ -10,7 +9,6 @@ import pages.ProfilePage;
 
 
 import static data.AuthData.USER_NAME;
-import static io.qameta.allure.Allure.step;
 
 public class ProfileTests extends TestBase {
 
