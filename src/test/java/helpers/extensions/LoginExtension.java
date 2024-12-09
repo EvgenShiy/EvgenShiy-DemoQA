@@ -1,29 +1,27 @@
 package helpers.extensions;
 
 import api.AuthorizationWithApi;
-import org.openqa.selenium.Cookie;
 import models.AuthResponseModel;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
+import org.openqa.selenium.Cookie;
 
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
-
-import static data.AuthData.USER_NAME;
-import static data.AuthData.USER_PASSWORD;
-import static data.AuthData.USER_ID;
-import static data.AuthData.USER_TOKEN;
-import static data.AuthData.EXPIRES;
-import static data.AuthData.CREATE_DATE;
-import static data.AuthData.IS_ACTIVE;
+import static data.AuthData.*;
+import static java.lang.System.getProperty;
 
 public class LoginExtension implements BeforeEachCallback {
 
     @Override
     public void beforeEach(ExtensionContext context) {
+        // Приоритет: системные свойства > данные из файла
+        USER_NAME = getProperty("profileUserName", getProperty("profileUserName"));
+        USER_PASSWORD = getProperty("profileUserPassword", getProperty("profileUserPassword"));
 
-        USER_NAME = System.getProperty("profileUserName", "login");
-        USER_PASSWORD = System.getProperty("profileUserPassword", "password");
+        if (USER_NAME == null || USER_PASSWORD == null) {
+            throw new IllegalStateException("Логин или пароль не заданы ни в системных свойствах, ни в credentials.properties");
+        }
 
         AuthResponseModel authResponse = AuthorizationWithApi.getAuthData(USER_NAME, USER_PASSWORD);
 
