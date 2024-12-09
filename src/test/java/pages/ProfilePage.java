@@ -32,8 +32,10 @@ public class ProfilePage {
     }
 
     @Step("Проверить наличие добавленной книги в Profile")
-    public void checkBookInProfile(String isbn) {
+    public ProfilePage checkBookInProfile(String isbn) {
         bookSelector.$("a[href='/profile?book=" + isbn + "']").shouldBe(exist);
+
+        return this;
     }
 
     @Step("Удалить добавленную книгу через UI")

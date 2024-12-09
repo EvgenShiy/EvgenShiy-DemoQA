@@ -1,38 +1,37 @@
 package api;
 
+import io.qameta.allure.Step;
 import models.BookModel;
 import models.GetListOfBooksModel;
 import models.IsbnModel;
 import models.AddBookToProfileRequestModel;
-import org.openqa.selenium.Cookie;
-import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 import java.util.List;
 import java.util.Random;
 
 import static com.codeborne.selenide.Selenide.open;
+import static data.AuthData.USER_ID;
+import static data.AuthData.USER_TOKEN;
 import static io.qameta.allure.Allure.step;
 import static io.restassured.RestAssured.given;
 import static specs.ApiSpecs.*;
 
 public class BookStoreApi {
 
-    //Очистить все книги в Profile через API
+    @Step("Очистить все книги в Profile через API")
     public static void deleteAllBooksFromProfile() {
-        String token = AuthorizationWithApi.getToken();
-        String userId = AuthorizationWithApi.getUserId();
 
         step("Отправить DELETE запрос на удаление всех книг из Profile", () ->
                 given(requestSpec)
-                        .header("Authorization", "Bearer " + token)
-                        .queryParam("UserId", userId)
+                        .header("Authorization", "Bearer " + USER_TOKEN)
+                        .queryParam("UserId", USER_ID)
                         .when()
                         .delete("/BookStore/v1/Books")
                         .then()
                         .spec(successResponse204Spec));
     }
 
-    //Получить список всех книг из Book Store через API
+    @Step("Получить список всех книг из Book Store через API")
     public static List<BookModel> getBooks() {
         GetListOfBooksModel response = given(requestSpec)
                 .when()
@@ -45,7 +44,7 @@ public class BookStoreApi {
         return response.getBooks();
     }
 
-    //Получить случайную книгу из Book Store через API
+    @Step("Выбрать случайную книгу из Book Store через API")
     public static String getRandomIsbn() {
         List<BookModel> books = getBooks();
         if (books.isEmpty()) {
@@ -55,34 +54,25 @@ public class BookStoreApi {
         return books.get(random.nextInt(books.size())).getIsbn();
     }
 
-    public static String addBookToProfile() {
+    @Step("Добавить выбранную книгу в Profile через API")
+    public BookStoreApi addBookToProfile() {
 
         String isbn = getRandomIsbn();
 
         IsbnModel isbnModel = new IsbnModel(isbn);
-        AddBookToProfileRequestModel request = new AddBookToProfileRequestModel(
-                AuthorizationWithApi.getUserId(),
-                List.of(isbnModel)
-        );
+        AddBookToProfileRequestModel request = new AddBookToProfileRequestModel();
+        request.setUserId(USER_ID);
+        request.setCollectionOfIsbns(List.of(isbnModel));
 
-        step("Добавить книгу в Profile", () ->
-                given(requestSpec)
-                        .header("Authorization", "Bearer " + AuthorizationWithApi.getToken())
-                        .body(request)
-                        .when()
-                        .post("/BookStore/v1/Books")
-                        .then()
-                        .spec(successResponse201Spec)
-        );
+        given(requestSpec)
+                .header("Authorization", "Bearer " + USER_TOKEN)
+                .body(request)
+                .when()
+                .post("/BookStore/v1/Books")
+                .then()
+                .spec(successResponse201Spec);
 
-        // Установить cookies для UI
-        open("/favicon.ico");
-        getWebDriver().manage().addCookie(new Cookie("userID", AuthorizationWithApi.getUserId()));
-        getWebDriver().manage().addCookie(new Cookie("expires", AuthorizationWithApi.getExpires()));
-        getWebDriver().manage().addCookie(new Cookie("token", AuthorizationWithApi.getToken()));
-
-        // Возвращаем выбранный ISBN для последующей проверки
-        return isbn;
+        return this;
     }
 
 }
