@@ -12,11 +12,9 @@ import static specs.ApiSpecs.*;
 
 public class BookStoreApi {
 
-    // Статические поля для хранения токена и userId
     private static String token;
     private static String userId;
 
-    // Метод для установки данных авторизации
     public static void setAuthData(String authToken, String userIdentifier) {
         token = authToken;
         userId = userIdentifier;
@@ -24,7 +22,6 @@ public class BookStoreApi {
 
     @Step("Очистить все книги в Profile через API")
     public void deleteAllBooksFromProfile() {
-
         step("Отправить DELETE запрос на удаление всех книг из Profile", () ->
                 given(requestSpec)
                         .header("Authorization", "Bearer " + token)
@@ -55,19 +52,24 @@ public class BookStoreApi {
             throw new IllegalStateException("Список книг пуст.");
         }
         Random random = new Random();
-        return books.get(random.nextInt(books.size())).getIsbn();
+        String isbn = books.get(random.nextInt(books.size())).getIsbn();
+        System.out.println("Сгенерирован ISBN: " + isbn);  // Логирование для отладки
+        return isbn;
     }
 
     @Step("Добавить выбранную книгу в Profile через API")
-    public BookStoreApi addBookToProfile() {
+    public BookStoreApi addBookToProfile(String isbn) {
+        System.out.println("Добавляется книга с ISBN: " + isbn);  // Для отладки
 
-        String isbn = getRandomIsbn();
-
+        // Создаем объект ISBN модели
         IsbnModel isbnModel = new IsbnModel(isbn);
-        AddBookToProfileRequestModel request = new AddBookToProfileRequestModel();
-        request.setUserId(userId);
-        request.setCollectionOfIsbns(List.of(isbnModel));
 
+        // Создаем запрос для добавления книги
+        AddBookToProfileRequestModel request = new AddBookToProfileRequestModel();
+        request.setUserId(userId);  // Устанавливаем userId
+        request.setCollectionOfIsbns(List.of(isbnModel));  // Передаем список с объектом isbnModel
+
+        // Отправляем запрос для добавления книги в профиль
         given(requestSpec)
                 .header("Authorization", "Bearer " + token)
                 .body(request)
