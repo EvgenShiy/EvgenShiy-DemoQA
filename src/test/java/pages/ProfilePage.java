@@ -25,8 +25,10 @@ public class ProfilePage {
         return this;
     }
 
-    @Step("Проверить корректное отображение User Name в Profile")
-    public ProfilePage checkUserName(String login){
+    @Step("Проверить корректное отображение username в Profile")
+    public ProfilePage checkUserName(){
+        String login = System.getProperty("profileUserName", "defaultLogin");
+        //$("#userName-value").shouldHave(text(System.getProperty("login")));
         $("#userName-value").shouldHave(text(login));
         return this;
     }
@@ -54,5 +56,4 @@ public class ProfilePage {
 
         return this;
     }
-
 }

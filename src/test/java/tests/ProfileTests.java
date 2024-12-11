@@ -7,9 +7,6 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import pages.ProfilePage;
 
-
-import static data.AuthData.USER_NAME;
-
 public class ProfileTests extends TestBase {
 
     @Test
@@ -22,12 +19,13 @@ public class ProfileTests extends TestBase {
         bookStoreApi.deleteAllBooksFromProfile();
 
         String isbn = BookStoreApi.getRandomIsbn();
+        bookStoreApi.addBookToProfile();
 
         ProfilePage profilePage = new ProfilePage();
 
         profilePage
                 .openPage()
-                .checkUserName(USER_NAME)
+                .checkUserName()
                 .checkBookInProfile(true, isbn) // Проверяем, что книга есть
                 .deleteBookInProfile(isbn)      // Удаляем книгу
                 .checkBookInProfile(false, isbn); // Проверяем, что книги нет

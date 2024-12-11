@@ -1,6 +1,7 @@
 package tests;
 
 import com.codeborne.selenide.Configuration;
+import helpers.PropertyLoader;
 import io.qameta.allure.selenide.AllureSelenide;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import helpers.Attach;
@@ -20,6 +21,8 @@ public class TestBase {
 
     @BeforeAll
     public static void setUp() {
+
+        PropertyLoader.loadCredentials();
 
         RestAssured.baseURI = "https://demoqa.com";
         RestAssured.defaultParser = Parser.JSON;

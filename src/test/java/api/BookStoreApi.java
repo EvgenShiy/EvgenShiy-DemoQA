@@ -1,29 +1,34 @@
 package api;
 
 import io.qameta.allure.Step;
-import models.BookModel;
-import models.GetListOfBooksModel;
-import models.IsbnModel;
-import models.AddBookToProfileRequestModel;
+import models.*;
 
 import java.util.List;
 import java.util.Random;
 
-import static data.AuthData.USER_ID;
-import static data.AuthData.USER_TOKEN;
 import static io.qameta.allure.Allure.step;
 import static io.restassured.RestAssured.given;
 import static specs.ApiSpecs.*;
 
 public class BookStoreApi {
 
+    // Статические поля для хранения токена и userId
+    private static String token;
+    private static String userId;
+
+    // Метод для установки данных авторизации
+    public static void setAuthData(String authToken, String userIdentifier) {
+        token = authToken;
+        userId = userIdentifier;
+    }
+
     @Step("Очистить все книги в Profile через API")
     public void deleteAllBooksFromProfile() {
 
         step("Отправить DELETE запрос на удаление всех книг из Profile", () ->
                 given(requestSpec)
-                        .header("Authorization", "Bearer " + USER_TOKEN)
-                        .queryParam("UserId", USER_ID)
+                        .header("Authorization", "Bearer " + token)
+                        .queryParam("UserId", userId)
                         .when()
                         .delete("/BookStore/v1/Books")
                         .then()
@@ -60,11 +65,11 @@ public class BookStoreApi {
 
         IsbnModel isbnModel = new IsbnModel(isbn);
         AddBookToProfileRequestModel request = new AddBookToProfileRequestModel();
-        request.setUserId(USER_ID);
+        request.setUserId(userId);
         request.setCollectionOfIsbns(List.of(isbnModel));
 
         given(requestSpec)
-                .header("Authorization", "Bearer " + USER_TOKEN)
+                .header("Authorization", "Bearer " + token)
                 .body(request)
                 .when()
                 .post("/BookStore/v1/Books")
@@ -73,5 +78,4 @@ public class BookStoreApi {
 
         return this;
     }
-
 }
