@@ -26,11 +26,11 @@ public class ProfileTests extends TestBase {
         ProfilePage profilePage = new ProfilePage();
 
         profilePage
-                .openPge()
+                .openPage()
                 .checkUserName(USER_NAME)
-                .checkBookInProfile(isbn)
-                .deleteBookInProfile(isbn)
-                .checkDeleteResultOnUi(isbn);
-
+                .checkBookInProfile(true, isbn) // Проверяем, что книга есть
+                .deleteBookInProfile(isbn)      // Удаляем книгу
+                .checkBookInProfile(false, isbn); // Проверяем, что книги нет
     }
+
 }

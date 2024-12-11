@@ -15,7 +15,7 @@ public class ProfilePage {
             deleteBookSelector = $("#closeSmallModal-ok");
 
     @Step("Открыть страницу Profile")
-    public ProfilePage openPge(){
+    public ProfilePage openPage(){
         open("/profile");
 
         executeJavaScript("$('#fixedban').remove();");
@@ -31,26 +31,28 @@ public class ProfilePage {
         return this;
     }
 
-    @Step("Проверить наличие добавленной книги в Profile")
-    public ProfilePage checkBookInProfile(String isbn) {
-        bookSelector.$("a[href='/profile?book=" + isbn + "']").shouldBe(exist);
+    @Step("Проверить наличие книги в Profile")
+    public ProfilePage checkBookInProfile(boolean shouldExist, String isbn) {
+        boolean isPresent = bookSelector.$("a[href='/profile?book=" + isbn + "']").exists();
+
+        if (shouldExist && !isPresent) {
+            throw new AssertionError("Книга с ISBN " + isbn + " отсутствует в профиле.");
+        } else if (!shouldExist && isPresent) {
+            throw new AssertionError("Книга с ISBN " + isbn + " все еще присутствует в профиле.");
+        }
 
         return this;
     }
 
     @Step("Удалить добавленную книгу через UI")
-    public ProfilePage deleteBookInProfile(String isbn){
+    public ProfilePage deleteBookInProfile(String isbn) {
+        if (!bookSelector.$("a[href='/profile?book=" + isbn + "']").exists()) {
+            throw new AssertionError("Книга с ISBN " + isbn + " отсутствует, удаление невозможно.");
+        }
         bookSelector.$("#delete-record-undefined").click();
         deleteBookSelector.click();
 
         return this;
     }
 
-    @Step("Проверить, что книга удалилась")
-    public ProfilePage checkDeleteResultOnUi(String isbn) {
-
-        bookSelector.$("a[href='/profile?book=" + isbn + "']").shouldNot(exist);
-
-        return this;
-    }
 }
