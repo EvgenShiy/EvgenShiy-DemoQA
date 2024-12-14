@@ -1,6 +1,5 @@
 package pages;
 
-import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 
@@ -11,43 +10,55 @@ import static com.codeborne.selenide.Selenide.*;
 public class ProfilePage {
 
     private final SelenideElement
-            bookSelector = $$(".rt-tr-group").first(),
-            deleteBookSelector = $("#closeSmallModal-ok");
+            closeSmallModalOkButton = $("#closeSmallModal-ok");
 
     @Step("Открыть страницу Profile")
-    public ProfilePage openPge(){
+    public ProfilePage openPage(){
         open("/profile");
 
-        executeJavaScript("$('#fixedban').remove();");
-        executeJavaScript("$('footer').remove();");
-        Selenide.executeJavaScript("document.querySelectorAll('.advertisement-class').forEach(el => el.style.display = 'none');");
-
         return this;
     }
 
-    @Step("Проверить корректное отображение User Name в Profile")
-    public ProfilePage checkUserName(String login){
+    @Step("Проверить корректное отображение username в Profile")
+    public ProfilePage checkUserName(){
+        String login = System.getProperty("profileUserName", "defaultLogin");
         $("#userName-value").shouldHave(text(login));
+
         return this;
     }
 
-    @Step("Проверить наличие добавленной книги в Profile")
-    public void checkBookInProfile(String isbn) {
-        bookSelector.$("a[href='/profile?book=" + isbn + "']").shouldBe(exist);
+    private SelenideElement findBookByIsbn(String isbn) {
+        return $(".rt-tr-group").find("a[href='/profile?book=" + isbn + "']");
+    }
+
+    @Step("Проверить наличие книги в Profile")
+    public ProfilePage checkBookInProfile(boolean shouldExist, String isbn) {
+        SelenideElement book = findBookByIsbn(isbn);
+
+        if (shouldExist) {
+            book.should(exist);
+        } else {
+            book.shouldNot(exist);
+        }
+
+        return this;
     }
 
     @Step("Удалить добавленную книгу через UI")
-    public ProfilePage deleteBookInProfile(String isbn){
-        bookSelector.$("#delete-record-undefined").click();
-        deleteBookSelector.click();
+    public ProfilePage deleteBookInProfile(String isbn) {
+        SelenideElement book = findBookByIsbn(isbn);
 
-        return this;
-    }
+        if (!book.exists()) {
+            throw new AssertionError("Книга с ISBN " + isbn + " отсутствует, удаление невозможно.");
+        }
 
-    @Step("Проверить, что книга удалилась")
-    public ProfilePage checkDeleteResultOnUi(String isbn) {
+        executeJavaScript("document.querySelectorAll('iframe').forEach(iframe => iframe.remove());");
 
-        bookSelector.$("a[href='/profile?book=" + isbn + "']").shouldNot(exist);
+        book.closest(".rt-tr-group").find("#delete-record-undefined").shouldBe(visible).click();
+
+        closeSmallModalOkButton.shouldBe(visible, enabled).click();
+
+        book.shouldNot(exist);
 
         return this;
     }
