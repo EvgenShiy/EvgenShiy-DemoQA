@@ -1,7 +1,6 @@
 package api;
 
-import data.AuthData;
-import io.restassured.response.Response;
+import io.qameta.allure.Step;
 import models.AuthRequestModel;
 import models.AuthResponseModel;
 
@@ -9,40 +8,23 @@ import models.AuthResponseModel;
 import static io.restassured.RestAssured.given;
 import static specs.ApiSpecs.successResponse200Spec;
 import static specs.ApiSpecs.requestSpec;
-import static io.qameta.allure.Allure.step;
 
 public class AuthorizationWithApi {
 
+    @Step("Получить данные авторизации пользователя")
+    public static AuthResponseModel getAuthData(String userName, String userPassword) {
 
-    //Авторизация пользователя через API
-    public static AuthResponseModel login() {
-        AuthRequestModel authRequest = new AuthRequestModel(AuthData.login, AuthData.password);
+        AuthRequestModel request = new AuthRequestModel();
+        request.setUserName(userName);
+        request.setPassword(userPassword);
 
-        Response response = step("Отправить POST запрос на авторизацию пользователя", () ->
-                given()
+        return given()
                         .spec(requestSpec)
-                        .body(authRequest)
+                        .body(request)
                         .when()
                         .post("/Account/v1/Login")
                         .then()
                         .spec(successResponse200Spec)
-                        .extract().response());
-
-        return response.as(AuthResponseModel.class);
-    }
-
-    public static String getToken() {
-        AuthResponseModel authResponse = login();
-        return authResponse.getToken();
-    }
-
-    public static String getUserId() {
-        AuthResponseModel authResponse = login();
-        return authResponse.getUserId();
-    }
-
-    public static String getExpires() {
-        AuthResponseModel authResponse = login();
-        return authResponse.getUserId();
+                        .extract().as(AuthResponseModel.class);
     }
 }

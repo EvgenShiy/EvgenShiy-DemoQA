@@ -1,27 +1,27 @@
 package api;
 
-import models.BookModel;
-import models.GetListOfBooksModel;
-import models.IsbnModel;
-import models.AddBookToProfileRequestModel;
-import org.openqa.selenium.Cookie;
-import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
+import io.qameta.allure.Step;
+import models.*;
 
 import java.util.List;
 import java.util.Random;
 
-import static com.codeborne.selenide.Selenide.open;
 import static io.qameta.allure.Allure.step;
 import static io.restassured.RestAssured.given;
 import static specs.ApiSpecs.*;
 
 public class BookStoreApi {
 
-    //Очистить все книги в Profile через API
-    public static void deleteAllBooksFromProfile() {
-        String token = AuthorizationWithApi.getToken();
-        String userId = AuthorizationWithApi.getUserId();
+    private static String token;
+    private static String userId;
 
+    public static void setAuthData(String authToken, String userIdentifier) {
+        token = authToken;
+        userId = userIdentifier;
+    }
+
+    @Step("Очистить все книги в Profile через API")
+    public void deleteAllBooksFromProfile() {
         step("Отправить DELETE запрос на удаление всех книг из Profile", () ->
                 given(requestSpec)
                         .header("Authorization", "Bearer " + token)
@@ -32,7 +32,7 @@ public class BookStoreApi {
                         .spec(successResponse204Spec));
     }
 
-    //Получить список всех книг из Book Store через API
+    @Step("Получить список всех книг из Book Store через API")
     public static List<BookModel> getBooks() {
         GetListOfBooksModel response = given(requestSpec)
                 .when()
@@ -45,44 +45,36 @@ public class BookStoreApi {
         return response.getBooks();
     }
 
-    //Получить случайную книгу из Book Store через API
+    @Step("Выбрать случайную книгу из Book Store через API")
     public static String getRandomIsbn() {
         List<BookModel> books = getBooks();
         if (books.isEmpty()) {
             throw new IllegalStateException("Список книг пуст.");
         }
         Random random = new Random();
-        return books.get(random.nextInt(books.size())).getIsbn();
-    }
-
-    public static String addBookToProfile() {
-
-        String isbn = getRandomIsbn();
-
-        IsbnModel isbnModel = new IsbnModel(isbn);
-        AddBookToProfileRequestModel request = new AddBookToProfileRequestModel(
-                AuthorizationWithApi.getUserId(),
-                List.of(isbnModel)
-        );
-
-        step("Добавить книгу в Profile", () ->
-                given(requestSpec)
-                        .header("Authorization", "Bearer " + AuthorizationWithApi.getToken())
-                        .body(request)
-                        .when()
-                        .post("/BookStore/v1/Books")
-                        .then()
-                        .spec(successResponse201Spec)
-        );
-
-        // Установить cookies для UI
-        open("/favicon.ico");
-        getWebDriver().manage().addCookie(new Cookie("userID", AuthorizationWithApi.getUserId()));
-        getWebDriver().manage().addCookie(new Cookie("expires", AuthorizationWithApi.getExpires()));
-        getWebDriver().manage().addCookie(new Cookie("token", AuthorizationWithApi.getToken()));
-
-        // Возвращаем выбранный ISBN для последующей проверки
+        String isbn = books.get(random.nextInt(books.size())).getIsbn();
+        System.out.println("Сгенерирован ISBN: " + isbn);
         return isbn;
     }
 
+    @Step("Добавить выбранную книгу в Profile через API")
+    public BookStoreApi addBookToProfile(String isbn) {
+        System.out.println("Добавляется книга с ISBN: " + isbn);
+
+        IsbnModel isbnModel = new IsbnModel(isbn);
+
+        AddBookToProfileRequestModel request = new AddBookToProfileRequestModel();
+        request.setUserId(userId);
+        request.setCollectionOfIsbns(List.of(isbnModel));
+
+        given(requestSpec)
+                .header("Authorization", "Bearer " + token)
+                .body(request)
+                .when()
+                .post("/BookStore/v1/Books")
+                .then()
+                .spec(successResponse201Spec);
+
+        return this;
+    }
 }
