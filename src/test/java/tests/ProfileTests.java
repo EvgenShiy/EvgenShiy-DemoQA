@@ -15,23 +15,19 @@ public class ProfileTests extends TestBase {
     @WithLogin
     void deleteBookFromProfileOnUiTest() {
 
-        // Удаляем все книги из профиля
         BookStoreApi bookStoreApi = new BookStoreApi();
         bookStoreApi.deleteAllBooksFromProfile();
 
-        // Получаем случайный ISBN
         String isbn = BookStoreApi.getRandomIsbn();
 
-        // Добавляем книгу в профиль с выбранным ISBN
         bookStoreApi.addBookToProfile(isbn);
 
-        // Открываем страницу профиля и проверяем добавление книги
         ProfilePage profilePage = new ProfilePage();
         profilePage
                 .openPage()
                 .checkUserName()
-                .checkBookInProfile(true, isbn) // Проверяем, что книга есть
-                .deleteBookInProfile(isbn)      // Удаляем книгу
-                .checkBookInProfile(false, isbn); // Проверяем, что книги нет
+                .checkBookInProfile(true, isbn)
+                .deleteBookInProfile(isbn)
+                .checkBookInProfile(false, isbn);
     }
 }

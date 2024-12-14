@@ -53,23 +53,20 @@ public class BookStoreApi {
         }
         Random random = new Random();
         String isbn = books.get(random.nextInt(books.size())).getIsbn();
-        System.out.println("Сгенерирован ISBN: " + isbn);  // Логирование для отладки
+        System.out.println("Сгенерирован ISBN: " + isbn);
         return isbn;
     }
 
     @Step("Добавить выбранную книгу в Profile через API")
     public BookStoreApi addBookToProfile(String isbn) {
-        System.out.println("Добавляется книга с ISBN: " + isbn);  // Для отладки
+        System.out.println("Добавляется книга с ISBN: " + isbn);
 
-        // Создаем объект ISBN модели
         IsbnModel isbnModel = new IsbnModel(isbn);
 
-        // Создаем запрос для добавления книги
         AddBookToProfileRequestModel request = new AddBookToProfileRequestModel();
-        request.setUserId(userId);  // Устанавливаем userId
-        request.setCollectionOfIsbns(List.of(isbnModel));  // Передаем список с объектом isbnModel
+        request.setUserId(userId);
+        request.setCollectionOfIsbns(List.of(isbnModel));
 
-        // Отправляем запрос для добавления книги в профиль
         given(requestSpec)
                 .header("Authorization", "Bearer " + token)
                 .body(request)
