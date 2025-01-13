@@ -17,6 +17,8 @@ public class LoginPage {
     @Step("Открыть страницу Login")
     public LoginPage openPage() {
         open("/login");
+        executeJavaScript("$('#fixedban').remove();");
+        executeJavaScript("$('footer').remove();");
         return this;
     }
 
@@ -26,7 +28,7 @@ public class LoginPage {
         return this;
     }
 
-    @Step("Ввести пароль")
+    @Step("Ввести пароль: {password}")
     public LoginPage setPassword(String password) {
         passwordField.setValue(password);
         return this;
