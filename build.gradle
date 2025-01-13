@@ -1,4 +1,5 @@
 plugins {
+    id 'java'
     id 'java-library'
     id 'io.qameta.allure' version '2.12.0'
     id "io.freefair.lombok" version "8.11"
@@ -14,31 +15,46 @@ def selenideVersion = "7.6.1",
 
 allure {
     report {
-        version.set(allureVersion) //версия Allure Report (https://github.com/allure-framework/allure2)
+        version.set(allureVersion) // Common Allure version for API and UI tests
     }
     adapter {
-        aspectjWeaver.set(true) // обработка аннотации @Step
+        aspectjWeaver.set(true) // Enable @Step annotation handling
         frameworks {
             junit5 {
-                adapterVersion.set(allureVersion) //версия Allure JUnit5 (https://github.com/allure-framework/allure-java)
+                adapterVersion.set(allureVersion)
             }
         }
     }
 }
 
 dependencies {
+    // Common dependencies
     testImplementation(
             "com.codeborne:selenide:$selenideVersion",
             "io.qameta.allure:allure-selenide:$allureVersion",
+            "org.junit.jupiter:junit-jupiter:5.10.0",
+            "org.slf4j:slf4j-simple:2.0.7",
+            "org.aeonbits.owner:owner:1.0.12"
+    )
+
+    // API-specific dependencies
+    testImplementation(
             "io.rest-assured:rest-assured:$restAssuredVersion",
             "io.rest-assured:json-schema-validator:$restAssuredVersion",
             "io.qameta.allure:allure-rest-assured:$allureVersion",
-            'org.junit.jupiter:junit-jupiter:5.9.3',
-            'org.slf4j:slf4j-simple:2.0.7',
-            'org.aeonbits.owner:owner:1.0.12',
-            'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.2',
-            'org.assertj:assertj-core:3.24.2'
+            "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.2",
+            "org.assertj:assertj-core:3.24.2"
     )
+
+    // UI-specific dependencies
+    testImplementation(
+            'com.github.javafaker:javafaker:1.0.2',
+            'org.apache.logging.log4j:log4j-core:2.20.0',
+            'io.github.bonigarcia:webdrivermanager:5.9.2'
+    )
+
+    // Runtime dependencies
+    testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine:5.8.2')
 }
 
 tasks.withType(Test) {
@@ -53,9 +69,17 @@ tasks.withType(Test) {
     }
 }
 
+// Task for API tests
 task demo_qa_api_test(type: Test) {
     useJUnitPlatform {
         includeTags("DemoQaAPI")
+    }
+}
+
+// Task for UI tests
+task demoqa_test(type: Test) {
+    useJUnitPlatform {
+        includeTags("demoqa")
     }
 }
 
@@ -65,4 +89,16 @@ sourceSets {
             srcDirs = ['src/test/resources']
         }
     }
+}
+
+compileJava {
+    options.encoding = 'UTF-8'
+}
+
+compileTestJava {
+    options.encoding = 'UTF-8'
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
 }

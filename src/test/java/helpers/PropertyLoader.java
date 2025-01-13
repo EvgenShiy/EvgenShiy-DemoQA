@@ -6,9 +6,9 @@ import java.util.Properties;
 
 public class PropertyLoader {
     public static void loadCredentials() {
-        try (FileInputStream fis = new FileInputStream("src/test/resources/credentials.properties")) {
+        try (FileInputStream fis = new FileInputStream("src/test/resources/properties/credentials.properties")) {
 
-            System.out.println("Loading credentials from: src/test/resources/credentials.properties");
+            System.out.println("Loading credentials from: src/test/resources/properties/credentials.properties");
 
             Properties properties = new Properties();
             properties.load(fis);
