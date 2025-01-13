@@ -11,7 +11,7 @@ import tests.TestBase;
 public class ProfileTests extends TestBase {
 
     @Test
-    @Tag("DemoQaAPI")
+    @Tag("API")
     @DisplayName("Полный сценарий: работа с книгами через API и UI")
     @WithLogin
     void deleteBookFromProfileOnUiTest() {
