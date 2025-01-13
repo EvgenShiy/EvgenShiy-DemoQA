@@ -16,7 +16,7 @@ public class StudentRegistrationFormTests extends TestBase {
     @DisplayName("Проверка заполнения всех полей формы регистрации")
     public void successRegistrationWithFullValueTest() {
 
-        WebSteps steps = new WebSteps();
+        WebStepsForStudentRegistrationPage steps = new WebStepsForStudentRegistrationPage();
 
         steps.openStudentRegistrationForm();
         steps.setFirstName();
@@ -53,7 +53,7 @@ public class StudentRegistrationFormTests extends TestBase {
     @DisplayName("Проверка заполнения только обязательных полей формы регистрации")
     public void successRegistrationWithMinimumValueTest() {
 
-        WebSteps steps = new WebSteps();
+        WebStepsForStudentRegistrationPage steps = new WebStepsForStudentRegistrationPage();
 
         steps.openStudentRegistrationForm();
         steps.setFirstName();
@@ -73,7 +73,7 @@ public class StudentRegistrationFormTests extends TestBase {
     @DisplayName("Проверка подсветки обязательных полей формы регистрации, если они не заполнены")
     public void requiredFieldsHighlightOnSubmitTest() {
 
-        WebSteps steps = new WebSteps();
+        WebStepsForStudentRegistrationPage steps = new WebStepsForStudentRegistrationPage();
 
         steps.openStudentRegistrationForm();
         steps.pressSubmitButton();

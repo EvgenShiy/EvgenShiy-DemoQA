@@ -1,4 +1,4 @@
-package tests.api_tests;
+package tests.ui_tests;
 
 import helpers.extensions.WithLogin;
 import org.junit.jupiter.api.DisplayName;

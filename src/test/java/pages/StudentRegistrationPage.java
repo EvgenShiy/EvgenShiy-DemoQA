@@ -8,7 +8,7 @@ import pages.components.ModalComponent;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
-public class RegistrationPage {
+public class StudentRegistrationPage {
 
     private final SelenideElement firstNameInput = $("#firstName"),
                             lastNameInput = $("#lastName"),
@@ -29,7 +29,7 @@ public class RegistrationPage {
     ModalComponent modalComponent = new ModalComponent();
     DropdownComponent dropdownComponent = new DropdownComponent();
 
-    public RegistrationPage openPage() {
+    public StudentRegistrationPage openPage() {
         open("/automation-practice-form");
         executeJavaScript("$('#fixedban').remove();");
         executeJavaScript("$('footer').remove();");
@@ -37,63 +37,63 @@ public class RegistrationPage {
         return this;
     }
 
-    public RegistrationPage setFirstName(String value) {
+    public StudentRegistrationPage setFirstName(String value) {
         firstNameInput.setValue(value);
         return this;
     }
 
-    public RegistrationPage setLastName(String value) {
+    public StudentRegistrationPage setLastName(String value) {
         lastNameInput.setValue(value);
         return this;
     }
 
-    public RegistrationPage setUserEmail(String value) {
+    public StudentRegistrationPage setUserEmail(String value) {
         userEmailInput.setValue(value);
         return this;
     }
 
-    public RegistrationPage setGender(String value) {
+    public StudentRegistrationPage setGender(String value) {
         genderWrapper.$(byText(value)).click();
         return this;
     }
 
-    public RegistrationPage setUserNumber(String value) {
+    public StudentRegistrationPage setUserNumber(String value) {
         userNumber.setValue(value);
         return this;
     }
 
-    public RegistrationPage setDateOfBirth(String day, String month, String year) {
+    public StudentRegistrationPage setDateOfBirth(String day, String month, String year) {
         calendarInput.click();
         calendarComponent.setDate(day, month, year);
         return this;
     }
 
-    public RegistrationPage setSubjectsInput(String value) {
+    public StudentRegistrationPage setSubjectsInput(String value) {
         subjectsInput.setValue(value).pressTab();
         return this;
     }
 
-    public RegistrationPage setHobbies(String value) {
+    public StudentRegistrationPage setHobbies(String value) {
         hobbiesWrapper.$(byText(value)).click();
         return this;
     }
 
-    public RegistrationPage setCurrentAddress(String value) {
+    public StudentRegistrationPage setCurrentAddress(String value) {
         currentAddress.setValue(value);
         return this;
     }
 
-    public RegistrationPage setState(String value) {
+    public StudentRegistrationPage setState(String value) {
         dropdownComponent.setState(value);
         return this;
     }
 
-    public RegistrationPage setCity(String value) {
+    public StudentRegistrationPage setCity(String value) {
         dropdownComponent.setCity(value);
         return this;
     }
 
-    public RegistrationPage uploadPicture(String value) {
+    public StudentRegistrationPage uploadPicture(String value) {
         uploadPicture.uploadFromClasspath(value);
         return this;
     }
@@ -102,7 +102,7 @@ public class RegistrationPage {
         submitButton.click();
     }
 
-    public RegistrationPage checkResult(String key, String value) {
+    public StudentRegistrationPage checkResult(String key, String value) {
         modalComponent.checkResult(key, value);
         return this;
     }
