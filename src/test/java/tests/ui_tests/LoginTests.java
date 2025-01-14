@@ -8,11 +8,13 @@ import tests.TestBase;
 
 public class LoginTests extends TestBase {
 
+    WebStepsForLoginPage webStepsForLoginPage = new WebStepsForLoginPage();
+
     @Test
-    @Tag("API")
+    @Tag("UI")
     @DisplayName("Успешная авторизация существующего пользователя")
     @WithLogin
-    void successesLoginUserTest() {
-
+    void successesLoginTest() {
+        webStepsForLoginPage.verifySuccessfulLogin();
     }
 }

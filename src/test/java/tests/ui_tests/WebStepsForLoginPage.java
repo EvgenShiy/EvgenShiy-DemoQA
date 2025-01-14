@@ -22,7 +22,7 @@ public class WebStepsForLoginPage {
         loginPage.setUsername(userName);
     }
 
-    @Step("Заполнить поле Password значением: {username}")
+    @Step("Заполнить поле Password значением: {password}")
     public void setPassword() {
         loginPage.setPassword(password);
     }
@@ -30,5 +30,20 @@ public class WebStepsForLoginPage {
     @Step("Нажать кнопку 'Login'")
     public void pressLoginButton(){
         loginPage.clickLoginButton();
+    }
+
+    @Step("Нажать кнопку 'New User'")
+    public void pressNewUserButton(){
+        loginPage.clickNewUserButton();
+    }
+
+    @Step("Проверить успешную аутентификацию пользователя")
+    public void verifySuccessfulLogin(){
+        loginPage.verifyUserIsLoggedIn();
+    }
+
+    @Step("Проверить неудачную аутентификацию пользователя")
+    public void verifyErrorDisplayedForInvalidCredentials(){
+        loginPage.verifyErrorMessage("Invalid username or password!");
     }
 }
