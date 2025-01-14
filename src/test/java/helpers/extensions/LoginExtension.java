@@ -1,6 +1,6 @@
 package helpers.extensions;
 
-import api.AuthorizationWithApi;
+import api.AccountApi;
 import api.BookStoreApi;
 import org.openqa.selenium.Cookie;
 import models.AuthResponseModel;
@@ -34,7 +34,7 @@ public class LoginExtension implements BeforeEachCallback {
             throw new IllegalStateException("Error: Login or password must not be null.");
         }
 
-        AuthResponseModel authResponse = AuthorizationWithApi.getAuthData(username, password);
+        AuthResponseModel authResponse = AccountApi.getAuthData(username, password);
 
         if (authResponse == null || authResponse.getToken() == null) {
             throw new IllegalStateException("Error: Authorization failed. AuthResponse is null or invalid.");
