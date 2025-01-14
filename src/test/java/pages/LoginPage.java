@@ -58,13 +58,4 @@ public class LoginPage {
         logoutButton.shouldBe(visible);
         return this;
     }
-
-//    @Step("Авторизоваться с логином {username} и паролем {password}")
-//    public LoginPage successesLogin(String username, String password) {
-//
-//        setUsername(username);
-//        setPassword(password);
-//        clickLoginButton();
-//        return this;
-//    }
 }
