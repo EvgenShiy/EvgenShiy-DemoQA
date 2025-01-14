@@ -9,22 +9,22 @@ public class WebStepsForLoginPage {
     LoginPage loginPage = new LoginPage();
     RandomUtils randomUtils = new RandomUtils();
 
-    String userName = randomUtils.getRandomFirstName();
-    String password = randomUtils.getRandomString(8);
+    String randomUserName = randomUtils.getRandomFirstName();
+    String randomPassword = randomUtils.getRandomString(8);
 
     @Step("Открыть страницу login")
     public void openLoginPage() {
         loginPage.openPage();
     }
 
-    @Step("Заполнить поле UserName значением: {username}")
-    public void setUserName() {
-        loginPage.setUsername(userName);
+    @Step("Заполнить поле UserName рандомным значением: {randomUserName}")
+    public void setRandomUserName() {
+        loginPage.setUsername(randomUserName);
     }
 
-    @Step("Заполнить поле Password значением: {password}")
-    public void setPassword() {
-        loginPage.setPassword(password);
+    @Step("Заполнить поле Password рандомным значением: {randomPassword}")
+    public void setRandomPassword() {
+        loginPage.setPassword(randomPassword);
     }
 
     @Step("Нажать кнопку 'Login'")
@@ -37,9 +37,21 @@ public class WebStepsForLoginPage {
         loginPage.clickNewUserButton();
     }
 
-    @Step("Проверить успешную аутентификацию пользователя")
-    public void verifySuccessfulLogin(){
-        loginPage.verifyUserIsLoggedIn();
+    @Step("Авторизоваться зарегистрированным пользователем с логином {username} и паролем {password}")
+    public void verifySuccessfulLoginExistingUser(){
+        helpers.PropertyLoader.loadCredentials();
+
+        String username = System.getProperty("profileUserName");
+        String password = System.getProperty("profileUserPassword");
+
+        if (username == null || password == null) {
+            throw new IllegalStateException("Error: Логин или пароль не загружены из файла properties.");
+        }
+        openLoginPage();
+        loginPage.setUsername(username);
+        loginPage.setPassword(password);
+        pressLoginButton();
+        loginPage.verifyLogoutButtonIsVisible();
     }
 
     @Step("Проверить неудачную аутентификацию пользователя")

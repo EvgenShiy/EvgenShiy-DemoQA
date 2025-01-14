@@ -1,6 +1,6 @@
 package tests.ui_tests;
 
-import helpers.extensions.WithLogin;
+import io.qameta.allure.Owner;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -12,9 +12,21 @@ public class LoginTests extends TestBase {
 
     @Test
     @Tag("UI")
-    @DisplayName("Успешная авторизация существующего пользователя")
-    @WithLogin
+    @Owner("shiianovaen")
+    @DisplayName("Проверка успешной аутентификации зарегистрированного пользователя")
     void successesLoginTest() {
-        webStepsForLoginPage.verifySuccessfulLogin();
+        webStepsForLoginPage.verifySuccessfulLoginExistingUser();
+    }
+
+    @Test
+    @Tag("UI")
+    @Owner("shiianovaen")
+    @DisplayName("Проверка неудачной аутентификации пользователя")
+    void unSuccessesLoginTest() {
+        webStepsForLoginPage.openLoginPage();
+        webStepsForLoginPage.setRandomUserName();
+        webStepsForLoginPage.setRandomPassword();
+        webStepsForLoginPage.pressLoginButton();
+        webStepsForLoginPage.verifyErrorDisplayedForInvalidCredentials();
     }
 }

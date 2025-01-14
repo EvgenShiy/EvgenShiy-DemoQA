@@ -54,19 +54,17 @@ public class LoginPage {
     }
 
     @Step("Проверить, что кнопка Logout отображается")
-    public LoginPage verifyUserIsLoggedIn() {
+    public LoginPage verifyLogoutButtonIsVisible() {
         logoutButton.shouldBe(visible);
         return this;
     }
 
-    @Step("Авторизоваться с логином {username} и паролем {password}")
-    public LoginPage successesLogin(String username, String password) {
-
-        String login = System.setProperty("profileUserName", "defaultLogin");
-
-        setUsername(username);
-        setPassword(password);
-        clickLoginButton();
-        return this;
-    }
+//    @Step("Авторизоваться с логином {username} и паролем {password}")
+//    public LoginPage successesLogin(String username, String password) {
+//
+//        setUsername(username);
+//        setPassword(password);
+//        clickLoginButton();
+//        return this;
+//    }
 }

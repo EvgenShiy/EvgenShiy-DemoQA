@@ -9,21 +9,19 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class ProfilePage {
 
-    private final SelenideElement
-            closeSmallModalOkButton = $("#closeSmallModal-ok");
+    private final SelenideElement userNameValue = $("#userName-value");
+    private final SelenideElement closeSmallModalOkButton = $("#closeSmallModal-ok");
 
     @Step("Открыть страницу Profile")
     public ProfilePage openPage(){
         open("/profile");
-
         return this;
     }
 
     @Step("Проверить корректное отображение username в Profile")
     public ProfilePage checkUserName(){
         String login = System.getProperty("profileUserName", "defaultLogin");
-        $("#userName-value").shouldHave(text(login));
-
+        userNameValue.shouldHave(text(login));
         return this;
     }
 
@@ -59,7 +57,6 @@ public class ProfilePage {
         closeSmallModalOkButton.shouldBe(visible, enabled).click();
 
         book.shouldNot(exist);
-
         return this;
     }
 }

@@ -1,4 +1,4 @@
-package tests.api_tests;
+package tests.ui_tests;
 
 import api.BookStoreApi;
 import helpers.extensions.WithLogin;
