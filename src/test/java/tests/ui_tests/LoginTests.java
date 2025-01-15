@@ -29,4 +29,15 @@ public class LoginTests extends TestBase {
         webStepsForLoginPage.pressLoginButton();
         webStepsForLoginPage.verifyErrorDisplayedForInvalidCredentials();
     }
+
+    @Test
+    @Tag("UI")
+    @Owner("shiianovaen")
+    @DisplayName("Проверка подсветки обязательных полей красной рамкой при отсутствии ввода")
+    public void shouldHighlightMandatoryFieldsWhenEmptyTest() {
+        webStepsForLoginPage.openLoginPage();
+        webStepsForLoginPage.pressLoginButton();
+        webStepsForLoginPage.verifyMandatoryFieldHighlight("userName");
+        webStepsForLoginPage.verifyMandatoryFieldHighlight("password");
+    }
 }

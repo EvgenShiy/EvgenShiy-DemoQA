@@ -58,4 +58,21 @@ public class LoginPage {
         logoutButton.shouldBe(visible);
         return this;
     }
+
+    @Step("Проверить, что поле {fieldName} подсвечено красной рамкой как обязательное")
+    public LoginPage verifyFieldHighlightedAsMandatory(String fieldName) {
+        SelenideElement field;
+        switch (fieldName.toLowerCase()) {
+            case "username":
+                field = usernameField;
+                break;
+            case "password":
+                field = passwordField;
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown field: " + fieldName);
+        }
+        field.shouldHave(cssValue("border-color", "rgb(220, 53, 69)"));
+        return this;
+    }
 }
