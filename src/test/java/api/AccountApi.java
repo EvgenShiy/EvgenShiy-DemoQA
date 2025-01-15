@@ -3,6 +3,7 @@ package api;
 import io.qameta.allure.Step;
 import models.AuthRequestModel;
 import models.AuthResponseModel;
+import models.UserProfileModel;
 import utils.RandomUtils;
 
 
@@ -12,7 +13,7 @@ import static specs.ApiSpecs.requestSpec;
 
 public class AccountApi {
 
-    @Step("Получить данные авторизации зарегистрированного пользователя")
+    @Step("Получить данные авторизации зарегистрированного пользователя через API")
     public static AuthResponseModel getAuthData(String userName, String userPassword) {
 
         AuthRequestModel request = new AuthRequestModel();
@@ -29,26 +30,58 @@ public class AccountApi {
                         .extract().as(AuthResponseModel.class);
     }
 
-    @Step("Успешная регистрация нового пользователя")
+    @Step("Успешная регистрация нового пользователя через API")
     public static AuthResponseModel registerNewUser(String userName, String userPassword) {
 
         AuthRequestModel request = new AuthRequestModel();
-        RandomUtils randomUtils = new RandomUtils();
 
-        String randomUserName = randomUtils.getRandomFirstName();
-        String randomPassword = randomUtils.getRandomString(8);
-
-        request.setUserName(randomUserName);
-        request.setPassword(randomPassword);
+        request.setUserName(userName);
+        request.setPassword(userPassword);
 
         return given()
                 .spec(requestSpec)
                 .body(request)
                 .when()
-                .post("/Account/v1/GenerateToken")
+                .post("/Account/v1/User")
                 .then()
                 .spec(successResponse200Spec)
                 .extract().as(AuthResponseModel.class);
 
+    }
+
+    @Step("Получить данные профиля пользователя")
+    public static UserProfileModel getUserProfile(String token) {
+        return given()
+                .spec(requestSpec)
+                .header("Authorization", "Bearer " + token)
+                .when()
+                .get("/Account/v1/Profile")
+                .then()
+                .spec(successResponse200Spec)
+                .extract().as(UserProfileModel.class);
+    }
+
+    @Step("Обновить данные профиля пользователя")
+    public static UserProfileModel updateUserProfile(String token, UserProfileModel updatedProfile) {
+        return given()
+                .spec(requestSpec)
+                .header("Authorization", "Bearer " + token)
+                .body(updatedProfile)
+                .when()
+                .put("/Account/v1/Profile")
+                .then()
+                .spec(successResponse200Spec)
+                .extract().as(UserProfileModel.class);
+    }
+
+    @Step("Удалить пользователя")
+    public static void deleteUser(String token) {
+        given()
+                .spec(requestSpec)
+                .header("Authorization", "Bearer " + token)
+                .when()
+                .delete("/Account/v1/Delete")
+                .then()
+                .spec(successResponse200Spec);
     }
 }

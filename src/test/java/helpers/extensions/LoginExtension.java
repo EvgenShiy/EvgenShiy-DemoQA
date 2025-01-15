@@ -23,7 +23,7 @@ public class LoginExtension implements BeforeEachCallback {
         String username = System.getProperty("profileUserName", "defaultLogin");
         String password = System.getProperty("profileUserPassword", "defaultPassword");
 
-        System.out.println("System Property profileUserName: " + username);
+        System.out.println("System Property profileUserName: " + username);  //TODO SLF4J
         System.out.println("System Property profileUserPassword: " + password);
 
         if ("defaultLogin".equals(username) || "defaultPassword".equals(password)) {

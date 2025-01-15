@@ -11,7 +11,6 @@ public class ModalComponent {
         $(".table-responsive").$(byText(key)).parent().shouldHave(text(value));
     }
 
-
     public void negativeCheck() {
         $("form#userForm").shouldHave(attribute("class", "was-validated"));
     }

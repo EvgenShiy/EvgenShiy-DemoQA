@@ -22,7 +22,7 @@ public class BookStoreApi {
 
     @Step("Очистить все книги в Profile через API")
     public void deleteAllBooksFromProfile() {
-        step("Отправить DELETE запрос на удаление всех книг из Profile", () ->
+        step("Отправить DELETE запрос на удаление всех книг из Profile", () -> //TODO проверить лишний лямбда-степ
                 given(requestSpec)
                         .header("Authorization", "Bearer " + token)
                         .queryParam("UserId", userId)

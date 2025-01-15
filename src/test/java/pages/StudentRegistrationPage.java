@@ -22,9 +22,6 @@ public class StudentRegistrationPage {
                             currentAddress = $("#currentAddress"),
                             submitButton =  $("button#submit");
 
-
-
-
     CalendarComponent calendarComponent = new CalendarComponent();
     ModalComponent modalComponent = new ModalComponent();
     DropdownComponent dropdownComponent = new DropdownComponent();

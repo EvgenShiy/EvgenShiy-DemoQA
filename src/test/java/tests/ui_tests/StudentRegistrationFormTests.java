@@ -9,7 +9,6 @@ import tests.TestBase;
 
 public class StudentRegistrationFormTests extends TestBase {
 
-
     @Test
     @Tag("UI")
     @Owner("shiianovaen")
