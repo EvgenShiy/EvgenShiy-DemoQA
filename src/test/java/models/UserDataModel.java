@@ -6,4 +6,5 @@ import lombok.Data;
 public class UserDataModel {
     private String userName;
     private String password;
+    private String token;
 }

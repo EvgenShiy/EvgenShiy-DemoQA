@@ -9,8 +9,7 @@ import utils.RandomUtils;
 
 
 import static io.restassured.RestAssured.given;
-import static specs.ApiSpecs.successResponse200Spec;
-import static specs.ApiSpecs.requestSpec;
+import static specs.ApiSpecs.*;
 
 public class AccountApi {
 
@@ -31,31 +30,32 @@ public class AccountApi {
                         .extract().as(AuthResponseModel.class);
     }
 
-    @Step("Регистрация нового пользователя с сохранением данных в переменные")
+    @Step("Регистрация нового рандомного пользователя с сохранением данных в переменные")
     public static UserDataModel registerRandomUser() {
         RandomUtils randomUtils = new RandomUtils();
 
         String randomUserName = randomUtils.getRandomFirstName();
-        String randomPassword = randomUtils.getRandomString(8);
+        String randomPassword = randomUtils.generateStrongPassword(8);
 
         AuthRequestModel request = new AuthRequestModel();
         request.setUserName(randomUserName);
         request.setPassword(randomPassword);
 
-        given()
+        AuthResponseModel response = given()
                 .spec(requestSpec)
                 .body(request)
                 .when()
                 .post("/Account/v1/User")
                 .then()
-                .spec(successResponse200Spec);
+                .spec(successResponse201Spec)
+                .extract().as(AuthResponseModel.class);
 
         UserDataModel userData = new UserDataModel();
         userData.setUserName(randomUserName);
         userData.setPassword(randomPassword);
+        userData.setToken(response.getToken());
         return userData;
     }
-
 
     @Step("Получить данные профиля пользователя")
     public static UserProfileModel getUserProfile(String token) {
@@ -90,6 +90,8 @@ public class AccountApi {
                 .when()
                 .delete("/Account/v1/Delete")
                 .then()
-                .spec(successResponse200Spec);
+                .spec(successResponse200Spec)
+                .log().ifError();
     }
+
 }
