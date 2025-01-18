@@ -30,18 +30,18 @@ public class AccountApi {
                         .extract().as(AuthResponseModel.class);
     }
 
-    @Step("Регистрация нового рандомного пользователя с сохранением данных в переменные")
-    public static UserDataModel registerRandomUser() {
+    @Step("Регистрация нового рандомного пользователя с проверкой данных")
+    public static AuthResponseModel registerRandomUser() {
         RandomUtils randomUtils = new RandomUtils();
 
         String randomUserName = randomUtils.getRandomFirstName();
-        String randomPassword = randomUtils.generateStrongPassword(8);
+        String randomPassword = randomUtils.generateStrongPassword(randomUserName);
 
         AuthRequestModel request = new AuthRequestModel();
         request.setUserName(randomUserName);
         request.setPassword(randomPassword);
 
-        AuthResponseModel response = given()
+        return given()
                 .spec(requestSpec)
                 .body(request)
                 .when()
@@ -49,13 +49,8 @@ public class AccountApi {
                 .then()
                 .spec(successResponse201Spec)
                 .extract().as(AuthResponseModel.class);
-
-        UserDataModel userData = new UserDataModel();
-        userData.setUserName(randomUserName);
-        userData.setPassword(randomPassword);
-        userData.setUserId(response.getUserId());
-        return userData;
     }
+
 
     @Step("Получить данные профиля пользователя")
     public static UserProfileModel getUserProfile(String token) {

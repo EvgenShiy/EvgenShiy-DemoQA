@@ -1,7 +1,7 @@
 package tests.api_tests;
 
 import api.AccountApi;
-import models.UserDataModel;
+import models.AuthResponseModel;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -17,13 +17,14 @@ public class AccountTests extends ApiTestBase {
     void registerRandomUserTest() {
         step("Регистрация рандомного пользователя", () -> {
 
-            UserDataModel userData = AccountApi.registerRandomUser();
+            // Регистрация пользователя
+            AuthResponseModel response = AccountApi.registerRandomUser();
 
             step("Проверить, что регистрация прошла успешно", () -> {
-                assertNotNull(userData.getUserName(),"UserName не должен быть null");
-                assertNotNull(userData.getUserId(), "UserId не должен быть null");
-                assertFalse(userData.getUserName().isEmpty(), "UserName не должен быть пустым");
-                assertFalse(userData.getUserId().isEmpty(), "UserId не должен быть пустым");
+                assertNotNull(response.getUsername(), "UserName не должен быть null");
+                assertNotNull(response.getUserId(), "UserId не должен быть null");
+                assertFalse(response.getUsername().isEmpty(), "UserName не должен быть пустым");
+                assertFalse(response.getUserId().isEmpty(), "UserId не должен быть пустым");
             });
         });
     }

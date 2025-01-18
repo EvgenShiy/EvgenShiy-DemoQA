@@ -2,10 +2,7 @@ package utils;
 
 import com.github.javafaker.Faker;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class RandomUtils {
@@ -24,42 +21,27 @@ public class RandomUtils {
         return randomString.toString();
     }
 
-    public final String generateStrongPassword(int length) {
-        if (length < 8) {
-            throw new IllegalArgumentException("Password length must be at least 8 characters.");
+    public final String generateStrongPassword(String randomUserName) {
+        if (randomUserName.length() < 4) {
+            throw new IllegalArgumentException("Username must be at least 4 characters long.");
         }
 
-        String allChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+<>?";
+        // Генерация обязательных символов
         Random random = new Random();
-
         char upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".charAt(random.nextInt(26));
         char lowerCase = "abcdefghijklmnopqrstuvwxyz".charAt(random.nextInt(26));
         char digit = "0123456789".charAt(random.nextInt(10));
         char specialChar = "!@#$%^&*()-_=+".charAt(random.nextInt(16));
 
-        StringBuilder password = new StringBuilder();
+        // Формируем пароль из randomUserName + дополнительные символы
+        StringBuilder password = new StringBuilder(randomUserName);
         password.append(upperCase)
                 .append(lowerCase)
                 .append(digit)
                 .append(specialChar);
 
-        for (int i = 4; i < length; i++) {
-            password.append(allChars.charAt(random.nextInt(allChars.length())));
-        }
-
-        return password.chars()
-                .mapToObj(c -> (char) c)
-                .collect(Collectors.collectingAndThen(
-                        Collectors.toList(),
-                        collected -> {
-                            Collections.shuffle(collected);
-                            StringBuilder shuffled = new StringBuilder();
-                            for (char c : collected) {
-                                shuffled.append(c);
-                            }
-                            return shuffled.toString();
-                        }
-                ));
+        // Возвращаем пароль как строку
+        return password.toString();
     }
 
     public final int getRandomInt(int min, int max) {

@@ -7,6 +7,7 @@ import lombok.Data;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AuthResponseModel {
+
     private String userId, username, password, token, expires;
 
     @JsonProperty("created_date")
