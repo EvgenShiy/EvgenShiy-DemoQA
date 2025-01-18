@@ -5,12 +5,11 @@ import models.UserDataModel;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import tests.TestBase;
 
 import static io.qameta.allure.Allure.step;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class AccountTests extends TestBase {
+public class AccountTests extends ApiTestBase {
 
     @Test
     @Tag("API")
@@ -22,9 +21,9 @@ public class AccountTests extends TestBase {
 
             step("Проверить, что регистрация прошла успешно", () -> {
                 assertNotNull(userData.getUserName(),"UserName не должен быть null");
-                assertNotNull(userData.getToken(), "Token не должен быть null");
+                assertNotNull(userData.getUserId(), "UserId не должен быть null");
                 assertFalse(userData.getUserName().isEmpty(), "UserName не должен быть пустым");
-                assertFalse(userData.getToken().isEmpty(), "Token не должен быть пустым");
+                assertFalse(userData.getUserId().isEmpty(), "UserId не должен быть пустым");
             });
         });
     }

@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import tests.TestBase;
 
-public class LoginTests extends TestBase {
+public class LoginTests extends UiTestBase {
 
     WebStepsForLoginPage webStepsForLoginPage = new WebStepsForLoginPage();
 

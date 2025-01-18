@@ -53,7 +53,7 @@ public class AccountApi {
         UserDataModel userData = new UserDataModel();
         userData.setUserName(randomUserName);
         userData.setPassword(randomPassword);
-        userData.setToken(response.getToken());
+        userData.setUserId(response.getUserId());
         return userData;
     }
 
