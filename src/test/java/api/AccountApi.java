@@ -3,6 +3,7 @@ package api;
 import io.qameta.allure.Step;
 import models.AuthRequestModel;
 import models.AuthResponseModel;
+import models.AuthResponseModelWithOptionalUserId;
 import models.UserProfileModel;
 import utils.RandomUtils;
 
@@ -30,10 +31,10 @@ public class AccountApi {
     }
 
     @Step("Регистрация нового рандомного пользователя с проверкой данных")
-    public static AuthResponseModel registerRandomUser() {
+    public static AuthResponseModelWithOptionalUserId registerRandomUser() {
         RandomUtils randomUtils = new RandomUtils();
 
-        String randomUserName = randomUtils.getRandomString(8);
+        String randomUserName = randomUtils.getRandomFirstName();
         String randomPassword = randomUtils.generateStrongPassword(12);
 
         AuthRequestModel request = new AuthRequestModel();
@@ -47,9 +48,8 @@ public class AccountApi {
                 .post("/Account/v1/User")
                 .then()
                 .spec(successResponse201Spec)
-                .extract().as(AuthResponseModel.class);
+                .extract().as(AuthResponseModelWithOptionalUserId.class);
     }
-
 
     @Step("Получить данные профиля пользователя")
     public static UserProfileModel getUserProfile(String token) {
