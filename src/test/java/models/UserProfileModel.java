@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class UserProfileModel {
-
+    private String userId;  // добавляем поле userId
     private String userName;
     private String firstName;
     private String lastName;
@@ -12,11 +12,11 @@ public class UserProfileModel {
     private String phone;
     private String address;
 
-
     @Override
     public String toString() {
         return "UserProfileModel{" +
-                "userName='" + userName + '\'' +
+                "userId='" + userId + '\'' +
+                ", userName='" + userName + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +

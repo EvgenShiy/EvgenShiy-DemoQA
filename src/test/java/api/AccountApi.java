@@ -98,14 +98,14 @@ public class AccountApi {
 
 
     @Step("Получить данные профиля пользователя")
-    public static UserProfileModel getUserProfile(String token) {
+    public static UserProfileModel getUserProfile(String token, String userId) {
         logger.info("Запрос профиля пользователя с токеном: {}", token);
 
         UserProfileModel response = given()
                 .spec(requestSpec)
                 .header("Authorization", "Bearer " + token)
                 .when()
-                .get("/Account/v1/Profile")
+                .get("/Account/v1/User/" + userId)
                 .then()
                 .spec(successResponse200Spec)
                 .extract().as(UserProfileModel.class);
