@@ -21,9 +21,9 @@ public class RandomUtils {
         return randomString.toString();
     }
 
-    public final String generateStrongPassword(String randomUserName) {
-        if (randomUserName.length() < 4) {
-            throw new IllegalArgumentException("Username must be at least 4 characters long.");
+    public final String generateStrongPassword(int length) {
+        if (length < 8) {
+            throw new IllegalArgumentException("Пароль должен быть хотя бы 8 символов.");
         }
 
         // Генерация обязательных символов
@@ -33,13 +33,8 @@ public class RandomUtils {
         char digit = "0123456789".charAt(random.nextInt(10));
         char specialChar = "!@#$%^&*()-_=+".charAt(random.nextInt(16));
 
-        // Формируем пароль из randomUserName + дополнительные символы
-        StringBuilder password = new StringBuilder(randomUserName);
-        password.append(upperCase)
-                .append(lowerCase)
-                .append(digit)
-                .append(specialChar);
-
+        // Создаем StringBuilder для пароля
+        StringBuilder password = new StringBuilder();
         // Возвращаем пароль как строку
         return password.toString();
     }

@@ -57,29 +57,23 @@ public class ProfilePage {
 
         SelenideElement book = findBookByIsbn(isbn);
 
-        // Проверить наличие книги
         book.shouldBe(visible.because("Книга с ISBN " + isbn + " отсутствует, удаление невозможно."), Duration.ofSeconds(10));
 
-        // Удалить iframe, если он мешает
         if ($$("iframe").size() > 0) {
             log.info("Удаление iframe для обеспечения доступности элемента.");
             executeJavaScript("document.querySelectorAll('iframe').forEach(iframe => iframe.remove());");
         }
 
-        // Клик по кнопке удаления
         log.info("Клик по кнопке удаления книги.");
         book.closest(".rt-tr-group").shouldBe(visible).find("#delete-record-undefined").shouldBe(visible).click();
 
-        // Подтверждение удаления
         log.info("Подтверждение удаления.");
         closeSmallModalOkButton.shouldBe(visible, enabled).click();
 
-        // Проверка отсутствия книги
         log.info("Проверка, что книга удалена.");
         book.closest(".rt-tr-group")
                 .shouldNot(exist.because("Книга с ISBN " + isbn + " не была удалена."));
 
         return this;
     }
-
 }

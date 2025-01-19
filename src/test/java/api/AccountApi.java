@@ -33,8 +33,8 @@ public class AccountApi {
     public static AuthResponseModel registerRandomUser() {
         RandomUtils randomUtils = new RandomUtils();
 
-        String randomUserName = randomUtils.getRandomFirstName();
-        String randomPassword = randomUtils.generateStrongPassword(randomUserName);
+        String randomUserName = randomUtils.getRandomString(8);
+        String randomPassword = randomUtils.generateStrongPassword(12);
 
         AuthRequestModel request = new AuthRequestModel();
         request.setUserName(randomUserName);
