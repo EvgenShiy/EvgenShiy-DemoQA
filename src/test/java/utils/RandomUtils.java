@@ -26,17 +26,45 @@ public class RandomUtils {
             throw new IllegalArgumentException("Пароль должен быть хотя бы 8 символов.");
         }
 
-        // Генерация обязательных символов
+        String upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        String lowerCase = "abcdefghijklmnopqrstuvwxyz";
+        String digits = "0123456789";
+        String specialChars = "!@#$%^&*()-_=+";
+
         Random random = new Random();
-        char upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".charAt(random.nextInt(26));
-        char lowerCase = "abcdefghijklmnopqrstuvwxyz".charAt(random.nextInt(26));
-        char digit = "0123456789".charAt(random.nextInt(10));
-        char specialChar = "!@#$%^&*()-_=+".charAt(random.nextInt(16));
+
+        // Генерация обязательных символов
+        char upper = upperCase.charAt(random.nextInt(upperCase.length()));
+        char lower = lowerCase.charAt(random.nextInt(lowerCase.length()));
+        char digit = digits.charAt(random.nextInt(digits.length()));
+        char special = specialChars.charAt(random.nextInt(specialChars.length()));
 
         // Создаем StringBuilder для пароля
         StringBuilder password = new StringBuilder();
-        // Возвращаем пароль как строку
-        return password.toString();
+
+        // Добавляем обязательные символы
+        password.append(upper);
+        password.append(lower);
+        password.append(digit);
+        password.append(special);
+
+        // Дополняем пароль случайными символами до нужной длины
+        String allChars = upperCase + lowerCase + digits + specialChars;
+        for (int i = password.length(); i < length; i++) {
+            password.append(allChars.charAt(random.nextInt(allChars.length())));
+        }
+
+        // Перемешиваем символы, чтобы не было предсказуемого порядка
+        String passwordStr = password.toString();
+        char[] passwordArray = passwordStr.toCharArray();
+        for (int i = 0; i < passwordArray.length; i++) {
+            int j = random.nextInt(passwordArray.length);
+            char temp = passwordArray[i];
+            passwordArray[i] = passwordArray[j];
+            passwordArray[j] = temp;
+        }
+
+        return new String(passwordArray);
     }
 
     public final int getRandomInt(int min, int max) {
