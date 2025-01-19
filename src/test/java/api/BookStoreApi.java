@@ -53,13 +53,13 @@ public class BookStoreApi {
         }
         Random random = new Random();
         String isbn = books.get(random.nextInt(books.size())).getIsbn();
-        System.out.println("Сгенерирован ISBN: " + isbn);
+        System.out.println("Выбран ISBN: " + isbn);
         return isbn;
     }
 
     @Step("Добавить выбранную книгу в Profile через API")
     public BookStoreApi addBookToProfile(String isbn) {
-        System.out.println("Добавляется книга с ISBN: " + isbn);
+        System.out.println("Добавляется книга с ISBN: " + isbn); // TODO SLF4J
 
         IsbnModel isbnModel = new IsbnModel(isbn);
 

@@ -3,7 +3,6 @@ package api;
 import io.qameta.allure.Step;
 import models.AuthRequestModel;
 import models.AuthResponseModel;
-import models.UserDataModel;
 import models.UserProfileModel;
 import utils.RandomUtils;
 
@@ -88,5 +87,4 @@ public class AccountApi {
                 .spec(successResponse200Spec)
                 .log().ifError();
     }
-
 }
