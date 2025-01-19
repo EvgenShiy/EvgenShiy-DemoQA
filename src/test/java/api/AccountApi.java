@@ -75,11 +75,13 @@ public class AccountApi {
     }
 
 
-    @Step("Регистрация нового рандомного пользователя с проверкой данных")
-    public static AuthResponseModelWithOptionalUserId registerRandomUser() {
-        logger.info("Регистрация нового рандомного пользователя...");
+    @Step("Регистрация нового пользователя")
+    public static AuthResponseModelWithOptionalUserId registerUser(String userName, String password) {
+        logger.info("Регистрация нового пользователя с данными: UserName = {}", userName);
 
-        AuthRequestModel request = generateRandomUserData();
+        AuthRequestModel request = new AuthRequestModel();
+        request.setUserName(userName);
+        request.setPassword(password);
 
         AuthResponseModelWithOptionalUserId response = given()
                 .spec(requestSpec)
@@ -90,9 +92,10 @@ public class AccountApi {
                 .spec(successResponse201Spec)
                 .extract().as(AuthResponseModelWithOptionalUserId.class);
 
-        logger.info("Пользователь {} успешно зарегистрирован. UserId: {}", request.getUserName(), response.getUserId());
+        logger.info("Пользователь {} успешно зарегистрирован. UserId: {}", userName, response.getUserId());
         return response;
     }
+
 
     @Step("Получить данные профиля пользователя")
     public static UserProfileModel getUserProfile(String token) {
@@ -144,4 +147,21 @@ public class AccountApi {
 
         logger.info("Пользователь с токеном {} успешно удален.", token);
     }
+
+    @Step("Проверить, авторизован ли пользователь через API")
+    public static boolean isUserAuthorized(String token) {
+        logger.info("Проверка авторизации пользователя с токеном: {}", token);
+
+        return given()
+                .spec(requestSpec)
+                .header("Authorization", "Bearer " + token)
+                .when()
+                .get("/Account/v1/Authorized")
+                .then()
+                .spec(successResponse200Spec)
+                .extract()
+                .body()
+                .as(Boolean.class);
+    }
+
 }
