@@ -33,7 +33,6 @@ public class RandomUtils {
 
         Random random = new Random();
 
-        // Генерация обязательных символов
         char upper = upperCase.charAt(random.nextInt(upperCase.length()));
         char lower = lowerCase.charAt(random.nextInt(lowerCase.length()));
         char digit = digits.charAt(random.nextInt(digits.length()));

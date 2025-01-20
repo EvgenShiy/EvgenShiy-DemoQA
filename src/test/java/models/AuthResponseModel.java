@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AuthResponseModel {
-    //@JsonProperty("userID")  // Заменяем на userID
+    @JsonProperty("userID")
     private String userId;
     private String username;
     private String password;

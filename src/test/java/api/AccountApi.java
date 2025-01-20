@@ -3,7 +3,7 @@ package api;
 import io.qameta.allure.Step;
 import models.AuthRequestModel;
 import models.AuthResponseModel;
-import models.AuthResponseModelWithOptionalUserId;
+import models.ErrorResponseModel;
 import models.UserProfileModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -76,26 +76,46 @@ public class AccountApi {
 
 
     @Step("Регистрация нового пользователя")
-    public static AuthResponseModelWithOptionalUserId registerUser(String userName, String password) {
+    public static AuthResponseModel registerUser(String userName, String password) {
         logger.info("Регистрация нового пользователя с данными: UserName = {}", userName);
 
         AuthRequestModel request = new AuthRequestModel();
         request.setUserName(userName);
         request.setPassword(password);
 
-        AuthResponseModelWithOptionalUserId response = given()
+        AuthResponseModel response = given()
                 .spec(requestSpec)
                 .body(request)
                 .when()
                 .post("/Account/v1/User")
                 .then()
                 .spec(successResponse201Spec)
-                .extract().as(AuthResponseModelWithOptionalUserId.class);
+                .extract().as(AuthResponseModel.class);
 
         logger.info("Пользователь {} успешно зарегистрирован. UserId: {}", userName, response.getUserId());
         return response;
     }
 
+    @Step("Попытка регистрация нового пользователя с невалидным паролем")
+    public static ErrorResponseModel registerUserWithError(String userName, String password) {
+        logger.info("Попытка регистрация нового пользователя с данными: UserName = {}", userName);
+
+        AuthRequestModel request = new AuthRequestModel();
+        request.setUserName(userName);
+        request.setPassword(password);
+
+        ErrorResponseModel  response = given()
+                .spec(requestSpec)
+                .body(request)
+                .when()
+                .post("/Account/v1/User")
+                .then()
+                .spec(errorResponse400Spec)
+                .extract().as(ErrorResponseModel .class);
+
+        logger.info("Пользователь с данными: UserName = {} не зарегистрирован", userName);
+        return response;
+    }
 
     @Step("Получить данные профиля пользователя")
     public static UserProfileModel getUserProfile(String token, String userId) {
@@ -113,24 +133,6 @@ public class AccountApi {
         logger.info("Профиль пользователя получен: {}", response);
         return response;
     }
-
-//    @Step("Обновить данные профиля пользователя")
-//    public static UserProfileModel updateUserProfile(String token, UserProfileModel updatedProfile) {
-//        logger.info("Обновление данных профиля пользователя с токеном: {}", token);
-//
-//        UserProfileModel response = given()
-//                .spec(requestSpec)
-//                .header("Authorization", "Bearer " + token)
-//                .body(updatedProfile)
-//                .when()
-//                .put("/Account/v1/Profile")
-//                .then()
-//                .spec(successResponse200Spec)
-//                .extract().as(UserProfileModel.class);
-//
-//        logger.info("Данные профиля обновлены: {}", response);
-//        return response;
-//    }
 
     @Step("Удалить пользователя")
     public static void deleteUser(String token, String userId) {

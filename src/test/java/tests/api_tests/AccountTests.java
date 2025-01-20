@@ -3,11 +3,13 @@ package tests.api_tests;
 import api.AccountApi;
 import lombok.extern.slf4j.Slf4j;
 import models.AuthRequestModel;
-import models.AuthResponseModelWithOptionalUserId;
+import models.AuthResponseModel;
+import models.ErrorResponseModel;
 import models.UserProfileModel;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import utils.RandomUtils;
 
 import static io.qameta.allure.Allure.step;
 import static org.junit.jupiter.api.Assertions.*;
@@ -32,7 +34,7 @@ public class AccountTests extends Api_TestBase {
         });
 
         step("Регистрация сгенерированного пользователя", () -> {
-            AuthResponseModelWithOptionalUserId response = AccountApi.registerUser(userName[0], userPassword[0]);
+            AuthResponseModel response = AccountApi.registerUser(userName[0], userPassword[0]);
 
             step("Проверить, что регистрация прошла успешно", () -> {
                 assertNotNull(response.getUsername(), "UserName не должен быть null");
@@ -63,7 +65,7 @@ public class AccountTests extends Api_TestBase {
         });
 
         step("Регистрация сгенерированного пользователя", () -> {
-            AuthResponseModelWithOptionalUserId response = AccountApi.registerUser(userName[0], userPassword[0]);
+            AuthResponseModel response = AccountApi.registerUser(userName[0], userPassword[0]);
 
             userId[0] = response.getUserId();
 
@@ -96,4 +98,35 @@ public class AccountTests extends Api_TestBase {
 
         log.info("Пользователь успешно удален.");
     }
+
+    @Test
+    @Tag("API")
+    @DisplayName("Проверка отображения корректного сообщения об ошибке при регистрации нового рандомного пользователя через API")
+    void verifyErrorRegistrationUserMessageTest() {
+
+        String[] userName = new String[1];
+        String[] userPassword = new String[1];
+
+        step("Генерация данных для нового пользователя", () -> {
+            RandomUtils userData = new RandomUtils();
+            userName[0] = userData.getRandomFirstName();
+            userPassword[0] = userData.getRandomString(7); // Не валидный пароль (отсутствуют спецсимволы)
+
+            log.info("Сгенерированы данные для пользователя: UserName = {}, Password = {}", userName[0], userPassword[0]);
+        });
+
+        step("Регистрация сгенерированного пользователя", () -> {
+            ErrorResponseModel response = AccountApi.registerUserWithError(userName[0], userPassword[0]);
+
+            step("Проверить, что попытка регистрации прошла неудачно", () -> {
+                assertEquals("1300", response.getCode(), "Код ошибки должен быть 1300");
+                assertEquals("Passwords must have at least one non alphanumeric character, one digit ('0'-'9'), one uppercase ('A'-'Z'), one lowercase ('a'-'z'), one special character and Password must be eight characters or longer.",
+                        response.getMessage(),
+                        "Сообщение об ошибке должно совпадать с ожидаемым");
+
+                log.info("Получена ожидаемая ошибка: Code = {}, Message = {}", response.getCode(), response.getMessage());
+            });
+        });
+    }
+
 }

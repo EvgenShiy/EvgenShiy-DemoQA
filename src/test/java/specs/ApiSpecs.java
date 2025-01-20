@@ -31,4 +31,19 @@ public class ApiSpecs {
             .expectStatusCode(204)
             .log(ALL)
             .build();
+
+    public static ResponseSpecification errorResponse400Spec = new ResponseSpecBuilder()
+            .expectStatusCode(400)
+            .log(ALL)
+            .build();
+
+    public static ResponseSpecification errorResponse404Spec = new ResponseSpecBuilder()
+            .expectStatusCode(404)
+            .log(ALL)
+            .build();
+
+    public static ResponseSpecification errorResponse406Spec = new ResponseSpecBuilder()
+            .expectStatusCode(406)
+            .log(ALL)
+            .build();
 }
