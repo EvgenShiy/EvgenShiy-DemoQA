@@ -1,4 +1,4 @@
-package tests;
+package tests.ui_tests;
 
 import com.codeborne.selenide.Configuration;
 import helpers.PropertyLoader;

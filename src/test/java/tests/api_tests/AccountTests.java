@@ -13,7 +13,7 @@ import static io.qameta.allure.Allure.step;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
-public class AccountTests extends ApiTestBase {
+public class AccountTests extends Api_TestBase {
 
     @Test
     @Tag("API")

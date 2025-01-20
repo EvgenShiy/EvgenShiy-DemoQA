@@ -5,13 +5,12 @@ import io.restassured.RestAssured;
 import io.restassured.parsing.Parser;
 import org.junit.jupiter.api.BeforeAll;
 
-public class ApiTestBase {
+public class Api_TestBase {
     @BeforeAll
     public static void setUp() {
-        // Загрузка конфигурации и переменных среды
+
         PropertyLoader.loadCredentials();
 
-        // Настройка RestAssured
         RestAssured.baseURI = "https://demoqa.com";
         RestAssured.defaultParser = Parser.JSON;
     }
