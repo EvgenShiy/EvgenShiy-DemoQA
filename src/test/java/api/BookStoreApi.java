@@ -2,6 +2,8 @@ package api;
 
 import io.qameta.allure.Step;
 import models.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Random;
@@ -11,6 +13,8 @@ import static io.restassured.RestAssured.given;
 import static specs.ApiSpecs.*;
 
 public class BookStoreApi {
+
+    private static final Logger logger = LoggerFactory.getLogger(BookStoreApi.class);
 
     private static String token;
     private static String userId;
@@ -53,13 +57,13 @@ public class BookStoreApi {
         }
         Random random = new Random();
         String isbn = books.get(random.nextInt(books.size())).getIsbn();
-        System.out.println("Выбран ISBN: " + isbn);
+        logger.info("Выбран ISBN: {}", isbn);
         return isbn;
     }
 
     @Step("Добавить выбранную книгу в Profile через API")
     public BookStoreApi addBookToProfile(String isbn) {
-        System.out.println("Добавляется книга с ISBN: " + isbn); // TODO SLF4J
+        logger.info("Добавляется книга с ISBN: {}", isbn);
 
         IsbnModel isbnModel = new IsbnModel(isbn);
 

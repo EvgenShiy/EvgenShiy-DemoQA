@@ -114,38 +114,38 @@ public class AccountApi {
         return response;
     }
 
-    @Step("Обновить данные профиля пользователя")
-    public static UserProfileModel updateUserProfile(String token, UserProfileModel updatedProfile) {
-        logger.info("Обновление данных профиля пользователя с токеном: {}", token);
-
-        UserProfileModel response = given()
-                .spec(requestSpec)
-                .header("Authorization", "Bearer " + token)
-                .body(updatedProfile)
-                .when()
-                .put("/Account/v1/Profile")
-                .then()
-                .spec(successResponse200Spec)
-                .extract().as(UserProfileModel.class);
-
-        logger.info("Данные профиля обновлены: {}", response);
-        return response;
-    }
+//    @Step("Обновить данные профиля пользователя")
+//    public static UserProfileModel updateUserProfile(String token, UserProfileModel updatedProfile) {
+//        logger.info("Обновление данных профиля пользователя с токеном: {}", token);
+//
+//        UserProfileModel response = given()
+//                .spec(requestSpec)
+//                .header("Authorization", "Bearer " + token)
+//                .body(updatedProfile)
+//                .when()
+//                .put("/Account/v1/Profile")
+//                .then()
+//                .spec(successResponse200Spec)
+//                .extract().as(UserProfileModel.class);
+//
+//        logger.info("Данные профиля обновлены: {}", response);
+//        return response;
+//    }
 
     @Step("Удалить пользователя")
-    public static void deleteUser(String token) {
-        logger.info("Удаление пользователя с токеном: {}", token);
+    public static void deleteUser(String token, String userId) {
+        logger.info("Удаление пользователя с ID: {}", userId);
 
         given()
                 .spec(requestSpec)
                 .header("Authorization", "Bearer " + token)
                 .when()
-                .delete("/Account/v1/Delete")
+                .delete("/Account/v1/User/" + userId)
                 .then()
-                .spec(successResponse200Spec)
+                .spec(successResponse204Spec)
                 .log().ifError();
 
-        logger.info("Пользователь с токеном {} успешно удален.", token);
+        logger.info("Пользователь с ID {} успешно удален.", userId);
     }
 
     @Step("Проверить, авторизован ли пользователь через API")

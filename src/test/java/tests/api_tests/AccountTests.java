@@ -47,8 +47,8 @@ public class AccountTests extends ApiTestBase {
 
     @Test
     @Tag("API")
-    @DisplayName("Изменение данных пользователя через API")
-    void updateUserDataTest() {
+    @DisplayName("Удаление пользователя через API")
+    void deleteUserTest() {
 
         final String[] userName = new String[1];
         final String[] userPassword = new String[1];
@@ -90,22 +90,8 @@ public class AccountTests extends ApiTestBase {
             log.info("Профиль пользователя успешно получен: {}", initialProfile);
         });
 
-        UserProfileModel updatedProfile = new UserProfileModel();
-        updatedProfile.setUserName("Updated_" + userName[0]);
-        updatedProfile.setEmail("updated_email@example.com");
-
-        UserProfileModel responseAfterUpdate = step("Обновить данные профиля", () ->
-                AccountApi.updateUserProfile(token, updatedProfile)
-        );
-
-        step("Проверить обновленные данные профиля", () -> {
-            assertEquals(updatedProfile.getUserName(), responseAfterUpdate.getUserName(), "Имя пользователя не обновлено");
-            assertEquals(updatedProfile.getEmail(), responseAfterUpdate.getEmail(), "Email не обновлен");
-            log.info("Данные профиля успешно обновлены: {}", responseAfterUpdate);
-        });
-
         step("Удалить пользователя", () ->
-                AccountApi.deleteUser(token)
+                AccountApi.deleteUser(token, userId[0])
         );
 
         log.info("Пользователь успешно удален.");

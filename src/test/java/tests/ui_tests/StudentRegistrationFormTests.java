@@ -5,9 +5,9 @@ import io.qameta.allure.Owner;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import tests.TestBase;
+import tests.UI_TestBase;
 
-public class StudentRegistrationFormTests extends TestBase {
+public class StudentRegistrationFormTests extends UI_TestBase {
 
     @Test
     @Tag("UI")

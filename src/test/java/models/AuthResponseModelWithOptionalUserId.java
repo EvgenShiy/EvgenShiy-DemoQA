@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class AuthResponseModelWithOptionalUserId {
+public class AuthResponseModelWithOptionalUserId {  //TODO DELETE
 
     @JsonProperty("userID")  // Маппинг поля userID в JSON
     private String userId;

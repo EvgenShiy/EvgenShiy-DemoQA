@@ -6,9 +6,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import pages.ProfilePage;
-import tests.TestBase;
+import tests.UI_TestBase;
 
-public class ProfileTests extends UiTestBase {
+public class ProfileTests extends UI_TestBase {
 
     @Test
     @Tag("UI")
