@@ -29,7 +29,7 @@ public class RandomUtils {
         String upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         String lowerCase = "abcdefghijklmnopqrstuvwxyz";
         String digits = "0123456789";
-        String specialChars = "!@#$%^&*()-_=+[]{};:'\",.<>?";
+        String specialChars = "!@#$%^&*";
 
         Random random = new Random();
 
