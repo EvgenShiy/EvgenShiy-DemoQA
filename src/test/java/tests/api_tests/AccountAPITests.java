@@ -15,7 +15,7 @@ import static io.qameta.allure.Allure.step;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
-public class AccountTests extends Api_TestBase {
+public class AccountAPITests extends Api_TestBase {
 
     @Test
     @Tag("API")
@@ -64,7 +64,7 @@ public class AccountTests extends Api_TestBase {
             log.info("Сгенерированы данные для пользователя: UserName = {}, Password = {}", userName[0], userPassword[0]);
         });
 
-        step("Регистрация сгенерированного пользователя", () -> {   //TODO fix password generator
+        step("Регистрация сгенерированного пользователя", () -> {
             AuthResponseModel response = AccountApi.registerUser(userName[0], userPassword[0]);
 
             userId[0] = response.getUserId();
@@ -110,7 +110,7 @@ public class AccountTests extends Api_TestBase {
         step("Генерация данных для нового пользователя", () -> {
             RandomUtils userData = new RandomUtils();
             userName[0] = userData.getRandomFirstName();
-            userPassword[0] = userData.getRandomString(7); // Не валидный пароль (отсутствуют спецсимволы)
+            userPassword[0] = userData.getRandomString(7);
 
             log.info("Сгенерированы данные для пользователя: UserName = {}, Password = {}", userName[0], userPassword[0]);
         });
@@ -128,5 +128,4 @@ public class AccountTests extends Api_TestBase {
             });
         });
     }
-
 }

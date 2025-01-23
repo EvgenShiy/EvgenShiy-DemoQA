@@ -14,7 +14,7 @@ import static specs.ApiSpecs.*;
 
 public class BookStoreApi {
 
-    private static final Logger logger = LoggerFactory.getLogger(BookStoreApi.class);
+    private static final Logger log = LoggerFactory.getLogger(BookStoreApi.class);
 
     private static String token;
     private static String userId;
@@ -25,7 +25,7 @@ public class BookStoreApi {
     }
 
     @Step("Очистить все книги в Profile через API")
-    public void deleteAllBooksFromProfile() {
+    public void deleteAllBooksFromProfile(String token, String userId) {
         given(requestSpec)
                 .header("Authorization", "Bearer " + token)
                 .queryParam("UserId", userId)
@@ -56,13 +56,13 @@ public class BookStoreApi {
         }
         Random random = new Random();
         String isbn = books.get(random.nextInt(books.size())).getIsbn();
-        logger.info("Выбран ISBN: {}", isbn);
+        log.info("Выбран ISBN: {}", isbn);
         return isbn;
     }
 
     @Step("Добавить выбранную книгу в Profile через API")
-    public BookStoreApi addBookToProfile(String isbn) {
-        logger.info("Добавляется книга с ISBN: {}", isbn);
+    public void addBookToProfile(String isbn, String token, String userId) {
+        log.info("Добавляется книга с ISBN: {}", isbn);
 
         IsbnModel isbnModel = new IsbnModel(isbn);
 
@@ -78,6 +78,6 @@ public class BookStoreApi {
                 .then()
                 .spec(successResponse201Spec);
 
-        return this;
     }
+
 }

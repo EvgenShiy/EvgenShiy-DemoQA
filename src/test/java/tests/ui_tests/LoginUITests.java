@@ -5,7 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-public class LoginTests extends UI_TestBase {
+public class LoginUITests extends UI_TestBase {
 
     WebStepsForLoginPage webStepsForLoginPage = new WebStepsForLoginPage();
 
