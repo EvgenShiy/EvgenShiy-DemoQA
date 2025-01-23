@@ -32,15 +32,20 @@ public class ProfilePage {
         return this;
     }
 
-    private SelenideElement findBookByIsbn(String isbn) {
-        log.info("Поиск книги с ISBN: {}", isbn);
-        return $(".rt-tr-group").find("a[href='/profile?book=" + isbn + "']");
+    private void removeIframes() {
+        log.info("Удаление всех iframe с страницы.");
+        executeJavaScript("document.querySelectorAll('iframe').forEach(iframe => iframe.remove());");
+    }
+
+    private SelenideElement getBookRow(String isbn) {
+        log.info("Получение строки книги с ISBN: {}", isbn);
+        return $(".rt-tr-group").find("a[href='/profile?book=" + isbn + "']").closest(".rt-tr-group");
     }
 
     @Step("Проверить наличие книги в Profile")
     public ProfilePage checkBookInProfile(boolean shouldExist, String isbn) {
         log.info("Проверка наличия книги с ISBN: {}, shouldExist: {}", isbn, shouldExist);
-        SelenideElement book = findBookByIsbn(isbn);
+        SelenideElement book = getBookRow(isbn);
 
         if (shouldExist) {
             book.should(exist);
@@ -55,25 +60,15 @@ public class ProfilePage {
     public ProfilePage deleteBookInProfile(String isbn) {
         log.info("Попытка удаления книги с ISBN: {}", isbn);
 
-        SelenideElement book = findBookByIsbn(isbn);
-
-        book.shouldBe(visible.because("Книга с ISBN " + isbn + " отсутствует, удаление невозможно."), Duration.ofSeconds(10));
-
         if ($$("iframe").size() > 0) {
-            log.info("Удаление iframe для обеспечения доступности элемента.");
-            executeJavaScript("document.querySelectorAll('iframe').forEach(iframe => iframe.remove());");
+            removeIframes();
         }
 
-        log.info("Клик по кнопке удаления книги.");
-        book.closest(".rt-tr-group").shouldBe(visible).find("#delete-record-undefined").shouldBe(visible).click();
-
-        log.info("Подтверждение удаления.");
+        SelenideElement bookRow = getBookRow(isbn).shouldBe(visible, Duration.ofSeconds(10));
+        bookRow.find("#delete-record-undefined").click();
         closeSmallModalOkButton.shouldBe(visible, enabled).click();
 
-        log.info("Проверка, что книга удалена.");
-        book.closest(".rt-tr-group")
-                .shouldNot(exist.because("Книга с ISBN " + isbn + " не была удалена."));
-
+        bookRow.shouldNot(exist.because("Книга с ISBN " + isbn + " не была удалена."));
         return this;
     }
 }
