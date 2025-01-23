@@ -26,14 +26,13 @@ public class BookStoreApi {
 
     @Step("Очистить все книги в Profile через API")
     public void deleteAllBooksFromProfile() {
-        step("Отправить DELETE запрос на удаление всех книг из Profile", () -> //TODO проверить лишний лямбда-степ
-                given(requestSpec)
-                        .header("Authorization", "Bearer " + token)
-                        .queryParam("UserId", userId)
-                        .when()
-                        .delete("/BookStore/v1/Books")
-                        .then()
-                        .spec(successResponse204Spec));
+        given(requestSpec)
+                .header("Authorization", "Bearer " + token)
+                .queryParam("UserId", userId)
+                .when()
+                .delete("/BookStore/v1/Books")
+                .then()
+                .spec(successResponse204Spec);
     }
 
     @Step("Получить список всех книг из Book Store через API")

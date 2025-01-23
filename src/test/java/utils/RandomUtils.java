@@ -22,40 +22,36 @@ public class RandomUtils {
     }
 
     public final String generateStrongPassword(int length) {
-        if (length < 8) {
-            throw new IllegalArgumentException("Пароль должен быть хотя бы 8 символов.");
+        if (length < 12) { // Минимальная длина для 3 символов каждого типа
+            throw new IllegalArgumentException("Пароль должен быть хотя бы 12 символов.");
         }
 
         String upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         String lowerCase = "abcdefghijklmnopqrstuvwxyz";
         String digits = "0123456789";
-        String specialChars = "!@#$%^&*()-_=+";
+        String specialChars = "!@#$%^&*()-_=+[]{};:'\",.<>?";
 
         Random random = new Random();
 
-        char upper = upperCase.charAt(random.nextInt(upperCase.length()));
-        char lower = lowerCase.charAt(random.nextInt(lowerCase.length()));
-        char digit = digits.charAt(random.nextInt(digits.length()));
-        char special = specialChars.charAt(random.nextInt(specialChars.length()));
-
-        // Создаем StringBuilder для пароля
+        // Создаем части пароля
         StringBuilder password = new StringBuilder();
 
-        // Добавляем обязательные символы
-        password.append(upper);
-        password.append(lower);
-        password.append(digit);
-        password.append(special);
+        // Добавляем ровно 3 символа каждого типа
+        for (int i = 0; i < 3; i++) {
+            password.append(upperCase.charAt(random.nextInt(upperCase.length())));
+            password.append(lowerCase.charAt(random.nextInt(lowerCase.length())));
+            password.append(digits.charAt(random.nextInt(digits.length())));
+            password.append(specialChars.charAt(random.nextInt(specialChars.length())));
+        }
 
-        // Дополняем пароль случайными символами до нужной длины
+        // Дополняем пароль случайными символами, если требуется длина больше 12
         String allChars = upperCase + lowerCase + digits + specialChars;
         for (int i = password.length(); i < length; i++) {
             password.append(allChars.charAt(random.nextInt(allChars.length())));
         }
 
-        // Перемешиваем символы, чтобы не было предсказуемого порядка
-        String passwordStr = password.toString();
-        char[] passwordArray = passwordStr.toCharArray();
+        // Перемешиваем символы, чтобы порядок был случайным
+        char[] passwordArray = password.toString().toCharArray();
         for (int i = 0; i < passwordArray.length; i++) {
             int j = random.nextInt(passwordArray.length);
             char temp = passwordArray[i];
@@ -65,6 +61,7 @@ public class RandomUtils {
 
         return new String(passwordArray);
     }
+
 
     public final int getRandomInt(int min, int max) {
         return min + (int) (Math.random() * ((max - min) + 1));
