@@ -6,7 +6,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-public class StudentRegistrationFormTests extends UI_TestBase {
+public class StudentRegistrationFormUITests extends UI_TestBase {
 
     @Test
     @Tag("UI")

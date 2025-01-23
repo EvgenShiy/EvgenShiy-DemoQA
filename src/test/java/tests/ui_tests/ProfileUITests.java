@@ -7,7 +7,9 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import pages.ProfilePage;
 
-public class ProfileTests extends UI_TestBase {
+import static helpers.extensions.LoginExtension.*;
+
+public class ProfileUITests extends UI_TestBase {
 
     @Test
     @Tag("UI")
@@ -16,11 +18,11 @@ public class ProfileTests extends UI_TestBase {
     void deleteBookFromProfileOnUiTest() {
 
         BookStoreApi bookStoreApi = new BookStoreApi();
-        bookStoreApi.deleteAllBooksFromProfile();
+        bookStoreApi.deleteAllBooksFromProfile(getToken(), getUserId());
 
         String isbn = BookStoreApi.getRandomIsbn();
 
-        bookStoreApi.addBookToProfile(isbn);
+        bookStoreApi.addBookToProfile(isbn,getToken(), getUserId());
 
         ProfilePage profilePage = new ProfilePage();
         profilePage
