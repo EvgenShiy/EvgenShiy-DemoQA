@@ -64,7 +64,7 @@ public class AccountTests extends Api_TestBase {
             log.info("Сгенерированы данные для пользователя: UserName = {}, Password = {}", userName[0], userPassword[0]);
         });
 
-        step("Регистрация сгенерированного пользователя", () -> {   //TODO fix password generator
+        step("Регистрация сгенерированного пользователя", () -> {
             AuthResponseModel response = AccountApi.registerUser(userName[0], userPassword[0]);
 
             userId[0] = response.getUserId();
