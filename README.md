@@ -104,7 +104,7 @@
 
 ---
 
-## <img src="assets/logo/Jenkins.svg" height="25" width="25"/></a> <a id="запуск-тестов-в-jenkins"></a>Запуск тестов в [Jenkins](https://jenkins.autotests.cloud/job/shiian_demoQA_tests/build?delay=0sec)
+## <img src="assets/logo/Jenkins.svg" height="25" width="25"/></a> <a id="запуск-тестов-в-jenkins"></a>Запуск тестов в [Jenkins](https://jenkins.autotests.cloud/job/EvgenShiy-DemoQA/build?delay=0sec)
 
 В данном проекте Jenkins управляет запуском тестов, предоставляет возможность интеграции с различными браузерами и версиями через параметризированные сборки, а также генерирует отчеты о результатах тестирования.
 
