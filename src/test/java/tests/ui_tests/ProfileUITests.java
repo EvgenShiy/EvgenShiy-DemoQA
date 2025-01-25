@@ -10,11 +10,11 @@ import pages.ProfilePage;
 
 import static helpers.extensions.LoginExtension.*;
 
-@Tag("UI")
-@Owner("Shiianova E.")
 public class ProfileUITests extends UI_TestBase {
 
     @Test
+    @Tag("UI")
+    @Owner("Shiianova E.")
     @DisplayName("Удаление книги из Profile на UI")
     @WithLogin
     void deleteBookFromProfileOnUiTest() {

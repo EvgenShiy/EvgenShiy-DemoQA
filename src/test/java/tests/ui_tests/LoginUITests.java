@@ -5,19 +5,21 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-@Tag("UI")
-@Owner("Shiianova E.")
 public class LoginUITests extends UI_TestBase {
 
     WebStepsForLoginPage webStepsForLoginPage = new WebStepsForLoginPage();
 
     @Test
+    @Tag("UI")
+    @Owner("Shiianova E.")
     @DisplayName("Проверка успешной аутентификации зарегистрированного пользователя")
     void successesLoginTest() {
         webStepsForLoginPage.verifySuccessfulLoginExistingUser();
     }
 
     @Test
+    @Tag("UI")
+    @Owner("Shiianova E.")
     @DisplayName("Проверка неудачной аутентификации пользователя")
     void unSuccessesLoginTest() {
         webStepsForLoginPage.openLoginPage();
@@ -28,6 +30,8 @@ public class LoginUITests extends UI_TestBase {
     }
 
     @Test
+    @Tag("UI")
+    @Owner("Shiianova E.")
     @DisplayName("Проверка подсветки обязательных полей красной рамкой при отсутствии ввода")
     public void shouldHighlightMandatoryFieldsWhenEmptyTest() {
         webStepsForLoginPage.openLoginPage();

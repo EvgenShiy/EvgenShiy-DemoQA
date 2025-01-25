@@ -6,11 +6,11 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-@Tag("UI")
-@Owner("Shiianova E.")
 public class StudentRegistrationFormUITests extends UI_TestBase {
 
     @Test
+    @Tag("UI")
+    @Owner("Shiianova E.")
     @DisplayName("Проверка заполнения всех полей формы регистрации")
     public void successRegistrationWithFullValueTest() {
 
@@ -46,6 +46,8 @@ public class StudentRegistrationFormUITests extends UI_TestBase {
     }
 
     @Test
+    @Tag("UI")
+    @Owner("Shiianova E.")
     @DisplayName("Проверка заполнения только обязательных полей формы регистрации")
     public void successRegistrationWithMinimumValueTest() {
 
@@ -64,6 +66,8 @@ public class StudentRegistrationFormUITests extends UI_TestBase {
     }
 
     @Test
+    @Tag("UI")
+    @Owner("Shiianova E.")
     @DisplayName("Проверка подсветки обязательных полей формы регистрации, если они не заполнены")
     public void requiredFieldsHighlightOnSubmitTest() {
 

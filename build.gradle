@@ -72,23 +72,18 @@ tasks.withType(Test) {
     }
 }
 
-task demoqa_API_test(type: Test) {
+task api(type: Test) {
     useJUnitPlatform {
         includeTags("API")
     }
 }
 
-task demoqa_UI_test(type: Test) {
+task ui(type: Test) {
     useJUnitPlatform {
         includeTags("UI")
     }
 }
 
-task demoqa_ALL_test(type: Test) {
-    useJUnitPlatform {
-        includeTags("API", "UI")
-    }
-}
 
 sourceSets {
     test {
