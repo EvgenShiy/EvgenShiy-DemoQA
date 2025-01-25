@@ -59,7 +59,7 @@ public class AccountApi {
     }
 
     public static AuthRequestModel generateRandomUserData() {
-        log.info("Генерация данных для нового рандомного пользователя...");
+        log.info("Генерация данных для нового рандомного пользователя");
 
         RandomUtils randomUtils = new RandomUtils();
 
@@ -96,7 +96,7 @@ public class AccountApi {
         return response;
     }
 
-    @Step("Попытка регистрация нового пользователя с невалидным паролем")
+    @Step("Проверка сообщения об ошибке при попытке регистрации нового пользователя с невалидным паролем")
     public static ErrorResponseModel registerUserWithError(String userName, String password) {
         log.info("Попытка регистрация нового пользователя с данными: UserName = {}", userName);
 
@@ -114,6 +114,23 @@ public class AccountApi {
                 .extract().as(ErrorResponseModel .class);
 
         log.info("Пользователь с данными: UserName = {} не зарегистрирован", userName);
+        return response;
+    }
+
+    @Step("Попытка авторизации с невалидными данными")
+    public static ErrorResponseModel loginWithError(AuthRequestModel authRequest) {
+        log.info("Попытка генерации токена с невалидными данными: UserName = {}", authRequest.getUserName());
+
+        ErrorResponseModel response = given()
+                .spec(requestSpec)
+                .body(authRequest)
+                .when()
+                .post("/Account/v1/GenerateToken")
+                .then()
+                .spec(errorResponse400Spec)
+                .extract().as(ErrorResponseModel.class);
+
+        log.info("Генерация токена завершилась ошибкой. Код: {}, Сообщение: {}", response.getCode(), response.getMessage());
         return response;
     }
 
