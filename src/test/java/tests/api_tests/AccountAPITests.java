@@ -1,6 +1,7 @@
 package tests.api_tests;
 
 import api.AccountApi;
+import helpers.PropertyLoader;
 import lombok.extern.slf4j.Slf4j;
 import models.AuthRequestModel;
 import models.AuthResponseModel;
@@ -10,6 +11,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import utils.RandomUtils;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
 
 import static io.qameta.allure.Allure.step;
 import static org.junit.jupiter.api.Assertions.*;
@@ -101,7 +106,7 @@ public class AccountAPITests extends Api_TestBase {
 
     @Test
     @Tag("API")
-    @DisplayName("Проверка отображения корректного сообщения об ошибке при регистрации нового рандомного пользователя через API")
+    @DisplayName("Проверка отображения корректного сообщения об ошибке при регистрации нового рандомного пользователя некорректными данными через API")
     void verifyErrorRegistrationUserMessageTest() {
 
         String[] userName = new String[1];
@@ -128,4 +133,45 @@ public class AccountAPITests extends Api_TestBase {
             });
         });
     }
+
+    @Test
+    @Tag("API")
+    @DisplayName("Проверка сообщения об ошибке при неверном пароле для зарегистрированного пользователя")
+    void verifyErrorForInvalidPasswordTest() {
+
+        final String[] userName = new String[1];
+        final String[] invalidPassword = new String[1];
+
+        step("Получение зарегистрированного UserName из файла credential.properties", () -> {
+            userName[0] = PropertyLoader.getPropertyFromFile("src/test/resources/properties/credentials.properties", "profileUserName");
+
+            if (userName[0] == null || userName[0].isEmpty()) {
+                throw new RuntimeException("UserName не найден в файле credential.properties");
+            }
+
+            log.info("Получен зарегистрированный UserName: {}", userName[0]);
+        });
+
+        step("Генерация неверного пароля", () -> {
+            RandomUtils userData = new RandomUtils();
+            invalidPassword[0] = userData.generateStrongPassword(12);
+            log.info("Сгенерирован неверный пароль: {}", invalidPassword[0]);
+        });
+
+        step("Попытка авторизации с неверным паролем", () -> { // TODO ЗАВЕСТИ БАГ-РЕПОРТ ДЛЯ JIRA
+            AuthRequestModel authRequest = new AuthRequestModel();
+            authRequest.setUserName(userName[0]);
+            authRequest.setPassword(invalidPassword[0]);
+
+            ErrorResponseModel errorResponse = AccountApi.loginWithError(authRequest);
+
+            step("Проверка сообщения об ошибке", () -> {
+                assertEquals("1200", errorResponse.getCode(), "Код ошибки должен быть 1200");
+                assertEquals("Invalid username or password!", errorResponse.getMessage(), "Сообщение об ошибке должно совпадать с ожидаемым");
+
+                log.info("Получена ожидаемая ошибка: Code = {}, Message = {}", errorResponse.getCode(), errorResponse.getMessage());
+            });
+        });
+    }
+
 }
