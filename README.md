@@ -2,7 +2,7 @@
 
 ---
 
-<img src="https://demoqa.com/images/Toolsqa.jpg" style="width:100%;">
+<img src="https://demoqa.com/images/Toolsqa.jpg" style="width:100%;" alt="Логотип">
 
 ---
 
@@ -25,30 +25,77 @@
 Основные технологии и инструменты, применяемые в проекте, включают **[Java](https://www.java.com/)**, **[Gradle](https://gradle.org/)**, **[Selenide](https://selenide.org/)** для автоматизации взаимодействия с веб-страницей, а также **[Selenoid](https://aerokube.com/selenoid/)** для запуска тестов в разных браузерах и **[Allure Report](https://github.com/allure-framework/allure2)** для отчетов о прохождении тестов. **[JUnit 5](https://junit.org/junit5/)** используется для организации и выполнения тестов, **[Jenkins](https://www.jenkins.io/)** применяется для CI/CD, а **Telegram бот** уведомляет о результатах тестов.
 
 
-<img src="assets/images/form.png" style="width:100%;">
+<img src="assets/images/main.png" style="width:100%;" alt="Главная страница">
 
 ---
 
 ## <a id="технологии-и-инструменты"></a>Технологии и инструменты
-<p align="center">
-  <a href="https://www.java.com/"><img src="assets/logo/Java.svg" alt="Java Logo" height="50" width="50"/></a>
-  <a href="https://www.jetbrains.com/idea/"><img src="assets/logo/Intelij_IDEA.svg" alt="Intelij_IDEA Logo"height="50" width="50"/></a>
-  <a href="https://github.com/"><img src="assets/logo/GitHub.svg" alt="Github" height="50" width="50"/></a>
-  <a href="https://junit.org/junit5/"><img src="assets/logo/JUnit5.svg" alt="JUnit 5" height="50" width="50"/></a>
-  <a href="https://gradle.org/"><img src="assets/logo/Gradle.svg" alt="Gradle" height="50" width="50"/></a>
-  <a href="https://selenide.org/"><img src="assets/logo/Selenide.svg" alt="Selenide" height="50" width="50"/></a>
-  <a href="https://aerokube.com/selenoid/"><img src="assets/logo/Selenoid.svg" alt="Selenoid" height="50" width="50"/></a>
-  <a href="https://github.com/allure-framework"><img src="assets/logo/Allure_Report.svg" alt="Allure" height="50" width="50"/></a>
-  <a href="https://www.jenkins.io/"><img src="assets/logo/Jenkins.svg" alt="Jenkins" height="50" width="50"/></a>
-  <a href="https://web.telegram.org/"><img src="assets/logo/Telegram.svg" alt="Telegram" height="50" width="50"/></a>
-</p>
+<div align="center">
+
+<a href="https://www.java.com/">
+  <img src="assets/logo/Java.svg" alt="Java Logo" height="50" width="50" />
+</a>
+<a href="https://www.jetbrains.com/idea/">
+  <img src="assets/logo/IntelliJ_IDEA.svg" alt="IntelliJ IDEA Logo" height="50" width="50" />
+</a>
+<a href="https://github.com/">
+  <img src="assets/logo/GitHub.svg" alt="GitHub" height="50" width="50" />
+</a>
+<a href="https://junit.org/junit5/">
+  <img src="assets/logo/JUnit5.svg" alt="JUnit 5" height="50" width="50" />
+</a>
+<a href="https://gradle.org/">
+  <img src="assets/logo/Gradle.svg" alt="Gradle" height="50" width="50" />
+</a>
+<a href="https://selenide.org/">
+  <img src="assets/logo/Selenide.svg" alt="Selenide" height="50" width="50" />
+</a>
+<a href="https://aerokube.com/selenoid/">
+  <img src="assets/logo/Selenoid.svg" alt="Selenoid" height="50" width="50" />
+</a>
+<a href="https://github.com/allure-framework">
+  <img src="assets/logo/Allure_Report.svg" alt="Allure" height="50" width="50" />
+</a>
+<a href="https://www.jenkins.io/">
+  <img src="assets/logo/Jenkins.svg" alt="Jenkins" height="50" width="50" />
+</a>
+<a href="https://web.telegram.org/">
+  <img src="assets/logo/Telegram.svg" alt="Telegram" height="50" width="50" />
+</a>
+
+</div>
 
 ---
 
 ## <a id="тест-кейсы"></a>Тест-кейсы
-1. Проверка корректного заполнения всех полей формы регистрации.
-2. Проверка корректного заполнения только обязательных полей формы регистрации.
-3. Проверка подсветки обязательных полей, если они не заполнены.  
+
+### UI Тесты
+
+#### 1. **Login**
+- **Проверка успешной аутентификации** зарегистрированного пользователя.
+- **Проверка неудачной аутентификации** с неверными данными (случайные имя пользователя и пароль).
+- **Проверка подсветки обязательных полей**, если они не заполнены.
+
+#### 2. **Profile**
+- **Удаление книги** из профиля пользователя через UI.
+- **Проверка отображения профиля пользователя** и корректности данных, включая имя пользователя, email и другие атрибуты.
+
+#### 3. **Student Registration Form**
+- **Проверка заполнения всех полей формы регистрации**.
+- **Проверка заполнения только обязательных полей формы регистрации**.
+- **Проверка подсветки обязательных полей**, если они не заполнены.
+
+---
+
+### API Тесты
+
+#### 1. **Account**
+- **Проверка успешной авторизации** через API.
+- **Проверка регистрации нового пользователя** через API.
+- **Проверка получения данных профиля пользователя** через API.
+- **Проверка удаления всех книг** из профиля через API.
+- **Проверка удаления пользователя** через API.
+
 
 ---
 
@@ -56,7 +103,7 @@
 
 В данном проекте Jenkins управляет запуском тестов, предоставляет возможность интеграции с различными браузерами и версиями через параметризированные сборки, а также генерирует отчеты о результатах тестирования.
 
-<img src="assets/images/Jenrins_pr.png" style="width:100%;">
+<img src="assets/images/Jenkins_pr.png" style="width:100%;" alt="Jenkins">
 
 ### Параметаризированная сборка позволяет протестировать различные варианты:  
 * `browserSize` - Разрешение экрана(по умолчанию стандартное разрешение 1920x1080)  
@@ -96,7 +143,7 @@ Allure Report — это инструмент для создания подро
 Отчет в Allure включает шаги выполнения тестов, их статус и возможные ошибки, помогая легче отслеживать качество тестируемого приложения.
 Шаги выполнения на примере Тест-кейса №2 "Проверка заполнения всех полей формы регистрации":
 
-<img src="assets/images/Allure_steps.png" style="width:100%;">   
+<img src="assets/images/Allure_steps.png" style="width:100%;" alt="AllureReports">   
 
 ---
 
@@ -105,7 +152,7 @@ Allure Report — это инструмент для создания подро
 После завершения тестов бот Telegram автоматически отправляет уведомления с результатами тестового прогона, включая информацию о количестве пройденных и неудавшихся тестов.
 
 <p align="center">
-<img src="assets/images/Telegram_bot.png">
+<img src="assets/images/Telegram_bot.png" alt="Telegram_bot">
 </p>
 
 
@@ -113,8 +160,8 @@ Allure Report — это инструмент для создания подро
 
 ## <img src="assets/logo/Selenoid.svg" height="25" width="25"/></a> <a id="видео-прохождения-тестов-в-selenoid"></a>Видео прохождения тестов в Selenoid
 
-Видео прохождения Tест-кейса №2 "Проверка заполнения всех полей формы регистрации":
+Видео прохождения Tест-кейса "Проверка заполнения всех полей формы регистрации":
 
 <p align="center">
-<img title="Selenoid Video" src="assets/videos/FullFormVideo.gif" width="550" height="350"  alt="video">   
+<img title="Selenoid Video" src="assets/videos/FullFormVideo.gif" width="600" height="338"  alt="video">   
 </p>
