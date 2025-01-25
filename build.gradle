@@ -84,7 +84,7 @@ task ui(type: Test) {
     }
 }
 
-println "TestType: ${project.hasProperty('TestType') ? project.TestType : 'not set'}" // Added println to output TestType
+println "TestType: ${project.hasProperty('TestType') ? project.TestType : 'not set'}"
 
 sourceSets {
     test {
