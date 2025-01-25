@@ -35,11 +35,14 @@
   <a href="https://www.jetbrains.com/idea/"><img src="assets/logo/IntelliJ_IDEA.svg" alt="Intellij_IDEA Logo" height="50" width="50"/></a>
   <a href="https://github.com/"><img src="assets/logo/GitHub.svg" alt="Github" height="50" width="50"/></a>
   <a href="https://junit.org/junit5/"><img src="assets/logo/JUnit5.svg" alt="JUnit 5" height="50" width="50"/></a>
+  <a href="https://rest-assured.io/"><img src="assets/logo/RestAssured.png" alt="RestAssured" height="50" width="50"/></a>
   <a href="https://gradle.org/"><img src="assets/logo/Gradle.svg" alt="Gradle" height="50" width="50"/></a>
   <a href="https://selenide.org/"><img src="assets/logo/Selenide.svg" alt="Selenide" height="50" width="50"/></a>
   <a href="https://aerokube.com/selenoid/"><img src="assets/logo/Selenoid.svg" alt="Selenoid" height="50" width="50"/></a>
+  <a href="https://qameta.io/"><img src="assets/logo/AllureTestOps.svg" alt="AllureTest" height="50" width="50"/></a>
   <a href="https://github.com/allure-framework"><img src="assets/logo/Allure_Report.svg" alt="Allure" height="50" width="50"/></a>
   <a href="https://www.jenkins.io/"><img src="assets/logo/Jenkins.svg" alt="Jenkins" height="50" width="50"/></a>
+  <a href="https://www.atlassian.com/software/jira"><img src="assets/logo/Jira.svg" alt="Jira" height="50" width="50"/></a>
   <a href="https://web.telegram.org/"><img src="assets/logo/Telegram.svg" alt="Telegram" height="50" width="50"/></a>
 </p>
 
