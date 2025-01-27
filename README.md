@@ -13,7 +13,7 @@
 * <a href="#запуски-тестов-из-терминала">Запуски тестов из терминала</a>
 * <a href="#интеграции">Интеграции</a>
 * * <a href="#Сборка-в-Jenkins">Сборка в Jenkins</a>
-* * <a href="#нтеграция-с-Allure-Report">Интеграция с Allure Report</a>
+* * <a href="#интеграция-с-Allure-Report">Интеграция с Allure Report</a>
 * * <a href="#нтеграция-с-Allure-TestOps">Интеграция с Allure TestOps</a>
 * * <a href="#нтеграция-с-Jira">Интеграция с Jira</a>
 * <a href="#уведомление-о-результатах-тестов-в-telegram">Уведомление о результатах тестов в Telegram</a>
@@ -156,7 +156,7 @@ gradle clean test -Denv="remote" -Drwhost="selenoid.autotests.cloud" -Dlogin="us
 
 ---
 
-## <img src="assets/logo/Allure_Report.svg" height="25" width="25"/></a> <a id="отчет-о-выполнении-тестов-в-allure-report"></a>Отчет о выполнении тестов в [Allure Report](https://jenkins.autotests.cloud/job/EvgenShiy-DemoQA/9/allure/)
+### <img src="assets/logo/Allure_Report.svg" height="25" width="25"/></a> <a id="интеграция-с-Allure-Report"></a>Интеграция с [Allure Report](https://jenkins.autotests.cloud/job/EvgenShiy-DemoQA/9/allure/)
 
 Allure Report — это инструмент для создания подробных и наглядных отчетов о результатах выполнения тестов. В нем отображаются все тестовые шаги, статусы тестов, а также дополнительные детали, такие как время выполнения и возможные ошибки. Allure помогает быстро анализировать результаты тестирования и предоставляет информацию в удобном визуальном формате.
 
