@@ -49,6 +49,7 @@ public class StudentRegistrationFormUITests extends UI_TestBase {
 
     @Test
     @Tag("UI")
+    @Feature("PracticeForm")
     @Owner("Shiianova E.")
     @DisplayName("Проверка заполнения только обязательных полей формы регистрации")
     public void successRegistrationWithMinimumValueTest() {
@@ -69,6 +70,7 @@ public class StudentRegistrationFormUITests extends UI_TestBase {
 
     @Test
     @Tag("UI")
+    @Feature("PracticeForm")
     @Owner("Shiianova E.")
     @DisplayName("Проверка подсветки обязательных полей формы регистрации, если они не заполнены")
     public void requiredFieldsHighlightOnSubmitTest() {
