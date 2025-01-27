@@ -2,6 +2,7 @@ package tests.api_tests;
 
 import api.AccountApi;
 import api.BookStoreApi;
+import io.qameta.allure.Feature;
 import models.AuthRequestModel;
 import models.AuthResponseModel;
 import models.UserProfileModel;
@@ -21,6 +22,7 @@ public class ProfileAPITests extends Api_TestBase {
 
     @Test
     @Tag("API")
+    @Feature("Bookstore")
     @DisplayName("Удаление всех книг из Profile через API")
     void deleteAllBooksFromProfileAPITest() {
 

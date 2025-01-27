@@ -184,14 +184,15 @@ Allure TestOps — это мощная платформа для управле�
 
 Пример панели мониторинга в Allure TestOps:
 
-<p align="center"> <img src="assets/images/AllureDashBoard.png" alt="AllureTestOps Dashboard" style="width:100%;"> </p>
+<p align="center"> <img src="assets/images/Allure_Dash_Board.png" alt="AllureTestOps Dashboard" style="width:100%;"> </p>
 
 Авто-тесты проекта: 
 
 <p align="center"> <img src="assets/images/AllureTestOpsAuto.png" alt="AllureTestOps авто-тесты" style="width:100%;"> </p>
 
+Ручные тесты проекта:
 
-
+<p align="center"> <img src="assets/images/AllureTestOpsManualTests.png" alt="AllureTestOps ручные тесты" style="width:100%;"> </p>
 
 ---
 

@@ -1,5 +1,6 @@
 package tests.ui_tests;
 
+import io.qameta.allure.Feature;
 import io.qameta.allure.Owner;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -11,6 +12,7 @@ public class LoginUITests extends UI_TestBase {
 
     @Test
     @Tag("UI")
+    @Feature("Account")
     @Owner("Shiianova E.")
     @DisplayName("Проверка успешной аутентификации зарегистрированного пользователя")
     void successesLoginTest() {
@@ -19,6 +21,7 @@ public class LoginUITests extends UI_TestBase {
 
     @Test
     @Tag("UI")
+    @Feature("Account")
     @Owner("Shiianova E.")
     @DisplayName("Проверка неудачной аутентификации пользователя")
     void unSuccessesLoginTest() {
@@ -31,6 +34,7 @@ public class LoginUITests extends UI_TestBase {
 
     @Test
     @Tag("UI")
+    @Feature("Account")
     @Owner("Shiianova E.")
     @DisplayName("Проверка подсветки обязательных полей красной рамкой при отсутствии ввода")
     public void shouldHighlightMandatoryFieldsWhenEmptyTest() {

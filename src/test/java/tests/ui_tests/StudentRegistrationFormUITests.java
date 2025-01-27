@@ -1,6 +1,7 @@
 package tests.ui_tests;
 
 import helpers.Attach;
+import io.qameta.allure.Feature;
 import io.qameta.allure.Owner;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -10,6 +11,7 @@ public class StudentRegistrationFormUITests extends UI_TestBase {
 
     @Test
     @Tag("UI")
+    @Feature("PracticeForm")
     @Owner("Shiianova E.")
     @DisplayName("Проверка заполнения всех полей формы регистрации")
     public void successRegistrationWithFullValueTest() {

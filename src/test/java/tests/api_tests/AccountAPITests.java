@@ -2,6 +2,7 @@ package tests.api_tests;
 
 import api.AccountApi;
 import helpers.PropertyLoader;
+import io.qameta.allure.Feature;
 import io.qameta.allure.Owner;
 import lombok.extern.slf4j.Slf4j;
 import models.AuthRequestModel;
@@ -25,6 +26,7 @@ public class AccountAPITests extends Api_TestBase {
 
     @Test
     @Tag("API")
+    @Feature("Account")
     @Owner("Shiianova E.")
     @DisplayName("Регистрация нового рандомного пользователя через API")
     void registerRandomUserTest() {
@@ -56,6 +58,7 @@ public class AccountAPITests extends Api_TestBase {
 
     @Test
     @Tag("API")
+    @Feature("Account")
     @Owner("Shiianova E.")
     @DisplayName("Удаление пользователя через API")
     void deleteUserTest() {
@@ -109,6 +112,7 @@ public class AccountAPITests extends Api_TestBase {
 
     @Test
     @Tag("API")
+    @Feature("Account")
     @Owner("Shiianova E.")
     @DisplayName("Проверка отображения корректного сообщения об ошибке при регистрации нового рандомного пользователя некорректными данными через API")
     void verifyErrorRegistrationUserMessageTest() {
@@ -140,6 +144,7 @@ public class AccountAPITests extends Api_TestBase {
 
     @Test
     @Tag("API")
+    @Feature("Account")
     @Owner("Shiianova E.")
     @DisplayName("Проверка сообщения об ошибке при неверном пароле для зарегистрированного пользователя")
     void verifyErrorForInvalidPasswordTest() {

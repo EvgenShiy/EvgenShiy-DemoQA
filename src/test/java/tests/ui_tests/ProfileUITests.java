@@ -2,6 +2,7 @@ package tests.ui_tests;
 
 import api.BookStoreApi;
 import helpers.extensions.WithLogin;
+import io.qameta.allure.Feature;
 import io.qameta.allure.Owner;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -14,6 +15,7 @@ public class ProfileUITests extends UI_TestBase {
 
     @Test
     @Tag("UI")
+    @Feature("Bookstore")
     @Owner("Shiianova E.")
     @DisplayName("Удаление книги из Profile на UI")
     @WithLogin
