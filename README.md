@@ -202,10 +202,16 @@ Allure TestOps — это мощная платформа для управле�
 
 <p align="center"> <img src="assets/images/AllureTestOpsManualTests.png" alt="AllureTestOps ручные тесты" style="width:100%;"> </p>
 
+
+<p align="center"> <img src="assets/images/AllureBug.png" alt="AllureTestOps bug" style="width:100%;"> </p>
+
 ---
 
 ### <img src="assets/logo/Jira.svg" height="25" width="25"/></a> <a id="интеграция-с-Jira"></a>Интеграция с [Jira](https://jira.autotests.cloud/browse/HOMEWORK-1390)
 
+<p align="center">
+<img src="assets/images/Jira_main.png" alt="Jira">
+</p>
 
 --- 
 
