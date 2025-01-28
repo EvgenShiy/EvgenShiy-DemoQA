@@ -1,12 +1,8 @@
 package pages;
 
 import com.codeborne.selenide.SelenideElement;
-import com.codeborne.selenide.WebDriverRunner;
 import io.qameta.allure.Step;
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.ElementClickInterceptedException;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -71,9 +67,9 @@ public class ProfilePage {
 
         SelenideElement bookRow = getBookRow(isbn).shouldBe(visible, Duration.ofSeconds(10));
 
-        SelenideElement deleteButton = bookRow.find("#delete-record-undefined");   // Проверка на перекрытие элемента
+        SelenideElement deleteButton = bookRow.find("#delete-record-undefined");
         if (deleteButton.is(visible)) {
-            deleteButton.scrollIntoView(true); // Скроллинг до кнопки
+            deleteButton.scrollIntoView(true);
             if (deleteButton.is(not(visible.because("Кнопка перекрыта другим элементом")))) {
                 throw new ElementClickInterceptedException("Кнопка удаления перекрыта");
             }
@@ -86,6 +82,6 @@ public class ProfilePage {
 
         bookRow.shouldNot(exist.because("Книга с ISBN " + isbn + " не была удалена."));
 
-       return this;
+        return this;
     }
 }

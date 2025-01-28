@@ -4,8 +4,7 @@ public enum Browser {
     FIREFOX,
     CHROME;
 
-    public String browserToLowerCase()
-    {
+    public String browserToLowerCase() {
         return this.name().toLowerCase();
     }
 

@@ -33,17 +33,17 @@ public class WebStepsForLoginPage {
     }
 
     @Step("Нажать кнопку 'Login'")
-    public void pressLoginButton(){
+    public void pressLoginButton() {
         loginPage.clickLoginButton();
     }
 
     @Step("Нажать кнопку 'New User'")
-    public void pressNewUserButton(){
+    public void pressNewUserButton() {
         loginPage.clickNewUserButton();
     }
 
     @Step("Авторизоваться зарегистрированным пользователем с логином {username} и паролем {password}")
-    public void verifySuccessfulLoginExistingUser(){
+    public void verifySuccessfulLoginExistingUser() {
         helpers.PropertyLoader.loadCredentials();
 
         String username = System.getProperty("profileUserName");
@@ -60,7 +60,7 @@ public class WebStepsForLoginPage {
     }
 
     @Step("Проверить неудачную аутентификацию пользователя")
-    public void verifyErrorDisplayedForInvalidCredentials(){
+    public void verifyErrorDisplayedForInvalidCredentials() {
         loginPage.verifyErrorMessage("Invalid username or password!");
     }
 

@@ -104,14 +104,14 @@ public class AccountApi {
         request.setUserName(userName);
         request.setPassword(password);
 
-        ErrorResponseModel  response = given()
+        ErrorResponseModel response = given()
                 .spec(requestSpec)
                 .body(request)
                 .when()
                 .post("/Account/v1/User")
                 .then()
                 .spec(errorResponse400Spec)
-                .extract().as(ErrorResponseModel .class);
+                .extract().as(ErrorResponseModel.class);
 
         log.info("Пользователь с данными: UserName = {} не зарегистрирован", userName);
         return response;

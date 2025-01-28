@@ -77,7 +77,7 @@ public class ProfileAPITests extends Api_TestBase {
 
         step("Добавить вторую случайную книгу в профиль", () -> {
             String isbn2 = BookStoreApi.getRandomIsbn();
-            bookStoreApi.addBookToProfile(isbn2,token[0], userId[0]);
+            bookStoreApi.addBookToProfile(isbn2, token[0], userId[0]);
             log.info("Вторая книга с ISBN {} добавлена в профиль", isbn2);
         });
 

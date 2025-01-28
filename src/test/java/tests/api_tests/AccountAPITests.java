@@ -3,6 +3,7 @@ package tests.api_tests;
 import api.AccountApi;
 import helpers.PropertyLoader;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Issue;
 import io.qameta.allure.Owner;
 import lombok.extern.slf4j.Slf4j;
 import models.AuthRequestModel;
@@ -13,10 +14,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import utils.RandomUtils;
-
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Properties;
 
 import static io.qameta.allure.Allure.step;
 import static org.junit.jupiter.api.Assertions.*;
@@ -145,6 +142,7 @@ public class AccountAPITests extends Api_TestBase {
     @Test
     @Tag("API")
     @Feature("Account")
+    @Issue("HOMEWORK-1391")
     @Owner("Shiianova E.")
     @DisplayName("Проверка сообщения об ошибке при неверном пароле для зарегистрированного пользователя")
     void verifyErrorForInvalidPasswordTest() {

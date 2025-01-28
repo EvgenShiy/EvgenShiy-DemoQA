@@ -3,7 +3,6 @@ package utils;
 import com.github.javafaker.Faker;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class RandomUtils {
 

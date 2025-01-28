@@ -16,17 +16,4 @@ public class UserProfileModel {
     private String phone;
     private String address;
     private List<String> books;
-
-//    @Override
-//    public String toString() {
-//        return "UserProfileModel{" +
-//                "userId='" + userId + '\'' +
-//                ", userName='" + userName + '\'' +
-//                ", firstName='" + firstName + '\'' +
-//                ", lastName='" + lastName + '\'' +
-//                ", email='" + email + '\'' +
-//                ", phone='" + phone + '\'' +
-//                ", address='" + address + '\'' +
-//                '}';
-//    }
 }

@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 import java.util.Random;
 
-import static io.qameta.allure.Allure.step;
 import static io.restassured.RestAssured.given;
 import static specs.ApiSpecs.*;
 
@@ -16,12 +15,7 @@ public class BookStoreApi {
 
     private static final Logger log = LoggerFactory.getLogger(BookStoreApi.class);
 
-    private static String token;
-    private static String userId;
-
     public static void setAuthData(String authToken, String userIdentifier) {
-        token = authToken;
-        userId = userIdentifier;
     }
 
     @Step("Очистить все книги в Profile через API")

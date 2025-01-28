@@ -11,16 +11,16 @@ import static com.codeborne.selenide.Selenide.*;
 public class StudentRegistrationPage {
 
     private final SelenideElement firstNameInput = $("#firstName"),
-                            lastNameInput = $("#lastName"),
-                            userEmailInput =  $("#userEmail"),
-                            genderWrapper = $("#genterWrapper"),
-                            userNumber = $("#userNumber"),
-                            calendarInput = $("#dateOfBirthInput"),
-                            subjectsInput = $("#subjectsInput"),
-                            uploadPicture = $("#uploadPicture"),
-                            hobbiesWrapper = $("#hobbiesWrapper"),
-                            currentAddress = $("#currentAddress"),
-                            submitButton =  $("button#submit");
+            lastNameInput = $("#lastName"),
+            userEmailInput = $("#userEmail"),
+            genderWrapper = $("#genterWrapper"),
+            userNumber = $("#userNumber"),
+            calendarInput = $("#dateOfBirthInput"),
+            subjectsInput = $("#subjectsInput"),
+            uploadPicture = $("#uploadPicture"),
+            hobbiesWrapper = $("#hobbiesWrapper"),
+            currentAddress = $("#currentAddress"),
+            submitButton = $("button#submit");
 
     CalendarComponent calendarComponent = new CalendarComponent();
     ModalComponent modalComponent = new ModalComponent();

@@ -1,36 +1,3 @@
-/*
-package helpers;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Properties;
-
-public class PropertyLoader {
-
-    private static final Logger log = LoggerFactory.getLogger(PropertyLoader.class);
-
-    public static void loadCredentials() {
-        try (FileInputStream fis = new FileInputStream("src/test/resources/properties/credentials.properties")) {
-
-            log.info("Loading credentials from: src/test/resources/properties/credentials.properties");
-
-            Properties properties = new Properties();
-            properties.load(fis);
-
-            System.setProperty("profileUserName", properties.getProperty("profileUserName"));
-            System.setProperty("profileUserPassword", properties.getProperty("profileUserPassword"));
-        } catch (IOException e) {
-            log.error("Error loading credentials.properties", e);
-            throw new RuntimeException("Error loading credentials.properties", e);
-        }
-    }
-}
-
- */
-
 package helpers;
 
 import org.slf4j.Logger;
@@ -64,7 +31,7 @@ public class PropertyLoader {
      * Читает конкретное свойство из указанного файла свойств.
      *
      * @param filePath путь к файлу свойств.
-     * @param key ключ свойства.
+     * @param key      ключ свойства.
      * @return значение свойства.
      */
     public static String getPropertyFromFile(String filePath, String key) {

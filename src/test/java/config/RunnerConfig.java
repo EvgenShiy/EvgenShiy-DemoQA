@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class RunnerConfig {
 
-    private final  WebDriverConfig config;
+    private final WebDriverConfig config;
 
     public RunnerConfig() {
         this.config = ConfigFactory.create(WebDriverConfig.class, System.getProperties());

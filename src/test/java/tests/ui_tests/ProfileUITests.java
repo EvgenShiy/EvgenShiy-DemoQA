@@ -26,7 +26,7 @@ public class ProfileUITests extends UI_TestBase {
 
         String isbn = BookStoreApi.getRandomIsbn();
 
-        bookStoreApi.addBookToProfile(isbn,getToken(), getUserId());
+        bookStoreApi.addBookToProfile(isbn, getToken(), getUserId());
 
         ProfilePage profilePage = new ProfilePage();
         profilePage
