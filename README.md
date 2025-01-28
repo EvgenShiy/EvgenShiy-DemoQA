@@ -25,17 +25,17 @@
 Данный проект представляет собой автоматизацию тестирования приложения [demoqa.com](https://demoqa.com/) с использованием Java, Selenide, Rest Assured и других инструментов. Проект охватывает как UI-, так и API-тестирование, включая сценарии авторизации, управления корзиной и проверки отображения данных пользователя.
 
 Проект реализован с использованием:
-**[Java](https://www.java.com/)**: основной язык программирования.
-**[Selenide](https://selenide.org/)**: для автоматизации UI-тестов.
-**[Selenoid](https://aerokube.com/selenoid/)**: для запуска тестов в разных браузерах.
-**[Rest Assured](https://rest-assured.io/)**: для выполнения API-тестов.
-**[JUnit 5](https://junit.org/junit5/)**: для написания и выполнения тестов.
-**[Gradle](https://gradle.org/)**: для сборки проекта.
-**[Allure Report](https://github.com/allure-framework/allure2)**: для генерации детализированных отчетов.
-**[Jenkins](https://www.jenkins.io/)**: для организации CI/CD процесса.
-**[Allure TestOps]([https://github.com/allure-framework/allure2](https://qameta.io/))**: тест-менджмент система для организации хранения авто- и ручных тестов в едином пространстве, с возможностью кастамизировать запуски.
-**[Jira](https://www.atlassian.com/ru/software/jira)**: для управления задачами.
-**Telegram бот** для уведомления о результатах тестирования.
+-**[Java](https://www.java.com/)**: основной язык программирования.
+-**[Selenide](https://selenide.org/)**: для автоматизации UI-тестов.
+-**[Selenoid](https://aerokube.com/selenoid/)**: для запуска тестов в разных браузерах.
+-**[Rest Assured](https://rest-assured.io/)**: для выполнения API-тестов.
+-**[JUnit 5](https://junit.org/junit5/)**: для написания и выполнения тестов.
+-**[Gradle](https://gradle.org/)**: для сборки проекта.
+-**[Allure Report](https://github.com/allure-framework/allure2)**: для генерации детализированных отчетов.
+-**[Jenkins](https://www.jenkins.io/)**: для организации CI/CD процесса.
+-**[Allure TestOps]([https://github.com/allure-framework/allure2](https://qameta.io/))**: тест-менджмент система для организации хранения авто- и ручных тестов в едином пространстве, с возможностью кастамизировать запуски.
+-**[Jira](https://www.atlassian.com/ru/software/jira)**: для управления задачами.
+-**Telegram бот** для уведомления о результатах тестирования.
 
 <img src="assets/images/main.png" style="width:100%;" alt="Главная страница">
 
