@@ -33,7 +33,7 @@
 * **[Gradle](https://gradle.org/)**: для сборки проекта.
 * **[Allure Report](https://github.com/allure-framework/allure2)**: для генерации детализированных отчетов.
 * **[Jenkins](https://www.jenkins.io/)**: для организации CI/CD процесса.
-* **[Allure TestOps]([https://github.com/allure-framework/allure2](https://qameta.io/))**: тест-менджмент система для организации хранения авто- и ручных тестов в едином пространстве, с возможностью кастамизировать запуски.
+* **[Allure TestOps]([https://github.com/allure-framework/allure2](https://qameta.io/)**: тест-менджмент система для организации хранения авто- и ручных тестов в едином пространстве, с возможностью кастамизировать запуски.
 * **[Jira](https://www.atlassian.com/ru/software/jira)**: для управления задачами.
 * **Telegram бот** для уведомления о результатах тестирования.
 
