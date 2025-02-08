@@ -5,6 +5,7 @@ import io.qameta.allure.Owner;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import steps.UI_Steps.WebStepsForLoginPage;
 
 public class LoginUITests extends UI_TestBase {
 

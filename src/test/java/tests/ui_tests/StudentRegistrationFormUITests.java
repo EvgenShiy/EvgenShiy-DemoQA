@@ -6,6 +6,8 @@ import io.qameta.allure.Owner;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import steps.UI_Steps.WebStepsForStudentRegistrationPage;
+import utils.StudentData;
 
 public class StudentRegistrationFormUITests extends UI_TestBase {
 
@@ -15,6 +17,7 @@ public class StudentRegistrationFormUITests extends UI_TestBase {
     @Owner("Shiianova E.")
     @DisplayName("Проверка заполнения всех полей формы регистрации")
     public void successRegistrationWithFullValueTest() {
+
 
         WebStepsForStudentRegistrationPage steps = new WebStepsForStudentRegistrationPage();
 

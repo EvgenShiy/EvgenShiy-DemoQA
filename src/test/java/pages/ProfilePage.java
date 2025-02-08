@@ -2,7 +2,6 @@ package pages;
 
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
-import org.openqa.selenium.ElementClickInterceptedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,7 +10,6 @@ import java.time.Duration;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.assertj.core.api.BDDAssertions.as;
 
 public class ProfilePage {
 
@@ -61,7 +59,7 @@ public class ProfilePage {
     public ProfilePage deleteBookInProfile(String isbn) {
         log.info("Попытка удаления книги с ISBN: {}", isbn);
 
-        removeIframes(); // Используем уже существующий метод
+        removeIframes();
 
         SelenideElement bookRow = getBookRow(isbn).shouldBe(visible, Duration.ofSeconds(10));
 

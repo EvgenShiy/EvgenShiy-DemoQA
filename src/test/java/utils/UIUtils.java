@@ -2,7 +2,7 @@ package utils;
 
 import static com.codeborne.selenide.Selenide.executeJavaScript;
 
-public class UIUtils {
+public class UIUtils { //TODO УДАЛИТЬ ЕСЛИ ЛИШНЕЕ
     public static void removeAdvertisements() {
         executeJavaScript("$('#fixedban').remove();");
         executeJavaScript("$('footer').remove();");

@@ -1,4 +1,4 @@
-package tests.ui_tests;
+package steps.UI_Steps;
 
 import io.qameta.allure.Step;
 import lombok.Getter;
