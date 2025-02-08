@@ -38,6 +38,7 @@ dependencies {
             'org.slf4j:slf4j-api:2.0.9',
             'ch.qos.logback:logback-classic:1.4.12',
             'org.aspectj:aspectjweaver:1.9.7'
+
     )
 
     // API-specific dependencies

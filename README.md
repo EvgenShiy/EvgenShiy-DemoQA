@@ -12,7 +12,7 @@
 * <a href="#тест-кейсы">Тест-кейсы</a>
 * <a href="#запуски-тестов-из-терминала">Запуски тестов из терминала</a>
 * <a href="#интеграции">Интеграции</a>
-* * <a href="#Сборка-в-Jenkins">Сборка в Jenkins</a>
+* <a href="#сборка-в-Jenkins">Сборка в Jenkins</a>
 * * <a href="#интеграция-с-Allure-Report">Интеграция с Allure Report</a>
 * * <a href="#интеграция-с-Allure-TestOps">Интеграция с Allure TestOps</a>
 * * <a href="#интеграция-с-Jira">Интеграция с Jira</a>
@@ -165,7 +165,7 @@ gradle clean test -Denv="remote" -Drwhost="selenoid.autotests.cloud" -Dlogin="us
 
 <p style="text-align: right;"><a href="#содержание">Перейти к содержанию</a></p>
 
-### <img src="assets/logo/Jenkins.svg" height="25" width="25"/></a> <a id="Сборка-в-Jenkins"></a>Сборка в [Jenkins](https://jenkins.autotests.cloud/job/EvgenShiy-DemoQA/build?delay=0sec)
+### <img src="assets/logo/Jenkins.svg" height="25" width="25"/> <a id="сборка-в-Jenkins"></a>Сборка в [Jenkins](https://jenkins.autotests.cloud/job/EvgenShiy-DemoQA/build?delay=0sec)
 
 Проект интегрирован с Jenkins для автоматизированного запуска тестов. Сборка в Jenkins включает:
 
