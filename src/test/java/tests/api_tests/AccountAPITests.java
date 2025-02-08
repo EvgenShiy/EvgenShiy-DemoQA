@@ -143,29 +143,28 @@ public class AccountAPITests extends Api_TestBase {
     @DisplayName("Проверка сообщения об ошибке при неверном пароле для зарегистрированного пользователя")
     void verifyErrorForInvalidPasswordTest() {
 
-        final String[] userName = new String[1];
-        final String[] invalidPassword = new String[1];
+        final String userName = step("Получение зарегистрированного UserName из файла credential.properties", () -> {
+           String name = PropertyLoader.getPropertyFromFile("src/test/resources/properties/credentials.properties", "profileUserName");
 
-        step("Получение зарегистрированного UserName из файла credential.properties", () -> {
-            userName[0] = PropertyLoader.getPropertyFromFile("src/test/resources/properties/credentials.properties", "profileUserName");
-
-            if (userName[0] == null || userName[0].isEmpty()) {
+            if (name == null || name.isEmpty()) {
                 throw new RuntimeException("UserName не найден в файле credential.properties");
             }
 
-            log.info("Получен зарегистрированный UserName: {}", userName[0]);
+            log.info("Получен зарегистрированный UserName: {}", name);
+            return name;
         });
 
-        step("Генерация неверного пароля", () -> {
+        final String invalidPassword = step("Генерация неверного пароля", () -> {
             RandomUtils userData = new RandomUtils();
-            invalidPassword[0] = userData.generateStrongPassword(12);
-            log.info("Сгенерирован неверный пароль: {}", invalidPassword[0]);
+            String password = userData.generateStrongPassword(12);
+            log.info("Сгенерирован неверный пароль: {}", password);
+            return password;
         });
 
         step("Попытка авторизации с неверным паролем", () -> { //  Issue("HOMEWORK-1391") в JIRA
             AuthRequestModel authRequest = new AuthRequestModel();
-            authRequest.setUserName(userName[0]);
-            authRequest.setPassword(invalidPassword[0]);
+            authRequest.setUserName(userName);
+            authRequest.setPassword(invalidPassword);
 
             ErrorResponseModel errorResponse = AccountApi.loginWithError(authRequest);
 
