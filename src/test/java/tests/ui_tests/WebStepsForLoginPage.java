@@ -17,7 +17,7 @@ public class WebStepsForLoginPage {
 
     @Step("Открыть страницу login")
     public void openLoginPage() {
-        loginPage.openPage();
+        loginPage.openPageRemoveBanners();
     }
 
     @Step("Заполнить поле UserName рандомным значением: {lastGeneratedUserName}")

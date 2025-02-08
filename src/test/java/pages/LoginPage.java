@@ -18,8 +18,20 @@ public class LoginPage {
     @Step("Открыть страницу Login")
     public LoginPage openPage() {
         open("/login");
+        return this;
+    }
+
+    @Step("Удалить баннеры на странице")
+    public LoginPage removeBanners() {
         executeJavaScript("$('#fixedban').remove();");
         executeJavaScript("$('footer').remove();");
+        return this;
+    }
+
+    @Step("Открыть страницу Login и удалить баннеры на странице")
+    public LoginPage openPageRemoveBanners() {
+        openPage();
+        removeBanners();
         return this;
     }
 
@@ -60,7 +72,7 @@ public class LoginPage {
     }
 
     @Step("Проверить, что поле {fieldName} подсвечено красной рамкой как обязательное")
-    public LoginPage verifyFieldHighlightedAsMandatory(String fieldName) {
+    public LoginPage verifyFieldHighlightedAsMandatory(String fieldName) {  // TODO Если хочется проверить цвета двух полей, таким образом, просто лучше всего написать на это два метода по четыре строчки каждый
         SelenideElement field;
         switch (fieldName.toLowerCase()) {
             case "username":

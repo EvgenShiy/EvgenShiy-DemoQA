@@ -9,7 +9,11 @@ import java.net.URL;
         "classpath:properties/local.properties"
 })
 
-public interface WebDriverConfig extends Config {
+public interface WebDriverConfig extends Config {   //TODO -- не используются как Sources переменные среды из Дженкинса.
+
+                                                    //https://matteobaccan.github.io/owner/docs/loading-strategies/
+                                                    //    -- тут есть примеры как их подключать.
+
 
     @Key("browserName")
     @DefaultValue("CHROME")

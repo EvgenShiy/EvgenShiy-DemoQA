@@ -43,17 +43,19 @@ public class LoginExtension implements BeforeEachCallback {
             open("/favicon.ico");
 
             // Удаление рекламных блоков и ненужных элементов
-            UIUtils.removeAdvertisements();
+            //UIUtils.removeAdvertisements(); //TODO ЛИШНЕЕ
 
             getWebDriver().manage().addCookie(new Cookie("token", token));
             getWebDriver().manage().addCookie(new Cookie("expires", authResponse.getExpires()));
             getWebDriver().manage().addCookie(new Cookie("userID", userId));
         });
 
-        step("Проверить успешную авторизацию", () -> {
+        /*
+        step("Проверить успешную авторизацию", () -> {    //TODO перенести проверку успешной авторизации на уровень тестов
             ProfilePage profilePage = new ProfilePage();
             profilePage.openPage().checkUserName();
         });
+        */
 
         step("Добавить токен и userId в BookStoreApi", () -> {
             BookStoreApi.setAuthData(token, userId);

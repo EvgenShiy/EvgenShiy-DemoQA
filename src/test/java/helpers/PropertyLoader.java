@@ -9,7 +9,7 @@ import java.util.Properties;
 
 public class PropertyLoader {
 
-    private static final Logger log = LoggerFactory.getLogger(PropertyLoader.class);
+    private static final Logger log = LoggerFactory.getLogger(PropertyLoader.class);  //TODO вместо этого класса нужен конфиг с овнером, и в него читать проперти, и из него брать их значения.
 
     public static void loadCredentials() {
         try (FileInputStream fis = new FileInputStream("src/test/resources/properties/credentials.properties")) {
