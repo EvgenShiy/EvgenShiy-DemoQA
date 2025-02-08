@@ -197,8 +197,7 @@ Allure Report предоставляет подробные отчёты о те
 
 <img src="assets/images/last_Allure_report.png" style="width:100%;" alt="AllureReport">
 
-Отчет в Allure включает шаги выполнения тестов, их статус и возможные ошибки, помогая легче отслеживать качество тестируемого приложения.
-Шаги выполнения на примере тест-кейса "Проверка заполнения всех полей формы регистрации":
+Шаги выполнения теста:
 
 <img src="assets/images/Allure_Steps.png" style="width:100%;" alt="AllureReports">   
 
