@@ -33,12 +33,10 @@ dependencies {
             "com.codeborne:selenide:$selenideVersion",
             "io.qameta.allure:allure-selenide:$allureVersion",
             "org.junit.jupiter:junit-jupiter:5.10.0",
-            "org.slf4j:slf4j-simple:2.0.7",
+            "org.slf4j:slf4j-simple:2.0.16",
             "org.aeonbits.owner:owner:1.0.12",
-            'org.slf4j:slf4j-api:2.0.9',
-            'ch.qos.logback:logback-classic:1.4.12',
+            'org.slf4j:slf4j-api:2.0.16',
             'org.aspectj:aspectjweaver:1.9.7'
-
     )
 
     // API-specific dependencies
@@ -53,8 +51,7 @@ dependencies {
     // UI-specific dependencies
     testImplementation(
             'com.github.javafaker:javafaker:1.0.2',
-            'org.apache.logging.log4j:log4j-core:2.20.0',
-            'io.github.bonigarcia:webdrivermanager:5.9.2'
+            'io.github.bonigarcia:webdrivermanager:5.9.2' //TODO УБРАТЬ
     )
 
     // Runtime dependencies

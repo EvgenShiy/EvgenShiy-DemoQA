@@ -2,7 +2,6 @@ package pages;
 
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
-import org.openqa.selenium.ElementClickInterceptedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,6 +9,7 @@ import java.time.Duration;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class ProfilePage {
 
@@ -48,11 +48,9 @@ public class ProfilePage {
         log.info("Проверка наличия книги с ISBN: {}, shouldExist: {}", isbn, shouldExist);
         SelenideElement book = getBookRow(isbn);
 
-        if (shouldExist) {
-            book.should(exist);
-        } else {
-            book.shouldNot(exist);
-        }
+        assertThat(book.exists())
+                .as("Ожидаемое наличие книги с ISBN %s", isbn)
+                .isEqualTo(shouldExist);
 
         return this;
     }
@@ -61,22 +59,19 @@ public class ProfilePage {
     public ProfilePage deleteBookInProfile(String isbn) {
         log.info("Попытка удаления книги с ISBN: {}", isbn);
 
-        if ($$("iframe").size() > 0) {   // Удаление iframe, если присутствует
-            removeIframes();
-        }
+        removeIframes();
 
         SelenideElement bookRow = getBookRow(isbn).shouldBe(visible, Duration.ofSeconds(10));
 
-        SelenideElement deleteButton = bookRow.find("#delete-record-undefined");
-        if (deleteButton.is(visible)) {
-            deleteButton.scrollIntoView(true);
-            if (deleteButton.is(not(visible.because("Кнопка перекрыта другим элементом")))) {
-                throw new ElementClickInterceptedException("Кнопка удаления перекрыта");
-            }
-            deleteButton.click();
-        } else {
-            throw new IllegalStateException("Кнопка удаления не найдена");
-        }
+        SelenideElement deleteButton = bookRow.find("#delete-record-undefined")
+                .shouldBe(visible.because("Кнопка удаления должна быть видимой"))
+                .scrollIntoView(true);
+
+        assertThat(deleteButton.is(not(visible.because("Кнопка перекрыта другим элементом"))))
+            .as("Кнопка удаления не должна быть перекрыта")
+                .isFalse();
+
+        deleteButton.click();
 
         closeSmallModalOkButton.shouldBe(visible, enabled).click();
 
@@ -84,4 +79,6 @@ public class ProfilePage {
 
         return this;
     }
+
+
 }

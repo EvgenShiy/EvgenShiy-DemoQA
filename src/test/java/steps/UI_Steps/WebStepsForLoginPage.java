@@ -1,4 +1,4 @@
-package tests.ui_tests;
+package steps.UI_Steps;
 
 import io.qameta.allure.Step;
 import lombok.Getter;
@@ -17,7 +17,7 @@ public class WebStepsForLoginPage {
 
     @Step("Открыть страницу login")
     public void openLoginPage() {
-        loginPage.openPage();
+        loginPage.openPageRemoveBanners();
     }
 
     @Step("Заполнить поле UserName рандомным значением: {lastGeneratedUserName}")

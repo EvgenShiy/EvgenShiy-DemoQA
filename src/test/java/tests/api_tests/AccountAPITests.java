@@ -28,19 +28,18 @@ public class AccountAPITests extends Api_TestBase {
     @DisplayName("Регистрация нового рандомного пользователя через API")
     void registerRandomUserTest() {
 
-        final String[] userName = new String[1];
-        final String[] userPassword = new String[1];
+        AuthRequestModel userData = step("Генерация данных для нового пользователя", () -> {
+            AuthRequestModel result = AccountApi.generateRandomUserData();
 
-        step("Генерация данных для нового пользователя", () -> {
-            AuthRequestModel userData = AccountApi.generateRandomUserData();
-            userName[0] = userData.getUserName();
-            userPassword[0] = userData.getPassword();
-
-            log.info("Сгенерированы данные для пользователя: UserName = {}, Password = {}", userName[0], userPassword[0]);
+            log.info("Сгенерированы данные пользователя: UserName = {}, Password = {}", result.getUserName(), result.getPassword());
+            return result;
         });
 
+        final String userName = userData.getUserName();
+        final String userPassword = userData.getPassword();
+
         step("Регистрация сгенерированного пользователя", () -> {
-            AuthResponseModel response = AccountApi.registerUser(userName[0], userPassword[0]);
+            AuthResponseModel response = AccountApi.registerUser(userName, userPassword);
 
             step("Проверить, что регистрация прошла успешно", () -> {
                 assertNotNull(response.getUsername(), "UserName не должен быть null");
@@ -60,30 +59,28 @@ public class AccountAPITests extends Api_TestBase {
     @DisplayName("Удаление пользователя через API")
     void deleteUserTest() {
 
-        final String[] userName = new String[1];
-        final String[] userPassword = new String[1];
-        final String[] userId = new String[1];
+        AuthRequestModel userData = step("Генерация данных для нового пользователя", () -> {
+            AuthRequestModel result = AccountApi.generateRandomUserData();
 
-        step("Генерация данных для нового пользователя", () -> {
-            AuthRequestModel userData = AccountApi.generateRandomUserData();
-            userName[0] = userData.getUserName();
-            userPassword[0] = userData.getPassword();
-
-            log.info("Сгенерированы данные для пользователя: UserName = {}, Password = {}", userName[0], userPassword[0]);
+            log.info("Сгенерированы данные пользователя: UserName = {}, Password = {}", result.getUserName(), result.getPassword());
+            return result;
         });
 
-        step("Регистрация сгенерированного пользователя", () -> {
-            AuthResponseModel response = AccountApi.registerUser(userName[0], userPassword[0]);
+        final String userName = userData.getUserName();
+        final String userPassword = userData.getPassword();
 
-            userId[0] = response.getUserId();
+        AuthResponseModel response = step("Регистрация сгенерированного пользователя", () ->{
+            return AccountApi.registerUser(userName, userPassword);
+        });
 
-            step("Проверить, что регистрация прошла успешно", () -> {
-                log.info("Пользователь успешно зарегистрирован: UserName = {}, UserId = {}", response.getUsername(), response.getUserId());
-            });
+        final String userId = response.getUserId();
+
+        step("Проверить, что регистрация прошла успешно", () -> {
+            log.info("Пользователь успешно зарегистрирован: UserName = {}, UserId = {}", response.getUsername(), response.getUserId());
         });
 
         String token = step("Получить токен пользователя", () ->
-                AccountApi.generateAuthToken(userName[0], userPassword[0]).getToken()
+                AccountApi.generateAuthToken(userName, userPassword).getToken()
         );
 
         step("Проверить, что токен получен", () -> {
@@ -92,16 +89,16 @@ public class AccountAPITests extends Api_TestBase {
         });
 
         UserProfileModel initialProfile = step("Получить данные профиля", () ->
-                AccountApi.getUserProfile(token, userId[0])
+                AccountApi.getUserProfile(token, userId)
         );
 
         step("Проверить, что профиль содержит корректные данные", () -> {
-            assertEquals(userName[0], initialProfile.getUserName(), "Имя пользователя не совпадает");
+            assertEquals(userName, initialProfile.getUserName(), "Имя пользователя не совпадает");
             log.info("Профиль пользователя успешно получен: {}", initialProfile);
         });
 
         step("Удалить пользователя", () ->
-                AccountApi.deleteUser(token, userId[0])
+                AccountApi.deleteUser(token, userId)
         );
 
         log.info("Пользователь успешно удален.");
@@ -114,19 +111,18 @@ public class AccountAPITests extends Api_TestBase {
     @DisplayName("Проверка отображения корректного сообщения об ошибке при регистрации нового рандомного пользователя некорректными данными через API")
     void verifyErrorRegistrationUserMessageTest() {
 
-        String[] userName = new String[1];
-        String[] userPassword = new String[1];
+        AuthRequestModel userData = step("Генерация данных для нового пользователя", () -> {
+            AuthRequestModel result = AccountApi.generateRandomUserData();
 
-        step("Генерация данных для нового пользователя", () -> {
-            RandomUtils userData = new RandomUtils();
-            userName[0] = userData.getRandomFirstName();
-            userPassword[0] = userData.getRandomString(7);
-
-            log.info("Сгенерированы данные для пользователя: UserName = {}, Password = {}", userName[0], userPassword[0]);
+            log.info("Сгенерированы данные пользователя: UserName = {}, Password = {}", result.getUserName(), result.getPassword());
+            return result;
         });
 
+        final String userName = userData.getUserName();
+        final String userPassword = userData.getPassword();
+
         step("Регистрация сгенерированного пользователя", () -> {
-            ErrorResponseModel response = AccountApi.registerUserWithError(userName[0], userPassword[0]);
+            ErrorResponseModel response = AccountApi.registerUserWithError(userName, userPassword);
 
             step("Проверить, что попытка регистрации прошла неудачно", () -> {
                 assertEquals("1300", response.getCode(), "Код ошибки должен быть 1300");
@@ -147,29 +143,28 @@ public class AccountAPITests extends Api_TestBase {
     @DisplayName("Проверка сообщения об ошибке при неверном пароле для зарегистрированного пользователя")
     void verifyErrorForInvalidPasswordTest() {
 
-        final String[] userName = new String[1];
-        final String[] invalidPassword = new String[1];
+        final String userName = step("Получение зарегистрированного UserName из файла credential.properties", () -> {
+           String name = PropertyLoader.getPropertyFromFile("src/test/resources/properties/credentials.properties", "profileUserName");
 
-        step("Получение зарегистрированного UserName из файла credential.properties", () -> {
-            userName[0] = PropertyLoader.getPropertyFromFile("src/test/resources/properties/credentials.properties", "profileUserName");
-
-            if (userName[0] == null || userName[0].isEmpty()) {
+            if (name == null || name.isEmpty()) {
                 throw new RuntimeException("UserName не найден в файле credential.properties");
             }
 
-            log.info("Получен зарегистрированный UserName: {}", userName[0]);
+            log.info("Получен зарегистрированный UserName: {}", name);
+            return name;
         });
 
-        step("Генерация неверного пароля", () -> {
+        final String invalidPassword = step("Генерация неверного пароля", () -> {
             RandomUtils userData = new RandomUtils();
-            invalidPassword[0] = userData.generateStrongPassword(12);
-            log.info("Сгенерирован неверный пароль: {}", invalidPassword[0]);
+            String password = userData.generateStrongPassword(12);
+            log.info("Сгенерирован неверный пароль: {}", password);
+            return password;
         });
 
-        step("Попытка авторизации с неверным паролем", () -> { // TODO ЗАВЕСТИ БАГ-РЕПОРТ ДЛЯ JIRA
+        step("Попытка авторизации с неверным паролем", () -> { //  Issue("HOMEWORK-1391") в JIRA
             AuthRequestModel authRequest = new AuthRequestModel();
-            authRequest.setUserName(userName[0]);
-            authRequest.setPassword(invalidPassword[0]);
+            authRequest.setUserName(userName);
+            authRequest.setPassword(invalidPassword);
 
             ErrorResponseModel errorResponse = AccountApi.loginWithError(authRequest);
 
