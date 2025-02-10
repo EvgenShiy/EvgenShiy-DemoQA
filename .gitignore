@@ -63,3 +63,9 @@ Thumbs.db
 
 ### WebDriver Caches ###
 .cache/
+webdriver/
+selenium/
+
+### Credentials and Sensitive Data ###
+src/test/resources/properties/credentials.properties
+src/test/resources/properties/remote.properties

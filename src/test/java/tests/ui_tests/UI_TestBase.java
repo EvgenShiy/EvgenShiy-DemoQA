@@ -15,6 +15,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.util.Map;
+import java.util.Objects;
 
 import static com.codeborne.selenide.Selenide.closeWebDriver;
 
@@ -32,25 +33,30 @@ public class UI_TestBase {
         Configuration.browser = config.getBrowserName().browserToLowerCase();
         Configuration.browserVersion = config.getBrowserVersion();
 
-        if (config.getRemoteUrl() != null) {
-            Configuration.remote = config.getRemoteUrl().toString();
-            DesiredCapabilities capabilities = new DesiredCapabilities();
+        String remoteUrl = config.getRemoteUrl();
+        System.out.println("Remote URL: " + remoteUrl);  // Логирование
+        if (remoteUrl != null && !remoteUrl.isEmpty()) {
+            Configuration.remote = remoteUrl;
+        }
+
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        if (remoteUrl != null && !remoteUrl.isEmpty()) {
             capabilities.setCapability("selenoid:options", Map.of(
                     "enableVNC", true,
                     "enableVideo", true
             ));
-            Configuration.browserCapabilities = capabilities;
         } else {
-            // Для локального запуска автоматически загружаем драйвер
-            if (Configuration.browser.equals("chrome")) {
+            if (Objects.equals(Configuration.browser, "chrome")) {
                 WebDriverManager.chromedriver().setup();
-            } else if (Configuration.browser.equals("firefox")) {
+            } else if (Objects.equals(Configuration.browser, "firefox")) {
                 WebDriverManager.firefoxdriver().setup();
-            } else if (Configuration.browser.equals("edge")) {
+            } else if (Objects.equals(Configuration.browser, "edge")) {
                 WebDriverManager.edgedriver().setup();
             }
         }
+        Configuration.browserCapabilities = capabilities;
     }
+
 
     @BeforeEach
     void addListener() {

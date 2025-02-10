@@ -1,7 +1,7 @@
 package tests.api_tests;
 
 import api.AccountApi;
-import helpers.PropertyLoader;
+import config.CredentialsConfig;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Issue;
 import io.qameta.allure.Owner;
@@ -10,6 +10,7 @@ import models.AuthRequestModel;
 import models.AuthResponseModel;
 import models.ErrorResponseModel;
 import models.UserProfileModel;
+import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -20,6 +21,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
 public class AccountAPITests extends Api_TestBase {
+
+    private static final CredentialsConfig credentials = ConfigFactory.create(CredentialsConfig.class, System.getProperties());
+
 
     @Test
     @Tag("API")
@@ -144,11 +148,7 @@ public class AccountAPITests extends Api_TestBase {
     void verifyErrorForInvalidPasswordTest() {
 
         final String userName = step("Получение зарегистрированного UserName из файла credential.properties", () -> {
-           String name = PropertyLoader.getPropertyFromFile("src/test/resources/properties/credentials.properties", "profileUserName");
-
-            if (name == null || name.isEmpty()) {
-                throw new RuntimeException("UserName не найден в файле credential.properties");
-            }
+           String name = credentials.getUsername();
 
             log.info("Получен зарегистрированный UserName: {}", name);
             return name;

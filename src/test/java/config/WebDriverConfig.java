@@ -11,7 +11,7 @@ public interface WebDriverConfig extends Config {
 
     @Key("browserName")
     @DefaultValue("CHROME")
-    Browser getBrowserName();  // ✅ Возвращаем Browser, а не String
+    Browser getBrowserName();
 
     @Key("browserSize")
     @DefaultValue("1920x1080")
@@ -22,7 +22,7 @@ public interface WebDriverConfig extends Config {
     String getBrowserVersion();
 
     @Key("remoteUrl")
-    URL getRemoteUrl();
+    String getRemoteUrl();
 
     @Key("pageLoadStrategy")
     @DefaultValue("eager")

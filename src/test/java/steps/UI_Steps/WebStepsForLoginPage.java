@@ -1,7 +1,9 @@
 package steps.UI_Steps;
 
+import config.CredentialsConfig;
 import io.qameta.allure.Step;
 import lombok.Getter;
+import org.aeonbits.owner.ConfigFactory;
 import pages.LoginPage;
 import utils.RandomUtils;
 
@@ -9,6 +11,7 @@ public class WebStepsForLoginPage {
 
     private final LoginPage loginPage = new LoginPage();
     private final RandomUtils randomUtils = new RandomUtils();
+    private static final CredentialsConfig credentials = ConfigFactory.create(CredentialsConfig.class, System.getProperties());
 
     @Getter
     private String lastGeneratedUserName;
@@ -37,17 +40,12 @@ public class WebStepsForLoginPage {
         loginPage.clickLoginButton();
     }
 
-    @Step("Нажать кнопку 'New User'")
-    public void pressNewUserButton() {
-        loginPage.clickNewUserButton();
-    }
-
     @Step("Авторизоваться зарегистрированным пользователем с логином {username} и паролем {password}")
     public void verifySuccessfulLoginExistingUser() {
-        helpers.PropertyLoader.loadCredentials();
 
-        String username = System.getProperty("profileUserName");
-        String password = System.getProperty("profileUserPassword");
+        String username = credentials.getUsername();
+        String password = credentials.getPassword();
+
 
         if (username == null || password == null) {
             throw new IllegalStateException("Error: Логин или пароль не загружены из файла properties.");
