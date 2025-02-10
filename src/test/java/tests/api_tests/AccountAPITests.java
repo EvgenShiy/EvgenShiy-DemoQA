@@ -112,7 +112,7 @@ public class AccountAPITests extends Api_TestBase {
     void verifyErrorRegistrationUserMessageTest() {
 
         AuthRequestModel userData = step("Генерация данных для нового пользователя", () -> {
-            AuthRequestModel result = AccountApi.generateRandomUserData();
+            AuthRequestModel result = AccountApi.generateInvalidUserData();
 
             log.info("Сгенерированы данные пользователя: UserName = {}, Password = {}", result.getUserName(), result.getPassword());
             return result;
