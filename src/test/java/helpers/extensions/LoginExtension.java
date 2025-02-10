@@ -7,8 +7,6 @@ import org.openqa.selenium.Cookie;
 import models.AuthResponseModel;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
-import pages.ProfilePage;
-import utils.UIUtils;
 
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
@@ -42,20 +40,10 @@ public class LoginExtension implements BeforeEachCallback {
         step("Добавить cookies для аутентификации в браузер", () -> {
             open("/favicon.ico");
 
-            // Удаление рекламных блоков и ненужных элементов
-            //UIUtils.removeAdvertisements(); //TODO ЛИШНЕЕ
-
             getWebDriver().manage().addCookie(new Cookie("token", token));
             getWebDriver().manage().addCookie(new Cookie("expires", authResponse.getExpires()));
             getWebDriver().manage().addCookie(new Cookie("userID", userId));
         });
-
-        /*
-        step("Проверить успешную авторизацию", () -> {    //TODO перенести проверку успешной авторизации на уровень тестов
-            ProfilePage profilePage = new ProfilePage();
-            profilePage.openPage().checkUserName();
-        });
-        */
 
         step("Добавить токен и userId в BookStoreApi", () -> {
             BookStoreApi.setAuthData(token, userId);
