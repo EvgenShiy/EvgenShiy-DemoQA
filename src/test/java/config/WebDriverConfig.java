@@ -5,15 +5,11 @@ import org.aeonbits.owner.Config;
 import java.net.URL;
 
 @Config.Sources({
+        "system:properties",
         "classpath:properties/${env}.properties",
         "classpath:properties/local.properties"
 })
-
-public interface WebDriverConfig extends Config {   //TODO -- не используются как Sources переменные среды из Дженкинса.
-
-                                                    //https://matteobaccan.github.io/owner/docs/loading-strategies/
-                                                    //    -- тут есть примеры как их подключать.
-
+public interface WebDriverConfig extends Config {
 
     @Key("browserName")
     @DefaultValue("CHROME")
@@ -26,7 +22,6 @@ public interface WebDriverConfig extends Config {   //TODO -- не исполь�
     @Key("browserVersion")
     @DefaultValue("125.0")
     String getBrowserVersion();
-
 
     @Key("remoteUrl")
     URL getRemoteUrl();

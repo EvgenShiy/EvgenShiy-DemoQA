@@ -59,7 +59,7 @@ public class AccountApi {
     }
 
     public static AuthRequestModel generateRandomUserData() {
-        log.info("Генерация данных для нового рандомного пользователя");
+        log.info("Генерация валидного логина и пароля для нового рандомного пользователя");
 
         RandomUtils randomUtils = new RandomUtils();
 
@@ -70,7 +70,23 @@ public class AccountApi {
         request.setUserName(randomUserName);
         request.setPassword(randomPassword);
 
-        log.info("Сгенерированы данные: UserName = {}, Password = {}", randomUserName, randomPassword);
+        log.info("Сгенерированы данные пользователя: UserName = {}, Password = {}", randomUserName, randomPassword);
+        return request;
+    }
+
+    public static AuthRequestModel generateInvalidUserData() {
+        log.info("Генерация невалидного пароля для нового рандомного пользователя");
+
+        RandomUtils randomUtils = new RandomUtils();
+
+        String randomUserName = randomUtils.getRandomFirstName();
+        String randomPassword = randomUtils.getRandomString(8);
+
+        AuthRequestModel request = new AuthRequestModel();
+        request.setUserName(randomUserName);
+        request.setPassword(randomPassword);
+
+        log.info("Сгенерирован невалидный пароль: Password = {} для пользователя: UserName = {}", randomUserName, randomPassword);
         return request;
     }
 
