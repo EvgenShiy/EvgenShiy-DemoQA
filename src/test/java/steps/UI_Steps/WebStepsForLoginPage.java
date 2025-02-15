@@ -24,15 +24,15 @@ public class WebStepsForLoginPage {
     }
 
     @Step("Заполнить поле UserName рандомным значением: {lastGeneratedUserName}")
-    public void setRandomUserName() {
-        lastGeneratedUserName = randomUtils.getRandomFirstName();
-        loginPage.setUsername(lastGeneratedUserName);
+    public void setRandomUserName(String randomUserName) {
+        this.lastGeneratedUserName = randomUserName;
+        loginPage.setUsername(this.lastGeneratedUserName);
     }
 
     @Step("Заполнить поле Password рандомным значением: {lastGeneratedPassword}")
-    public void setRandomPassword() {
-        lastGeneratedPassword = randomUtils.getRandomString(8);
-        loginPage.setPassword(lastGeneratedPassword);
+    public void setRandomPassword(String randomPassword) {
+        this.lastGeneratedPassword = randomPassword;
+        loginPage.setPassword(this.lastGeneratedPassword);
     }
 
     @Step("Нажать кнопку 'Login'")
