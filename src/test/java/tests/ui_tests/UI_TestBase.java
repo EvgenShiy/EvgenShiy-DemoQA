@@ -137,15 +137,17 @@ public class UI_TestBase {
             capabilities.setCapability("selenoid:options", selenoidOptions);
 
             ChromeOptions options = new ChromeOptions();
-            options.addArguments("--headless", "--no-sandbox", "--disable-dev-shm-usage");
+            options.addArguments("--no-sandbox");
 
-// Исправляем проблемы с ChromeOptions
+// Убираем пустой массив extensions
+            options.setExperimentalOption("extensions", null);
             options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
             options.setExperimentalOption("useAutomationExtension", false);
 
             capabilities.setCapability(ChromeOptions.CAPABILITY, options);
             capabilities.setCapability("browserVersion", Configuration.browserVersion);
-            capabilities.setCapability("platformName", "ANY");
+            capabilities.setCapability("platformName", "LINUX"); // заменяем "any" на "LINUX"
+
 
         } else {
             if (Objects.equals(Configuration.browser, "chrome")) {
