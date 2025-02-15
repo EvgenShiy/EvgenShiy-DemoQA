@@ -1,4 +1,4 @@
-/*package tests.ui_tests;
+package tests.ui_tests;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.logevents.SelenideLogger;
@@ -61,113 +61,6 @@ public class UI_TestBase {
         Configuration.browserCapabilities = capabilities;
     }
 
-
-    @BeforeEach
-    void addListener() {
-        SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
-    }
-
-    @AfterEach
-    void addAttachments() {
-        Attach.screenshotAs("Screenshot");
-        if (!Configuration.browser.equals("firefox")) {
-            Attach.pageSource();
-            Attach.browserConsoleLogs();
-        }
-        Attach.addVideo();
-        closeWebDriver();
-    }
-}
-
- */
-package tests.ui_tests;
-
-import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.logevents.SelenideLogger;
-import config.WebDriverConfig;
-import helpers.Attach;
-import io.github.bonigarcia.wdm.WebDriverManager;
-import io.qameta.allure.selenide.AllureSelenide;
-import io.restassured.RestAssured;
-import io.restassured.parsing.Parser;
-import org.aeonbits.owner.ConfigFactory;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.json.Json;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-
-import static com.codeborne.selenide.Selenide.closeWebDriver;
-
-public class UI_TestBase {
-    private static final WebDriverConfig config = ConfigFactory.create(WebDriverConfig.class, System.getProperties());
-
-    @BeforeAll
-    public static void setUp() {
-        RestAssured.baseURI = "https://demoqa.com";
-        RestAssured.defaultParser = Parser.JSON;
-
-        Configuration.baseUrl = "https://demoqa.com";
-        Configuration.pageLoadStrategy = config.getPageLoadStrategy();
-        Configuration.browserSize = config.getBrowserSize();
-        Configuration.browser = config.getBrowserName().browserToLowerCase();
-        Configuration.browserVersion = config.getBrowserVersion();
-
-        String remoteUrl = config.getRemoteUrl();
-        System.out.println("DEBUG: remoteUrl from config = " + remoteUrl);
-
-        if (remoteUrl != null && !remoteUrl.isEmpty()) {
-            Configuration.remote = remoteUrl;
-        }
-
-        DesiredCapabilities capabilities = new DesiredCapabilities();
-
-        if (remoteUrl != null && !remoteUrl.isEmpty()) {
-            Map<String, Object> selenoidOptions = new HashMap<>();
-            selenoidOptions.put("enableVNC", true);
-            selenoidOptions.put("enableVideo", true);
-            selenoidOptions.put("sessionTimeout", "3m");
-            selenoidOptions.put("name", "MyTestSession");
-            capabilities.setCapability("selenoid:options", selenoidOptions);
-
-            ChromeOptions options = new ChromeOptions();
-
-// Отключаем sandbox (попробовать запустить без него)
-           // options.addArguments("--no-sandbox");
-
-// Исправляем ошибки JSON
-            options.setExperimentalOption("extensions", null);
-            options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
-            options.setExperimentalOption("useAutomationExtension", false);
-
-            capabilities.setCapability(ChromeOptions.CAPABILITY, options);
-            capabilities.setCapability("browserVersion", Configuration.browserVersion);
-            capabilities.setCapability("platformName", "LINUX"); // заменяем "linux" на "LINUX"
-            capabilities.setCapability("acceptInsecureCerts", true); // Разрешаем небезопасные сертификаты
-
-
-
-        } else {
-            if (Objects.equals(Configuration.browser, "chrome")) {
-                WebDriverManager.chromedriver().setup();
-            } else if (Objects.equals(Configuration.browser, "firefox")) {
-                WebDriverManager.firefoxdriver().setup();
-            } else if (Objects.equals(Configuration.browser, "edge")) {
-                WebDriverManager.edgedriver().setup();
-            }
-        }
-
-        System.out.println("DEBUG: Final JSON capabilities = " + new Json().toJson(capabilities));
-
-        Configuration.browserCapabilities = capabilities;
-        System.out.println("DEBUG: JSON capabilities = " + new Json().toJson(Configuration.browserCapabilities));
-    }
 
     @BeforeEach
     void addListener() {
