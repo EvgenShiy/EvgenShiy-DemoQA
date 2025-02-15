@@ -96,8 +96,10 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.json.Json;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -130,11 +132,13 @@ public class UI_TestBase {
             Map<String, Object> selenoidOptions = new HashMap<>();
             selenoidOptions.put("enableVNC", true);
             selenoidOptions.put("enableVideo", true);
+            selenoidOptions.put("sessionTimeout", "3m");
+            selenoidOptions.put("name", "MyTestSession");
             capabilities.setCapability("selenoid:options", selenoidOptions);
 
-            // Добавляем ChromeOptions для headless режима
             ChromeOptions options = new ChromeOptions();
-            options.addArguments("--headless=new", "--no-sandbox", "--disable-dev-shm-usage");
+            options.addArguments("--headless", "--no-sandbox", "--disable-dev-shm-usage");
+            options.setExperimentalOption("excludeSwitches", List.of("enable-automation"));
             capabilities.setCapability(ChromeOptions.CAPABILITY, options);
         } else {
             if (Objects.equals(Configuration.browser, "chrome")) {
@@ -147,7 +151,7 @@ public class UI_TestBase {
         }
 
         Configuration.browserCapabilities = capabilities;
-        System.out.println("DEBUG: browserCapabilities = " + capabilities);
+        System.out.println("DEBUG: JSON capabilities = " + new Json().toJson(Configuration.browserCapabilities));
     }
 
     @BeforeEach
