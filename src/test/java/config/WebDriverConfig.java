@@ -2,6 +2,8 @@ package config;
 
 import org.aeonbits.owner.Config;
 
+import java.net.URL;
+
 @Config.Sources({
         "system:properties",
         "classpath:properties/${env}.properties",
@@ -22,7 +24,7 @@ public interface WebDriverConfig extends Config {
     String getBrowserVersion();
 
     @Key("remoteUrl")
-    String getRemoteUrl();
+    URL getRemoteUrl();
 
     @Key("pageLoadStrategy")
     @DefaultValue("eager")
