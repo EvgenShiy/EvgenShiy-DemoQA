@@ -138,7 +138,9 @@ public class UI_TestBase {
 
             ChromeOptions options = new ChromeOptions();
             options.addArguments("--headless", "--no-sandbox", "--disable-dev-shm-usage");
-            options.setExperimentalOption("excludeSwitches", List.of("enable-automation"));
+
+            options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
+
             capabilities.setCapability(ChromeOptions.CAPABILITY, options);
         } else {
             if (Objects.equals(Configuration.browser, "chrome")) {
@@ -149,6 +151,8 @@ public class UI_TestBase {
                 WebDriverManager.edgedriver().setup();
             }
         }
+
+        System.out.println("DEBUG: Final JSON capabilities = " + new Json().toJson(capabilities));
 
         Configuration.browserCapabilities = capabilities;
         System.out.println("DEBUG: JSON capabilities = " + new Json().toJson(Configuration.browserCapabilities));
