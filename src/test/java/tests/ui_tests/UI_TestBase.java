@@ -137,16 +137,20 @@ public class UI_TestBase {
             capabilities.setCapability("selenoid:options", selenoidOptions);
 
             ChromeOptions options = new ChromeOptions();
-            options.addArguments("--no-sandbox");
 
-// Убираем пустой массив extensions
+// Отключаем sandbox (попробовать запустить без него)
+           // options.addArguments("--no-sandbox");
+
+// Исправляем ошибки JSON
             options.setExperimentalOption("extensions", null);
             options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
             options.setExperimentalOption("useAutomationExtension", false);
 
             capabilities.setCapability(ChromeOptions.CAPABILITY, options);
             capabilities.setCapability("browserVersion", Configuration.browserVersion);
-            capabilities.setCapability("platformName", "LINUX"); // заменяем "any" на "LINUX"
+            capabilities.setCapability("platformName", "LINUX"); // заменяем "linux" на "LINUX"
+            capabilities.setCapability("acceptInsecureCerts", true); // Разрешаем небезопасные сертификаты
+
 
 
         } else {
