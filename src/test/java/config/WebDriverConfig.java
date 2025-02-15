@@ -1,9 +1,9 @@
 package config;
 
 import org.aeonbits.owner.Config;
-import java.net.URL;
 
 @Config.Sources({
+        "system:properties",
         "classpath:properties/${env}.properties",
         "classpath:properties/local.properties"
 })
