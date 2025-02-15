@@ -34,7 +34,11 @@ public class UI_TestBase {
         Configuration.browserVersion = config.getBrowserVersion();
 
         String remoteUrl = config.getRemoteUrl();
-        System.out.println("Remote URL: " + remoteUrl);  // Логирование
+
+        String rwhost = System.getProperty("rwhost");
+        System.out.println("DEBUG: remoteUrl from config = " + remoteUrl);
+        System.out.println("DEBUG: rwhost from system properties = " + rwhost);
+
         if (remoteUrl != null && !remoteUrl.isEmpty()) {
             Configuration.remote = remoteUrl;
         }
