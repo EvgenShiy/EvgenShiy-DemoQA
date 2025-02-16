@@ -45,8 +45,6 @@ public class WebStepsForLoginPage {
 
     @Step("Авторизоваться зарегистрированным пользователем с логином {0} и паролем {1}")
     public void verifySuccessfulLoginExistingUser() {
-        //String username = credentials.getUsername();
-        //String password = credentials.getPassword();
 
         String username = System.getProperty("profileUserName", credentials.getUsername());
         String password = System.getProperty("profileUserPassword", credentials.getPassword());

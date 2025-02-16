@@ -27,14 +27,30 @@ public class ProfilePage {
         return this;
     }
 
+//    @Step("Проверить корректное отображение username в Profile")
+//    public ProfilePage checkUserName() {
+//        CredentialsConfig credentials = ConfigFactory.create(CredentialsConfig.class, System.getProperties());
+//        String login = credentials.getUsername();
+//        log.info("Проверка отображения username: {}", login);
+//        userNameValue.shouldHave(text(login));
+//        return this;
+//    }
+
     @Step("Проверить корректное отображение username в Profile")
     public ProfilePage checkUserName() {
         CredentialsConfig credentials = ConfigFactory.create(CredentialsConfig.class, System.getProperties());
         String login = credentials.getUsername();
+
+        if (login == null || login.trim().isEmpty()) {
+            throw new IllegalStateException("Ошибка: profileUserName не может быть пустым! Проверь, передаётся ли параметр в Jenkins.");
+        }
+
         log.info("Проверка отображения username: {}", login);
         userNameValue.shouldHave(text(login));
+
         return this;
     }
+
 
     private void removeIframes() {
         log.info("Удаление всех iframe с страницы.");

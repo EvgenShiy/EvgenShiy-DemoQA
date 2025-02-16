@@ -30,9 +30,6 @@ public class LoginExtension implements BeforeEachCallback {
     @Override
     public void beforeEach(ExtensionContext context) {
 
-        //String username = credentials.getUsername();
-       // String password = credentials.getPassword();
-
         String username = System.getProperty("profileUserName", credentials.getUsername());
         String password = System.getProperty("profileUserPassword", credentials.getPassword());
 
