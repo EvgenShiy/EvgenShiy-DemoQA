@@ -119,9 +119,9 @@ public class RandomUtils {
         return getRandomItemFromArray(hobbies);
     }
 
-    public final String getRandomFoto() {
-        String[] fotos = {"testfile.png", "testfile2.png", "testfile3.png"};
-        return getRandomItemFromArray(fotos);
+    public final String getRandomPhoto() {
+        String[] photos = {"testfile.png", "testfile2.png", "testfile3.png"};
+        return getRandomItemFromArray(photos);
     }
 
     public final String getRandomState() {

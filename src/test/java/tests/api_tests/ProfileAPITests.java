@@ -3,6 +3,7 @@ package tests.api_tests;
 import api.AccountApi;
 import api.BookStoreApi;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Owner;
 import models.AuthRequestModel;
 import models.AuthResponseModel;
 import models.UserProfileModel;
@@ -19,50 +20,45 @@ import static io.qameta.allure.Allure.step;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+@Tag("API")
+@Feature("Bookstore")
+@Owner("Shiianova E.")
 public class ProfileAPITests extends Api_TestBase {
 
     private static final Logger log = LoggerFactory.getLogger(ProfileAPITests.class);
 
     @Test
-    @Tag("API")
-    @Feature("Bookstore")
     @DisplayName("Удаление всех книг из Profile через API")
     void deleteAllBooksFromProfileAPITest() {
 
         AuthRequestModel userData = step("Генерация данных для нового пользователя", () -> {
             AuthRequestModel result = AccountApi.generateRandomUserData();
-
-            log.info("Сгенерированы данные пользователя: UserName = {}, Password = {}", result.getUserName(), result.getPassword());
+            log.info("[USER GENERATION] Сгенерированы данные: UserName = {}, Password = {}", result.getUserName(), result.getPassword());
             return result;
         });
 
         final String userName = userData.getUserName();
         final String userPassword = userData.getPassword();
 
-        AuthResponseModel response = step("Регистрация сгенерированного пользователя", () -> AccountApi.registerUser(userName, userPassword));
-
+        AuthResponseModel response = step("Регистрация пользователя", () -> AccountApi.registerUser(userName, userPassword));
         final String userId = response.getUserId();
 
         step("Проверить, что регистрация прошла успешно", () -> {
-            log.info("Пользователь успешно зарегистрирован: UserName = {}, UserId = {}", response.getUsername(), response.getUserId()); //TODO Similar log messages
+            log.info("[USER REGISTRATION SUCCESS] UserName = {}, UserId = {}", response.getUsername(), response.getUserId());
         });
 
-        String token = step("Получить токен пользователя", () ->
-                AccountApi.generateAuthToken(userName, userPassword).getToken()
-        );
+        String token = step("Получение токена пользователя", () -> AccountApi.generateAuthToken(userName, userPassword).getToken());
 
         step("Проверить, что токен получен", () -> {
-            assertNotNull(token, "Токен не должен быть null");
-            log.info("Токен пользователя получен: {}", token);
+            assertNotNull(token, "[VALIDATION] Токен не должен быть null");
+            log.info("[TOKEN RECEIVED] Token = {}", token);
         });
 
-        UserProfileModel initialProfile = step("Получить данные профиля", () ->
-                AccountApi.getUserProfile(token, userId)
-        );
+        UserProfileModel initialProfile = step("Получение профиля пользователя", () -> AccountApi.getUserProfile(token, userId));
 
         step("Проверить, что профиль содержит корректные данные", () -> {
-            assertEquals(userName, initialProfile.getUserName(), "Имя пользователя не совпадает");
-            log.info("Профиль пользователя успешно получен: {}", initialProfile);
+            assertEquals(userName, initialProfile.getUserName(), "[PROFILE VALIDATION] Имя пользователя не совпадает");
+            log.info("[PROFILE VALIDATION SUCCESS] Профиль пользователя получен: {}", initialProfile);
         });
 
         BookStoreApi bookStoreApi = new BookStoreApi();
@@ -75,21 +71,20 @@ public class ProfileAPITests extends Api_TestBase {
 
         step("Добавить первую книгу в профиль", () -> {
             bookStoreApi.addBookToProfile(isbns[0], token, userId);
-            log.info("Первая книга добавлена: ISBN {}", isbns[0]);
+            log.info("[BOOK ADDITION] Первая книга добавлена: ISBN {}", isbns[0]);
         });
 
         step("Добавить вторую книгу в профиль", () -> {
             bookStoreApi.addBookToProfile(isbns[1], token, userId);
-            log.info("Вторая книга добавлена: ISBN {}", isbns[1]);
+            log.info("[BOOK ADDITION] Вторая книга добавлена: ISBN {}", isbns[1]);
         });
 
         step("Удалить все книги из профиля", () -> {
             bookStoreApi.deleteAllBooksFromProfile(token, userId);
-            log.info("Все книги удалены из профиля");
+            log.info("[BOOK DELETION SUCCESS] Все книги удалены из профиля");
         });
-
+        
         step("Удалить пользователя после выполнения теста", () -> AccountApi.deleteUser(token, userId));
-        log.info("Пользователь успешно удален.");
-
+        log.info("[USER DELETION SUCCESS] Пользователь успешно удален.");
     }
 }

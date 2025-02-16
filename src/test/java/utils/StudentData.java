@@ -14,7 +14,7 @@ public class StudentData {
     public String yearOfBirth = randomUtils.getRandomYearOfBirth();
     public String subject = randomUtils.getRandomSubject();
     public String hobby = randomUtils.getRandomHobby();
-    public String photo = randomUtils.getRandomFoto();
+    public String photo = randomUtils.getRandomPhoto();
     public String state = randomUtils.getRandomState();
     public String city = randomUtils.getRandomCity(state);
 
