@@ -45,15 +45,19 @@ public class WebStepsForLoginPage {
 
     @Step("Авторизоваться зарегистрированным пользователем с логином {0} и паролем {1}")
     public void verifySuccessfulLoginExistingUser() {
-        String username = credentials.getUsername();
-        String password = credentials.getPassword();
+        //String username = credentials.getUsername();
+        //String password = credentials.getPassword();
+
+        String username = System.getProperty("profileUserName", credentials.getUsername());
+        String password = System.getProperty("profileUserPassword", credentials.getPassword());
+
 
         log.info("Загруженный логин: {}", username);
         log.info("Загруженный пароль: {}", password);
 
         if (username == null || password == null || username.isEmpty() || password.isEmpty()) {
             throw new IllegalStateException(
-                    "Ошибка: Логин или пароль отсутствуют. Проверь credentials.properties или передаваемые параметры в Jenkins."
+                    "Ошибка: Логин или пароль отсутствуют."
             );
         }
 
