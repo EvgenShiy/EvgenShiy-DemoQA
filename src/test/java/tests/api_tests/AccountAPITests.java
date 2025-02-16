@@ -73,14 +73,12 @@ public class AccountAPITests extends Api_TestBase {
         final String userName = userData.getUserName();
         final String userPassword = userData.getPassword();
 
-        AuthResponseModel response = step("Регистрация сгенерированного пользователя", () ->{
-            return AccountApi.registerUser(userName, userPassword);
-        });
+        AuthResponseModel response = step("Регистрация сгенерированного пользователя", () -> AccountApi.registerUser(userName, userPassword));
 
         final String userId = response.getUserId();
 
         step("Проверить, что регистрация прошла успешно", () -> {
-            log.info("Пользователь успешно зарегистрирован: UserName = {}, UserId = {}", response.getUsername(), response.getUserId());
+            log.info("Пользователь успешно зарегистрирован: UserName = {}, UserId = {}", response.getUsername(), response.getUserId()); //TODO Similar log messages
         });
 
         String token = step("Получить токен пользователя", () ->
@@ -134,7 +132,7 @@ public class AccountAPITests extends Api_TestBase {
                         response.getMessage(),
                         "Сообщение об ошибке должно совпадать с ожидаемым");
 
-                log.info("Получена ожидаемая ошибка: Code = {}, Message = {}", response.getCode(), response.getMessage());
+                log.info("Получена ожидаемая ошибка: Code = {}, Message = {}", response.getCode(), response.getMessage()); //TODO Similar log messages
             });
         });
     }
