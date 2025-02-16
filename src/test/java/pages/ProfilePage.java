@@ -38,6 +38,10 @@ public class ProfilePage {
 
     @Step("Проверить корректное отображение username в Profile")
     public ProfilePage checkUserName() {
+
+        log.info("DEBUG: Загруженный profileUserName = {}", System.getProperty("profileUserName"));
+        log.info("DEBUG: Загруженный profileUserPassword = {}", System.getProperty("profileUserPassword"));
+
         CredentialsConfig credentials = ConfigFactory.create(CredentialsConfig.class, System.getProperties());
         String login = credentials.getUsername();
 
