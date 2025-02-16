@@ -11,12 +11,12 @@ import pages.ProfilePage;
 
 import static helpers.extensions.LoginExtension.*;
 
+@Tag("UI")
+@Feature("Bookstore")
+@Owner("Shiianova E.")
 public class ProfileUITests extends UI_TestBase {
 
     @Test
-    @Tag("UI")
-    @Feature("Bookstore")
-    @Owner("Shiianova E.")
     @DisplayName("Удаление книги из Profile на UI")
     @WithLogin
     void deleteBookFromProfileOnUiTest() {

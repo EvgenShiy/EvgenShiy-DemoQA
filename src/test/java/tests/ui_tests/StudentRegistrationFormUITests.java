@@ -9,15 +9,14 @@ import org.junit.jupiter.api.Test;
 import steps.UI_Steps.WebStepsForStudentRegistrationPage;
 import utils.StudentData;
 
+@Tag("UI")
+@Feature("PracticeForm")
+@Owner("Shiianova E.")
 public class StudentRegistrationFormUITests extends UI_TestBase {
 
     @Test
-    @Tag("UI")
-    @Feature("PracticeForm")
-    @Owner("Shiianova E.")
     @DisplayName("Проверка заполнения всех полей формы регистрации")
     public void successRegistrationWithFullValueTest() {
-
 
         WebStepsForStudentRegistrationPage steps = new WebStepsForStudentRegistrationPage();
 
@@ -51,9 +50,6 @@ public class StudentRegistrationFormUITests extends UI_TestBase {
     }
 
     @Test
-    @Tag("UI")
-    @Feature("PracticeForm")
-    @Owner("Shiianova E.")
     @DisplayName("Проверка заполнения только обязательных полей формы регистрации")
     public void successRegistrationWithMinimumValueTest() {
 
@@ -72,9 +68,6 @@ public class StudentRegistrationFormUITests extends UI_TestBase {
     }
 
     @Test
-    @Tag("UI")
-    @Feature("PracticeForm")
-    @Owner("Shiianova E.")
     @DisplayName("Проверка подсветки обязательных полей формы регистрации, если они не заполнены")
     public void requiredFieldsHighlightOnSubmitTest() {
 
