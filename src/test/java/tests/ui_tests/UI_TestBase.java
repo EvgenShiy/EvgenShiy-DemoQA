@@ -1,4 +1,4 @@
-package tests.ui_tests;/*
+/*
 package tests.ui_tests;
 
 import com.codeborne.selenide.Configuration;
@@ -81,6 +81,8 @@ public class UI_TestBase {
 }
 
  */
+package tests.ui_tests;
+
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import config.WebDriverConfig;
@@ -94,14 +96,16 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.net.URL;
 import java.util.Map;
 import java.util.Objects;
 
 import static com.codeborne.selenide.Selenide.closeWebDriver;
 
 public class UI_TestBase {
+    private static final Logger log = LoggerFactory.getLogger(UI_TestBase.class);
     private static final WebDriverConfig config = ConfigFactory.create(WebDriverConfig.class, System.getProperties());
 
     @BeforeAll
@@ -115,23 +119,23 @@ public class UI_TestBase {
         Configuration.browser = config.getBrowserName().browserToLowerCase();
         Configuration.browserVersion = config.getBrowserVersion();
 
-        URL remoteUrl = config.getRemoteUrl();
+        String remoteUrl = config.getRemoteUrl();  // Теперь remoteUrl — это String
         String rwhost = System.getProperty("rwhost");
 
-        // 🔍 Debugging logs
-        System.out.println("DEBUG: remoteUrl from config = " + remoteUrl);
-        System.out.println("DEBUG: System.getProperty(\"remoteUrl\") = " + System.getProperty("remoteUrl"));
-        System.out.println("DEBUG: rwhost from system properties = " + rwhost);
+        // 🔍 Логирование через SLF4J
+        log.info("DEBUG: remoteUrl from config = {}", remoteUrl);
+        log.info("DEBUG: System.getProperty(\"remoteUrl\") = {}", System.getProperty("remoteUrl"));
+        log.info("DEBUG: rwhost from system properties = {}", rwhost);
 
-        if (remoteUrl != null) {
-            System.out.println("INFO: Тесты запустятся на удаленном сервере: " + remoteUrl);
-            Configuration.remote = remoteUrl.toString();
+        if (remoteUrl != null && !remoteUrl.isEmpty()) {
+            log.info("INFO: Тесты запустятся на удаленном сервере: {}", remoteUrl);
+            Configuration.remote = remoteUrl;
         } else {
-            System.out.println("INFO: Тесты запустятся локально.");
+            log.info("INFO: Тесты запустятся локально.");
         }
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
-        if (remoteUrl != null) {
+        if (remoteUrl != null && !remoteUrl.isEmpty()) {
             capabilities.setCapability("selenoid:options", Map.of(
                     "enableVNC", true,
                     "enableVideo", true

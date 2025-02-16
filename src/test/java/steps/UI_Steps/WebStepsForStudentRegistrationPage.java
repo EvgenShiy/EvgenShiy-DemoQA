@@ -15,7 +15,7 @@ public class WebStepsForStudentRegistrationPage {
 
     @Step("Открыть страницу формы регистрации студента")
     public void openStudentRegistrationForm() {
-        studentRegistrationPage.openPage();
+        studentRegistrationPage.openPageRemoveBanners();
     }
 
     @Step("Заполнить поле 'First Name' случайным значением")

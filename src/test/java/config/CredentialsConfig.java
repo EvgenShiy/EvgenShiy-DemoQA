@@ -6,9 +6,11 @@ import org.aeonbits.owner.Config;
         "classpath:properties/credentials.properties"
 })
 public interface CredentialsConfig extends Config {
-    @Key("profileUserName")
+
+    @Key("username")
     String getUsername();
 
-    @Key("profileUserPassword")
+    @Key("password")
     String getPassword();
+
 }

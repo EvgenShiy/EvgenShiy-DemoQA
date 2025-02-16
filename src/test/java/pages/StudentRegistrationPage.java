@@ -1,6 +1,7 @@
 package pages;
 
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import pages.components.CalendarComponent;
 import pages.components.DropdownComponent;
 import pages.components.ModalComponent;
@@ -26,11 +27,23 @@ public class StudentRegistrationPage {
     ModalComponent modalComponent = new ModalComponent();
     DropdownComponent dropdownComponent = new DropdownComponent();
 
+    @Step("Открыть страницу регистрации")
     public StudentRegistrationPage openPage() {
         open("/automation-practice-form");
+        return this;
+    }
+
+    @Step("Удалить баннеры на странице регистрации")
+    public StudentRegistrationPage removeBanners() {
         executeJavaScript("$('#fixedban').remove();");
         executeJavaScript("$('footer').remove();");
+        return this;
+    }
 
+    @Step("Открыть страницу регистрации и удалить баннеры")
+    public StudentRegistrationPage openPageRemoveBanners() {
+        openPage();
+        removeBanners();
         return this;
     }
 

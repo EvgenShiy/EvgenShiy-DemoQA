@@ -4,10 +4,14 @@ import config.CredentialsConfig;
 import io.qameta.allure.Step;
 import lombok.Getter;
 import org.aeonbits.owner.ConfigFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pages.LoginPage;
 import utils.RandomUtils;
 
 public class WebStepsForLoginPage {
+
+    private static final Logger log = LoggerFactory.getLogger(WebStepsForLoginPage.class);
 
     private final LoginPage loginPage = new LoginPage();
     private static final CredentialsConfig credentials = ConfigFactory.create(CredentialsConfig.class, System.getProperties());
@@ -43,6 +47,9 @@ public class WebStepsForLoginPage {
     public void verifySuccessfulLoginExistingUser() {
         String username = credentials.getUsername();
         String password = credentials.getPassword();
+
+        log.info("Загруженный логин: {}", username);
+        log.info("Загруженный пароль: {}", password);
 
         if (username == null || password == null || username.isEmpty() || password.isEmpty()) {
             throw new IllegalStateException(

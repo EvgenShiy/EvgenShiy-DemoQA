@@ -1,5 +1,6 @@
 package tests.ui_tests;
 
+import helpers.extensions.WithLogin;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Owner;
 import org.junit.jupiter.api.DisplayName;

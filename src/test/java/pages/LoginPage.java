@@ -13,7 +13,6 @@ public class LoginPage {
     private final SelenideElement loginButton = $("#login");
     private final SelenideElement errorMessage = $("#name");
     private final SelenideElement logoutButton = $("#submit");
-    private final SelenideElement newUserButton = $("#newUser");
 
     @Step("Открыть страницу Login")
     public LoginPage openPage() {
@@ -50,12 +49,6 @@ public class LoginPage {
     @Step("Нажать кнопку Login")
     public LoginPage clickLoginButton() {
         loginButton.click();
-        return this;
-    }
-
-    @Step("Нажать кнопку New User")
-    public LoginPage clickNewUserButton() {
-        newUserButton.click();
         return this;
     }
 
