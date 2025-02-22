@@ -30,6 +30,9 @@ public class UI_TestBase {
         RestAssured.baseURI = "https://demoqa.com";
         RestAssured.defaultParser = Parser.JSON;
 
+        System.out.println("DEBUG: System.getProperty(\"env\") = " + System.getProperty("env"));
+        System.out.println("DEBUG: System.getProperty(\"remoteUrl\") = " + System.getProperty("remoteUrl"));
+
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.pageLoadStrategy = config.getPageLoadStrategy();
         Configuration.browserSize = config.getBrowserSize();
@@ -39,13 +42,12 @@ public class UI_TestBase {
         String remoteUrl = config.getRemoteUrl();
         String rwhost = System.getProperty("rwhost");
 
+        System.out.println("DEBUG: remoteUrl из ConfigFactory = " + remoteUrl);
+
         log.info("DEBUG: remoteUrl from config = {}", remoteUrl);
         log.info("DEBUG: System.getProperty(\"remoteUrl\") = {}", System.getProperty("remoteUrl"));
         log.info("DEBUG: rwhost from system properties = {}", rwhost);
-        log.info("DEBUG: remoteUrl из ConfigFactory = '{}'", config.getRemoteUrl());
-        log.info("DEBUG: remoteUrl из ConfigFactory = {}", config.getRemoteUrl());
         log.info("DEBUG: System.getProperty(\"env\") = {}", System.getProperty("env"));
-
 
         if (remoteUrl != null && !remoteUrl.isEmpty()) {
             log.info("INFO: Тесты запустятся на удаленном сервере: {}", remoteUrl);
