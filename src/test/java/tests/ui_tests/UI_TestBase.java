@@ -22,8 +22,15 @@ import java.util.Objects;
 import static com.codeborne.selenide.Selenide.closeWebDriver;
 
 public class UI_TestBase {
-    private static final Logger log = LoggerFactory.getLogger(UI_TestBase.class);
+   // private static final Logger log = LoggerFactory.getLogger(UI_TestBase.class);
+   // private static final WebDriverConfig config = ConfigFactory.create(WebDriverConfig.class, System.getProperties());
+   private static final Logger log = LoggerFactory.getLogger(UI_TestBase.class);
     private static final WebDriverConfig config = ConfigFactory.create(WebDriverConfig.class, System.getProperties());
+
+    static {
+        System.out.println("DEBUG: env = " + System.getProperty("env"));
+        System.out.println("DEBUG: remote.properties path = " + UI_TestBase.class.getClassLoader().getResource("properties/remote.properties"));
+    }
 
     @BeforeAll
     public static void setUp() {
