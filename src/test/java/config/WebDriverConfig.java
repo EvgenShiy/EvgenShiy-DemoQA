@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 
 @Config.Sources({
         "system:properties",
+        "system:env",
         "classpath:properties/${env}.properties",
         "classpath:properties/local.properties"
 })
