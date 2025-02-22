@@ -119,13 +119,13 @@ public class UI_TestBase {
         Configuration.browser = config.getBrowserName().browserToLowerCase();
         Configuration.browserVersion = config.getBrowserVersion();
 
-        String remoteUrl = config.getRemoteUrl();  // Теперь remoteUrl — это String
+        String remoteUrl = config.getRemoteUrl();
         String rwhost = System.getProperty("rwhost");
 
-        // 🔍 Логирование через SLF4J
         log.info("DEBUG: remoteUrl from config = {}", remoteUrl);
         log.info("DEBUG: System.getProperty(\"remoteUrl\") = {}", System.getProperty("remoteUrl"));
         log.info("DEBUG: rwhost from system properties = {}", rwhost);
+        log.info("DEBUG: remoteUrl из ConfigFactory = '{}'", config.getRemoteUrl());
 
         if (remoteUrl != null && !remoteUrl.isEmpty()) {
             log.info("INFO: Тесты запустятся на удаленном сервере: {}", remoteUrl);

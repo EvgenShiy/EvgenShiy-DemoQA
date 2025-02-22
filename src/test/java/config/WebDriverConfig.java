@@ -61,7 +61,7 @@ public interface WebDriverConfig extends Config {
 
     @Key("remoteUrl")
     @DefaultValue("")
-    String getRemoteUrl();  // ⚠️ Изменено с URL на String
+    String getRemoteUrl();
 
     @Key("pageLoadStrategy")
     @DefaultValue("eager")
