@@ -6,8 +6,7 @@ import org.slf4j.LoggerFactory;
 
 @Config.Sources({
         "system:properties",
-        "file:src/test/resources/properties/${env}.properties",
-        //"classpath:properties/${env}.properties",
+        "classpath:properties/${env}.properties",
         "classpath:properties/local.properties"
 })
 public interface WebDriverConfig extends Config {
