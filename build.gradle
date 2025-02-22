@@ -60,6 +60,7 @@ dependencies {
 
 tasks.withType(Test) {
     systemProperties(System.getProperties())
+    systemProperty "env", System.getProperty("env")
     useJUnitPlatform()
 
     testLogging {
