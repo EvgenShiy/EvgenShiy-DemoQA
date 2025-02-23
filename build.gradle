@@ -11,14 +11,15 @@ repositories {
 
 def selenideVersion = "7.6.1",
     restAssuredVersion = "5.3.1",
-    allureVersion = "2.29.0"
+    allureVersion = "2.29.0",
+    aspectjVersion = "1.9.21"
 
 allure {
     report {
-        version.set(allureVersion) // Common Allure version for API and UI tests
+        version.set(allureVersion) // Общая версия Allure для API и UI тестов
     }
     adapter {
-        aspectjWeaver.set(true) // Enable @Step annotation handling
+        aspectjWeaver.set(true) // Включаем поддержку аннотаций @Step
         frameworks {
             junit5 {
                 adapterVersion.set(allureVersion)
@@ -28,15 +29,17 @@ allure {
 }
 
 dependencies {
-    // Common dependencies
-    testImplementation(
+    // Общие зависимости
+    implementation(
             "com.codeborne:selenide:$selenideVersion",
             "io.qameta.allure:allure-selenide:$allureVersion",
             "org.junit.jupiter:junit-jupiter:5.10.0",
             "org.slf4j:slf4j-simple:2.0.16",
             "org.aeonbits.owner:owner:1.0.12",
-            'org.slf4j:slf4j-api:2.0.16',
-            'org.aspectj:aspectjweaver:1.9.7'
+            "org.slf4j:slf4j-api:2.0.16",
+            "org.aspectj:aspectjweaver:$aspectjVersion",
+            "org.aspectj:aspectjrt:$aspectjVersion",
+            "org.yaml:snakeyaml:1.33"
     )
 
     // API-specific dependencies
@@ -51,14 +54,14 @@ dependencies {
     // UI-specific dependencies
     testImplementation(
             'com.github.javafaker:javafaker:1.0.2',
-            'io.github.bonigarcia:webdrivermanager:5.9.2' //TODO УБРАТЬ?
+            'io.github.bonigarcia:webdrivermanager:5.9.2'
     )
 
     // Runtime dependencies
     testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine:5.8.2')
 }
 
-tasks.withType(Test) {
+tasks.withType(Test).configureEach {
     systemProperties(System.getProperties())
     systemProperty "env", System.getProperty("env")
     useJUnitPlatform()
@@ -71,13 +74,14 @@ tasks.withType(Test) {
     }
 }
 
-task api(type: Test) {
+// Разделение API и UI тестов по тегам
+tasks.register('api', Test) {
     useJUnitPlatform {
         includeTags("API")
     }
 }
 
-task ui(type: Test) {
+tasks.register('ui', Test) {
     useJUnitPlatform {
         includeTags("UI")
     }
@@ -85,14 +89,7 @@ task ui(type: Test) {
 
 println "TestType: ${project.hasProperty('TestType') ? project.TestType : 'not set'}"
 
-sourceSets {
-    test {
-        resources {
-            srcDirs = ['src/test/resources']
-        }
-    }
-}
-
+// Кодировка UTF-8 для компиляции
 compileJava {
     options.encoding = 'UTF-8'
 }
@@ -101,6 +98,6 @@ compileTestJava {
     options.encoding = 'UTF-8'
 }
 
-tasks.withType(JavaCompile) {
+tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
 }
