@@ -28,20 +28,6 @@ public class ProfilePage {
         return this;
     }
 
-//    @Step("Проверить корректное отображение username в Profile")
-//    public ProfilePage checkUserName() {
-//        CredentialsConfig credentials = ConfigFactory.create(CredentialsConfig.class, System.getProperties());
-//        String login = credentials.getUsername();
-//        log.info("Проверка отображения username: {}", login);
-//
-//        refresh();
-//        log.info("DEBUG: Текущие cookies в браузере: " + WebDriverRunner.getWebDriver().manage().getCookies());
-//
-//        userNameValue.shouldBe(visible);
-//        userNameValue.shouldHave(text(login));
-//        return this;
-//    }
-
     @Step("Проверить корректное отображение username в Profile")
     public ProfilePage checkUserName() {
         CredentialsConfig credentials = ConfigFactory.create(CredentialsConfig.class, System.getProperties());
