@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import static com.codeborne.selenide.Selenide.closeWebDriver;
@@ -31,34 +32,46 @@ public class UI_TestBase {
         WebDriverConfig config = ConfigFactory.create(WebDriverConfig.class, System.getProperties());
 
         String remoteUrl = config.getRemoteUrl();
-        String env = System.getProperty("env", "local");
+        String env = System.getProperty("env", "local").toLowerCase();
+        String browser = config.getBrowserName().browserToLowerCase();
+        String browserVersion = config.getBrowserVersion();
+        String browserSize = config.getBrowserSize();
 
-        log.info("DEBUG: remoteUrl из ConfigFactory = {}", remoteUrl);
         log.info("DEBUG: env = {}", env);
+        log.info("DEBUG: remoteUrl из ConfigFactory = {}", remoteUrl);
+        log.info("DEBUG: browser = {}, browserVersion = {}, browserSize = {}", browser, browserVersion, browserSize);
 
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.pageLoadStrategy = config.getPageLoadStrategy();
-        Configuration.browserSize = config.getBrowserSize();
-        Configuration.browser = config.getBrowserName().browserToLowerCase();
-        Configuration.browserVersion = config.getBrowserVersion();
+        Configuration.browserSize = browserSize;
+        Configuration.browser = browser;
+        Configuration.browserVersion = browserVersion;
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
 
         if ("remote".equals(env) && remoteUrl != null && !remoteUrl.isEmpty()) {
             log.info("INFO: Запускаем тесты удаленно на {}", remoteUrl);
             Configuration.remote = remoteUrl;
-            capabilities.setCapability("selenoid:options", Map.of(
-                    "enableVNC", true,
-                    "enableVideo", true
-            ));
+
+            Map<String, Object> selenoidOptions = new HashMap<>();
+            selenoidOptions.put("enableVNC", true);
+            selenoidOptions.put("enableVideo", true);
+            capabilities.setCapability("selenoid:options", selenoidOptions);
         } else {
             log.info("INFO: Запускаем тесты локально.");
-            if ("chrome".equalsIgnoreCase(Configuration.browser)) {
-                WebDriverManager.chromedriver().setup();
-            } else if ("firefox".equalsIgnoreCase(Configuration.browser)) {
-                WebDriverManager.firefoxdriver().setup();
-            } else if ("edge".equalsIgnoreCase(Configuration.browser)) {
-                WebDriverManager.edgedriver().setup();
+            switch (browser) {
+                case "chrome":
+                    WebDriverManager.chromedriver().setup();
+                    break;
+                case "firefox":
+                    WebDriverManager.firefoxdriver().setup();
+                    break;
+                case "edge":
+                    WebDriverManager.edgedriver().setup();
+                    break;
+                default:
+                    log.error("Ошибка: Браузер '{}' не поддерживается!", browser);
+                    throw new IllegalArgumentException("Браузер не поддерживается: " + browser);
             }
         }
 
