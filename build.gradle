@@ -51,7 +51,7 @@ dependencies {
     // UI-specific dependencies
     testImplementation(
             'com.github.javafaker:javafaker:1.0.2',
-            'io.github.bonigarcia:webdrivermanager:5.9.2' //TODO УБРАТЬ
+            'io.github.bonigarcia:webdrivermanager:5.9.2' //TODO УБРАТЬ?
     )
 
     // Runtime dependencies
