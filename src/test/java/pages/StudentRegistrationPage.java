@@ -6,6 +6,9 @@ import pages.components.CalendarComponent;
 import pages.components.DropdownComponent;
 import pages.components.ModalComponent;
 
+import java.time.Duration;
+
+import static com.codeborne.selenide.Condition.disappear;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
@@ -33,17 +36,42 @@ public class StudentRegistrationPage {
         return this;
     }
 
+//    @Step("Удалить баннеры на странице регистрации")
+//    public StudentRegistrationPage removeBanners() {
+//        executeJavaScript("$('#fixedban').remove();");
+//        executeJavaScript("$('footer').remove();");
+//        return this;
+//    }
     @Step("Удалить баннеры на странице регистрации")
     public StudentRegistrationPage removeBanners() {
+        sleep(2000);
         executeJavaScript("$('#fixedban').remove();");
         executeJavaScript("$('footer').remove();");
+        executeJavaScript("$('iframe').remove();");
         return this;
     }
+
+    @Step("Дождаться исчезновения рекламы")
+    public StudentRegistrationPage waitForAdToDisappear() {
+        $("#fixedban").should(disappear, Duration.ofSeconds(5));
+        $("footer").should(disappear, Duration.ofSeconds(5));
+        return this;
+    }
+
+
+
+//    @Step("Открыть страницу регистрации и удалить баннеры")
+//    public StudentRegistrationPage openPageRemoveBanners() {
+//        openPage();
+//        removeBanners();
+//        return this;
+//    }
 
     @Step("Открыть страницу регистрации и удалить баннеры")
     public StudentRegistrationPage openPageRemoveBanners() {
         openPage();
         removeBanners();
+        waitForAdToDisappear();
         return this;
     }
 
