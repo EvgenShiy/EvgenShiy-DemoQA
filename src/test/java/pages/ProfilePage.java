@@ -28,19 +28,42 @@ public class ProfilePage {
         return this;
     }
 
+//    @Step("Проверить корректное отображение username в Profile")
+//    public ProfilePage checkUserName() {
+//        CredentialsConfig credentials = ConfigFactory.create(CredentialsConfig.class, System.getProperties());
+//        String login = credentials.getUsername();
+//        log.info("Проверка отображения username: {}", login);
+//
+//        refresh();
+//        log.info("DEBUG: Текущие cookies в браузере: " + WebDriverRunner.getWebDriver().manage().getCookies());
+//
+//        userNameValue.shouldBe(visible);
+//        userNameValue.shouldHave(text(login));
+//        return this;
+//    }
+
     @Step("Проверить корректное отображение username в Profile")
     public ProfilePage checkUserName() {
         CredentialsConfig credentials = ConfigFactory.create(CredentialsConfig.class, System.getProperties());
-        String login = credentials.getUsername();
-        log.info("Проверка отображения username: {}", login);
+        String login = System.getProperty("profileUserName", credentials.getUsername());
+
+        log.info("DEBUG: Загруженный username из System.getProperty = {}", System.getProperty("profileUserName"));
+        log.info("DEBUG: Загруженный username из Owner = {}", credentials.getUsername());
+        log.info("Проверка отображения username в Profile: {}", login);
 
         refresh();
-        log.info("DEBUG: Текущие cookies в браузере: " + WebDriverRunner.getWebDriver().manage().getCookies());
+        log.info("DEBUG: Текущие cookies в браузере: {}", WebDriverRunner.getWebDriver().manage().getCookies());
 
         userNameValue.shouldBe(visible);
+
+        if (login == null || login.isEmpty()) {
+            throw new IllegalStateException("Ошибка: username пуст или не был загружен!");
+        }
+
         userNameValue.shouldHave(text(login));
         return this;
     }
+
 
     private void removeIframes() {
         log.info("Удаление всех iframe с страницы.");
