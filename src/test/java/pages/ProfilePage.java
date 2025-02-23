@@ -1,6 +1,7 @@
 package pages;
 
 import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.WebDriverRunner;
 import config.CredentialsConfig;
 import io.qameta.allure.Step;
 import org.aeonbits.owner.ConfigFactory;
@@ -32,6 +33,11 @@ public class ProfilePage {
         CredentialsConfig credentials = ConfigFactory.create(CredentialsConfig.class, System.getProperties());
         String login = credentials.getUsername();
         log.info("Проверка отображения username: {}", login);
+
+        refresh();
+        log.info("DEBUG: Текущие cookies в браузере: " + WebDriverRunner.getWebDriver().manage().getCookies());
+
+        userNameValue.shouldBe(visible);
         userNameValue.shouldHave(text(login));
         return this;
     }

@@ -43,7 +43,7 @@ public class WebStepsForLoginPage {
         loginPage.clickLoginButton();
     }
 
-    @Step("Авторизоваться зарегистрированным пользователем с логином {0} и паролем {1}")
+    @Step("Авторизоваться зарегистрированным пользователем")
     public void verifySuccessfulLoginExistingUser() {
 
         String username = System.getProperty("profileUserName", credentials.getUsername());
@@ -71,8 +71,13 @@ public class WebStepsForLoginPage {
         loginPage.verifyErrorMessage("Invalid username or password!");
     }
 
-    @Step("Проверить, что поле {0} подсвечено красной рамкой как обязательное")
-    public void verifyMandatoryFieldHighlight(String fieldName) {
-        loginPage.verifyFieldHighlightedAsMandatory(fieldName);
+    @Step("Проверить, что поле username подсвечено красной рамкой как обязательное")
+    public void verifyUsernameFieldHighlightedAsMandatory() {
+        loginPage.verifyUsernameFieldHighlightedAsMandatory();
+    }
+
+    @Step("Проверить, что поле password подсвечено красной рамкой как обязательное")
+    public void verifyPasswordFieldHighlightedAsMandatory() {
+        loginPage.verifyPasswordFieldHighlightedAsMandatory();
     }
 }

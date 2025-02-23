@@ -64,20 +64,15 @@ public class LoginPage {
         return this;
     }
 
-    @Step("Проверить, что поле {fieldName} подсвечено красной рамкой как обязательное")
-    public LoginPage verifyFieldHighlightedAsMandatory(String fieldName) {  // TODO Если хочется проверить цвета двух полей, таким образом, просто лучше всего написать на это два метода по четыре строчки каждый
-        SelenideElement field;
-        switch (fieldName.toLowerCase()) {
-            case "username":
-                field = usernameField;
-                break;
-            case "password":
-                field = passwordField;
-                break;
-            default:
-                throw new IllegalArgumentException("Unknown field: " + fieldName);
-        }
-        field.shouldHave(cssValue("border-color", "rgb(220, 53, 69)"));
+    @Step("Проверить, что поле Username подсвечено красной рамкой как обязательное")
+    public LoginPage verifyUsernameFieldHighlightedAsMandatory() {
+        usernameField.shouldHave(cssValue("border-color", "rgb(220, 53, 69)"));
+        return this;
+    }
+
+    @Step("Проверить, что поле Password подсвечено красной рамкой как обязательное")
+    public LoginPage verifyPasswordFieldHighlightedAsMandatory() {
+        passwordField.shouldHave(cssValue("border-color", "rgb(220, 53, 69)"));
         return this;
     }
 }

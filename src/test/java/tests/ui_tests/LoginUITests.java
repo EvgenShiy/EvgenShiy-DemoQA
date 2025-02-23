@@ -41,7 +41,8 @@ public class LoginUITests extends UI_TestBase {
     public void shouldHighlightMandatoryFieldsWhenEmptyTest() {
         webStepsForLoginPage.openLoginPage();
         webStepsForLoginPage.pressLoginButton();
-        webStepsForLoginPage.verifyMandatoryFieldHighlight("userName");
-        webStepsForLoginPage.verifyMandatoryFieldHighlight("password");
+        webStepsForLoginPage.verifyUsernameFieldHighlightedAsMandatory();
+        webStepsForLoginPage.verifyPasswordFieldHighlightedAsMandatory();
     }
+
 }

@@ -3,8 +3,8 @@ package config;
 import org.aeonbits.owner.Config;
 
 @Config.Sources({
-        "system:properties", // Читаем из -DprofileUserName и -DprofileUserPassword
-        //"classpath:properties/credentials.properties"
+        "classpath:properties/credentials.properties",
+        "system:properties"
 })
 public interface CredentialsConfig extends Config {
 
