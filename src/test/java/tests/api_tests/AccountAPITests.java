@@ -109,7 +109,7 @@ public class AccountAPITests extends Api_TestBase {
 
     @Test
     @Issue("HOMEWORK-1391")
-    @DisplayName("Проверка ошибки при неверном пароле для зарегистрированного пользователя")
+    @DisplayName("Проверка сообщения об ошибке при неверном пароле для зарегистрированного пользователя")
     void verifyErrorForInvalidPasswordTest() {
 
         final String userName = step("Получение UserName зарегистрированного пользователя", () -> {
