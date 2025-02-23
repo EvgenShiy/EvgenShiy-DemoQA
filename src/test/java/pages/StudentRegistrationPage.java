@@ -36,12 +36,6 @@ public class StudentRegistrationPage {
         return this;
     }
 
-//    @Step("Удалить баннеры на странице регистрации")
-//    public StudentRegistrationPage removeBanners() {
-//        executeJavaScript("$('#fixedban').remove();");
-//        executeJavaScript("$('footer').remove();");
-//        return this;
-//    }
     @Step("Удалить баннеры на странице регистрации")
     public StudentRegistrationPage removeBanners() {
         sleep(2000);
@@ -57,15 +51,6 @@ public class StudentRegistrationPage {
         $("footer").should(disappear, Duration.ofSeconds(5));
         return this;
     }
-
-
-
-//    @Step("Открыть страницу регистрации и удалить баннеры")
-//    public StudentRegistrationPage openPageRemoveBanners() {
-//        openPage();
-//        removeBanners();
-//        return this;
-//    }
 
     @Step("Открыть страницу регистрации и удалить баннеры")
     public StudentRegistrationPage openPageRemoveBanners() {
@@ -148,5 +133,4 @@ public class StudentRegistrationPage {
     public void negativeCheck() {
         new ModalComponent().negativeCheck();
     }
-
 }
